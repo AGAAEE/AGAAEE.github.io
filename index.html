@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGAAEE — software built for real-world India</title>
+<meta name="description" content="AGAAEE is an independent software maker. Currently building: hospital software for India's 10–50-bed hospitals and nursing homes — OPD, billing, pharmacy and government-scheme claims, designed for the ABDM era.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B5E4F'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' fill='%23FBFAF8' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBFAF8;
+    --ink: #16211E;
+    --ink-soft: #55645E;
+    --green: #0B5E4F;
+    --green-deep: #08453A;
+    --green-wash: #EDF4F1;
+    --marigold: #E8A13D;
+    --line: #E4E4DE;
+    --max: 1040px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Source Sans 3", system-ui, sans-serif;
+    font-size: 17px; line-height: 1.6;
+  }
+  h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+  a { color: var(--green); }
+
+  .shell { max-width: var(--max); margin: 0 auto; padding: 0 1.4rem; }
+
+  /* header */
+  header { border-bottom: 1px solid var(--line); }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; }
+  .wordmark {
+    font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 1.35rem;
+    letter-spacing: .14em; color: var(--ink); text-decoration: none;
+  }
+  .wordmark span { color: var(--green); }
+  .nav a.cta {
+    text-decoration: none; font-weight: 600; font-size: .95rem;
+    color: var(--green-deep); border: 1.5px solid var(--green); border-radius: 999px;
+    padding: .45rem 1.15rem; transition: background .15s, color .15s;
+  }
+  .nav a.cta:hover { background: var(--green); color: var(--paper); }
+
+  /* hero */
+  .hero { padding: 4.5rem 0 3.5rem; }
+  .status {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .82rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--green-deep); background: var(--green-wash);
+    border-radius: 999px; padding: .35rem 1rem; margin-bottom: 1.4rem;
+  }
+  .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--marigold); }
+  .hero h1 { font-size: clamp(2.1rem, 5.2vw, 3.4rem); line-height: 1.12; margin: 0 0 1.1rem; max-width: 21ch; }
+  .hero p.sub { font-size: 1.18rem; color: var(--ink-soft); max-width: 52ch; margin: 0 0 2rem; }
+  .hero .actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  .btn {
+    display: inline-block; text-decoration: none; font-weight: 600;
+    background: var(--green); color: #fff; border-radius: 10px;
+    padding: .8rem 1.6rem; transition: background .15s;
+  }
+  .btn:hover { background: var(--green-deep); }
+  .hero .aside { font-size: .95rem; color: var(--ink-soft); }
+
+  /* features */
+  .features { padding: 1rem 0 3rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.1rem; }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.6rem 1.5rem;
+  }
+  .card svg { width: 34px; height: 34px; stroke: var(--green); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; margin-bottom: .9rem; }
+  .card h3 { font-size: 1.18rem; margin: 0 0 .5rem; }
+  .card p { margin: 0; color: var(--ink-soft); font-size: .98rem; }
+
+  /* abdm strip */
+  .abdm { background: var(--green-deep); color: #EAF2EF; padding: 3.2rem 0; }
+  .abdm h2 { color: #fff; font-size: 1.7rem; margin: 0 0 .7rem; }
+  .abdm p { max-width: 62ch; margin: 0 0 1.2rem; color: #C8DAD4; }
+  .abdm .tags { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .abdm .tag {
+    font-size: .85rem; font-weight: 600; color: #fff;
+    border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: .3rem .95rem;
+  }
+
+  /* who */
+  .who { padding: 3.5rem 0; }
+  .who .inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 2.5rem; align-items: center; }
+  .who h2 { font-size: 1.7rem; margin: 0 0 .8rem; }
+  .who p { color: var(--ink-soft); margin: 0 0 1rem; max-width: 55ch; }
+  .who ul { margin: 0; padding-left: 1.2rem; color: var(--ink-soft); }
+  .who li { margin-bottom: .5rem; }
+  .who .panel {
+    background: var(--green-wash); border-radius: 14px; padding: 1.8rem 1.7rem;
+  }
+  .who .panel h3 { margin: 0 0 .6rem; font-size: 1.15rem; }
+  .who .panel p { font-size: .97rem; margin-bottom: 0; }
+  @media (max-width: 760px) { .who .inner { grid-template-columns: 1fr; } }
+
+  /* contact / footer */
+  .contact { border-top: 1px solid var(--line); padding: 3.2rem 0 2.6rem; text-align: center; }
+  .contact h2 { font-size: 1.6rem; margin: 0 0 .6rem; }
+  .contact p { color: var(--ink-soft); margin: 0 0 1.4rem; }
+  .contact a.mail {
+    font-family: Fraunces, Georgia, serif; font-size: 1.3rem; font-weight: 600;
+    color: var(--green-deep); text-decoration: none; border-bottom: 2px solid var(--marigold);
+  }
+  footer { padding: 1.6rem 0 2.2rem; text-align: center; color: var(--ink-soft); font-size: .85rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="shell nav">
+    <a class="wordmark" href="/">AGAA<span>EE</span></a>
+    <a class="cta" href="#contact">Get in touch</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero shell">
+    <span class="status">Independent software · India</span>
+    <h1>Software built for how India actually works.</h1>
+    <p class="sub">AGAAEE is an independent software maker. The current build:
+    hospital software for India's 10–50-bed hospitals and nursing homes — OPD,
+    billing, pharmacy and government-scheme claims, designed for the ABDM era,
+    built to keep working even when the internet doesn't.</p>
+    <div class="actions">
+      <a class="btn" href="#contact">Join the hospital pilot</a>
+      <span class="aside">Free for pilot hospitals while we build it together.</span>
+    </div>
+  </section>
+
+  <section class="features shell">
+    <h2 style="font-size:1.5rem;margin:0 0 1rem">Now building — the hospital system</h2>
+    <div class="grid">
+      <div class="card">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="19" cy="17" r="2.5"/></svg>
+        <h3>Scheme claims, without the chase</h3>
+        <p>PM-JAY and state-scheme paperwork lives inside the billing flow — structured
+        capture, deadlines tracked, nothing retyped at the eleventh hour.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 0-3.5 7.1L21 20l-.7-3.2A8.96 8.96 0 0 0 21 12z"/><path d="M8.5 10.5h7M8.5 13.5h4"/></svg>
+        <h3>Patients on WhatsApp</h3>
+        <p>Prescriptions, bills, reports and reminders reach patients where they already
+        are — no app to install, no portal password to forget.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>
+        <h3>Offline-first OPD</h3>
+        <p>Registration, billing and dispensing keep running on a bad connection and
+        sync when the line returns. The queue never stops.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="abdm">
+    <div class="shell">
+      <h2>Ready for India's digital health network</h2>
+      <p>AGAAEE is being built ABDM-first: ABHA at the front desk, Scan &amp; Share tokens
+      instead of registration queues, and consented digital health records — so your
+      hospital is ready as India's health system goes digital.</p>
+      <div class="tags">
+        <span class="tag">ABHA</span>
+        <span class="tag">Scan &amp; Share</span>
+        <span class="tag">Digital health records</span>
+        <span class="tag">PM-JAY workflows</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="who shell">
+    <div class="inner">
+      <div>
+        <h2>Built with owner-doctors, not just for them</h2>
+        <p>AGAAEE is made for the hospitals that carry most of India's private care —
+        the 10–50-bed nursing home where the owner is also the busiest doctor.</p>
+        <ul>
+          <li>Consultations documented in under a minute</li>
+          <li>Pharmacy with batch, expiry and schedule-drug registers handled</li>
+          <li>Bills, GST and scheme claims from the same screen</li>
+          <li>Works on the computers and connections you already have</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Pilot programme</h3>
+        <p>We're partnering with a small number of hospitals in Karnataka to shape
+        AGAAEE on real OPD floors. Pilot partners use it free while we build it
+        together — and their workflows decide what gets built next.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="shell">
+      <h2>Talk to AGAAEE</h2>
+      <p>Running a nursing home and want software that finally fits — or curious
+      about what else is being built? Write in.</p>
+      <a class="mail" href="mailto:hello@agaaee.in">hello@agaaee.in</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell">© 2026 AGAAEE · India</div>
+</footer>
+
+</body>
+</html>
