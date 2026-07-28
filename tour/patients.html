@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" data-theme="auto" data-textsize="normal">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Patients · AGAAEE HIMS</title>
 <style>/* ===========================================================================
    AGAAEE HIMS — application shell.
@@ -10,42 +12,207 @@
    agaaee.in brand green but desaturated for hours of screen time; state is
    carried by shape+colour (chips, rails) so it reads at a glance, and semantic
    colours (ok / warn / danger) are kept separate from the brand accent.
+
+   THEMING (2026-07-28) — the colour law, adopted from the founder's other
+   product after the same complaint there ("it is just white and less readable",
+   ghost buttons measured at 1.05 contrast):
+
+     Every background is a token paired with its OWN explicit foreground, and
+     every token has a dark counterpart. Text on a coloured surface must never
+     inherit --ink.
+
+   Three themes: light (default look), dark, and auto (follows the device).
+   The choice lives on the USER, not the browser — clinic PCs are shared across
+   shifts, so the night nurse's dark must not follow the day receptionist.
+   `data-theme` is server-rendered on <html>, so there is no flash of the wrong
+   theme and no JavaScript is required to apply it.
+
+   The dark block below is duplicated for [data-theme="dark"] and for auto's
+   media query on purpose (CSS has no mixins). `tools/check_theme_tokens.py`
+   fails the build if the two blocks ever drift apart, if a token exists in one
+   theme but not the other, or if any pair falls below its contrast floor.
    =========================================================================== */
 
-:root {
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* brand */
   --brand:        #0B5E4F;
   --brand-600:    #0E7462;
   --brand-050:    #E8F2EF;
+  --brand-ink:    #FFFFFF;   /* text ON brand */
+
+  /* text + rules */
   --ink:          #12211D;
   --ink-soft:     #5C6E68;
-  --ink-faint:    #8A9A94;
-  --line:         #E2E8E5;
-  --line-strong:  #CBD5D1;
+  --ink-faint:    #616F6A;   /* AA on --canvas, not just on white */
+  --line:         #E2E8E5;   /* decorative rules (tables, card edges) */
+  --line-strong:  #85948D;   /* INTERACTIVE borders — must clear 3:1 (WCAG 1.4.11) */
+
+  /* surfaces */
   --surface:      #FFFFFF;
+  --surface-2:    #F1F5F4;
   --canvas:       #F5F8F7;
-  --ok:           #1B7F4B;
+  --hover:        #EDF3F1;
+
+  /* status — each background carries its own ink and edge */
+  --ok:           #147044;
   --ok-bg:        #E7F4EC;
-  --warn:         #9A6300;
+  --ok-line:      #97C7AD;
+  --warn:         #8A5A08;
   --warn-bg:      #FBF1DC;
+  --warn-line:    #D8B96F;
+  --warn-strong:  #6D4A08;
   --danger:       #A8291F;
   --danger-bg:    #FBEAE8;
+  --danger-line:  #DF9B93;
   --info:         #2A5B93;
   --info-bg:      #E9F0F8;
+  --info-line:    #9DBFE1;
+  --chip-bg:      #EAEFED;
+  --chip-ink:     #46564F;
+
+  /* navigation rail — dark-on-brand in light, near-black in dark */
+  --nav-bg:       #0B5E4F;
+  --nav-ink:      #FFFFFF;
+  --nav-ink-soft: #C8DED8;
+  --nav-ink-faint:#B6D4CC;
+  --nav-hover:    rgba(255,255,255,.08);
+  --nav-active:   rgba(255,255,255,.16);
+  --nav-line:     rgba(255,255,255,.12);
+
+  /* set pieces */
+  --login-bg:     linear-gradient(160deg, #0B5E4F 0%, #094437 100%);
+  --focus-ring:   #0E7462;
+
+  /* A payment QR must stay dark-on-white in BOTH themes or a phone camera
+     cannot read it. This is why these are tokens and not `currentColor`. */
+  --qr-paper:     #FFFFFF;
+  --qr-ink:       #12211D;
+
   --radius:       9px;
   --shadow:       0 1px 2px rgba(18, 33, 29, .06), 0 4px 12px rgba(18, 33, 29, .04);
   --sidebar-w:    232px;
 }
 
+/* ---------- dark ---------- (keep in sync with the auto block below;
+   check_theme_tokens.py enforces it) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --brand:        #46B398;
+  --brand-600:    #63C9AF;
+  --brand-050:    #17322C;
+  --brand-ink:    #06201A;
+  --ink:          #E6EDEA;
+  --ink-soft:     #AEBCB7;
+  --ink-faint:    #93A29C;
+  --line:         #262F2C;
+  --line-strong:  #66746E;
+  --surface:      #161C1A;
+  --surface-2:    #1E2624;
+  --canvas:       #0E1211;
+  --hover:        #202927;
+  --ok:           #56D3A0;
+  --ok-bg:        #10291F;
+  --ok-line:      #2E6B4C;
+  --warn:         #E8B45F;
+  --warn-bg:      #2E2413;
+  --warn-line:    #7B6231;
+  --warn-strong:  #F0C987;
+  --danger:       #FF9084;
+  --danger-bg:    #331C1A;
+  --danger-line:  #8B4A42;
+  --info:         #86B6EA;
+  --info-bg:      #15243A;
+  --info-line:    #3F6293;
+  --chip-bg:      #1F2825;
+  --chip-ink:     #AEBCB7;
+  --nav-bg:       #101615;
+  --nav-ink:      #FFFFFF;
+  --nav-ink-soft: #C3D4CF;
+  --nav-ink-faint:#A3B5AF;
+  --nav-hover:    rgba(255,255,255,.06);
+  --nav-active:   rgba(255,255,255,.13);
+  --nav-line:     rgba(255,255,255,.09);
+  --login-bg:     linear-gradient(160deg, #101615 0%, #0A0E0D 100%);
+  --focus-ring:   #63C9AF;
+  --qr-paper:     #FFFFFF;
+  --qr-ink:       #12211D;
+  --shadow:       0 1px 2px rgba(0, 0, 0, .38), 0 4px 12px rgba(0, 0, 0, .30);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    color-scheme: dark;
+    --brand:        #46B398;
+    --brand-600:    #63C9AF;
+    --brand-050:    #17322C;
+    --brand-ink:    #06201A;
+    --ink:          #E6EDEA;
+    --ink-soft:     #AEBCB7;
+    --ink-faint:    #93A29C;
+    --line:         #262F2C;
+    --line-strong:  #66746E;
+    --surface:      #161C1A;
+    --surface-2:    #1E2624;
+    --canvas:       #0E1211;
+    --hover:        #202927;
+    --ok:           #56D3A0;
+    --ok-bg:        #10291F;
+    --ok-line:      #2E6B4C;
+    --warn:         #E8B45F;
+    --warn-bg:      #2E2413;
+    --warn-line:    #7B6231;
+    --warn-strong:  #F0C987;
+    --danger:       #FF9084;
+    --danger-bg:    #331C1A;
+    --danger-line:  #8B4A42;
+    --info:         #86B6EA;
+    --info-bg:      #15243A;
+    --info-line:    #3F6293;
+    --chip-bg:      #1F2825;
+    --chip-ink:     #AEBCB7;
+    --nav-bg:       #101615;
+    --nav-ink:      #FFFFFF;
+    --nav-ink-soft: #C3D4CF;
+    --nav-ink-faint:#A3B5AF;
+    --nav-hover:    rgba(255,255,255,.06);
+    --nav-active:   rgba(255,255,255,.13);
+    --nav-line:     rgba(255,255,255,.09);
+    --login-bg:     linear-gradient(160deg, #101615 0%, #0A0E0D 100%);
+    --focus-ring:   #63C9AF;
+    --qr-paper:     #FFFFFF;
+    --qr-ink:       #12211D;
+    --shadow:       0 1px 2px rgba(0, 0, 0, .38), 0 4px 12px rgba(0, 0, 0, .30);
+  }
+}
+
+/* Text size is a per-user setting too — it helps older eyes (the owner-doctor,
+   typically 45+) more than any theme choice does. */
+:root[data-textsize="large"] { font-size: 17px; }
+:root[data-textsize="xlarge"] { font-size: 19px; }
+
 * { box-sizing: border-box; }
 
+/* The UA rule for [hidden] is `display:none` at zero specificity, so ANY class
+   that sets display (our flex/grid panels) silently defeats it — the Hindi pad
+   and the candidate strip stayed on screen while JavaScript believed they were
+   hidden. One rule, once, rather than remembering it per component. */
+[hidden] { display: none !important; }
+
 html, body { height: 100%; }
+html { font-size: 15px; }   /* the text-size setting scales from here */
 
 body {
   margin: 0;
   background: var(--canvas);
   color: var(--ink);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
-  font-size: 15px;
+  /* Devanagari must render: keep Nirmala UI / Noto Sans Devanagari in the stack
+     or Hindi instructions fall back to a serif that does not match the UI. */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans",
+               "Nirmala UI", "Noto Sans Devanagari", sans-serif;
+  font-size: 1rem;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -64,8 +231,8 @@ h3 { font-size: .95rem; }
 .sidebar {
   width: var(--sidebar-w);
   flex: none;
-  background: var(--brand);
-  color: #DCEAE6;
+  background: var(--nav-bg);
+  color: var(--nav-ink-soft);
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -77,29 +244,29 @@ h3 { font-size: .95rem; }
   font-weight: 650;
   letter-spacing: .16em;
   font-size: 1.05rem;
-  color: #fff;
-  border-bottom: 1px solid rgba(255,255,255,.12);
+  color: var(--nav-ink);
+  border-bottom: 1px solid var(--nav-line);
 }
 .sidebar .brand small {
   display: block; letter-spacing: .04em; font-size: .68rem;
-  font-weight: 500; color: #9FC4BA; margin-top: .15rem;
+  font-weight: 500; color: var(--nav-ink-faint); margin-top: .15rem;
 }
 .sidebar nav { padding: .7rem .6rem; display: flex; flex-direction: column; gap: 2px; }
 .sidebar nav a {
   display: flex; align-items: center; gap: .6rem;
   padding: .5rem .65rem; border-radius: 7px;
-  color: #C8DED8; text-decoration: none; font-size: .92rem; font-weight: 500;
+  color: var(--nav-ink-soft); text-decoration: none; font-size: .92rem; font-weight: 500;
 }
-.sidebar nav a:hover { background: rgba(255,255,255,.08); color: #fff; }
-.sidebar nav a.active { background: rgba(255,255,255,.16); color: #fff; font-weight: 600; }
+.sidebar nav a:hover { background: var(--nav-hover); color: var(--nav-ink); }
+.sidebar nav a.active { background: var(--nav-active); color: var(--nav-ink); font-weight: 600; }
 .sidebar nav a svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.7; }
 .sidebar .spacer { flex: 1; }
 .sidebar .who {
-  padding: .85rem 1.1rem; border-top: 1px solid rgba(255,255,255,.12);
-  font-size: .82rem; color: #A9C8C0;
+  padding: .85rem 1.1rem; border-top: 1px solid var(--nav-line);
+  font-size: .82rem; color: var(--nav-ink-faint);
 }
-.sidebar .who strong { display: block; color: #fff; font-weight: 600; font-size: .9rem; }
-.sidebar .who a { color: #9FC4BA; font-size: .8rem; }
+.sidebar .who strong { display: block; color: var(--nav-ink); font-weight: 600; font-size: .9rem; }
+.sidebar .who a, .sidebar .who button { color: var(--nav-ink-faint); font-size: .8rem; }
 
 .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 
@@ -112,12 +279,50 @@ h3 { font-size: .95rem; }
 .topbar .facility span { color: var(--ink-faint); font-weight: 400; font-size: .85rem; }
 .topbar .grow { flex: 1; }
 
+/* ---------- appearance switcher ---------- */
+.appearance { position: relative; flex: none; }
+.appearance > summary {
+  list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem;
+  padding: .4rem .7rem; border: 1px solid var(--line-strong); border-radius: 7px;
+  background: var(--surface); color: var(--ink-soft); font-size: .85rem; font-weight: 600;
+}
+.appearance > summary::-webkit-details-marker { display: none; }
+.appearance > summary:hover { background: var(--hover); color: var(--ink); }
+.appearance > summary svg {
+  width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8;
+  stroke-linecap: round;
+}
+.appearance[open] > summary { border-color: var(--brand-600); color: var(--ink); }
+.appearance-menu {
+  position: absolute; right: 0; top: calc(100% + .4rem); z-index: 30;
+  min-width: 232px; padding: .5rem;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.appearance-menu .menu-title {
+  margin: .35rem .4rem .25rem; font-size: .7rem; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--ink-faint); font-weight: 700;
+}
+.appearance-menu .opt {
+  display: flex; width: 100%; align-items: center; justify-content: space-between;
+  font: inherit; font-size: .88rem; text-align: left; cursor: pointer;
+  padding: .42rem .55rem; border-radius: 6px; border: 1px solid transparent;
+  background: transparent; color: var(--ink);
+}
+.appearance-menu .opt:hover { background: var(--hover); }
+.appearance-menu .opt.on { background: var(--brand-050); color: var(--brand-600); font-weight: 650; }
+.appearance-menu .tick { font-weight: 700; }
+.appearance-menu .menu-note {
+  margin: .5rem .45rem .2rem; font-size: .74rem; color: var(--ink-faint); line-height: 1.4;
+}
+.appearance-menu .menu-note.en { margin-top: .15rem; }
+
 .content { padding: 1.5rem; max-width: 1180px; width: 100%; }
 
 /* ---------- demo banner ---------- */
 .demo-banner {
   background: var(--warn-bg); color: var(--warn);
-  border-bottom: 1px solid #EAD9AE;
+  border-bottom: 1px solid var(--warn-line);
   padding: .4rem 1.5rem; font-size: .82rem; font-weight: 600;
   display: flex; align-items: center; gap: .5rem;
 }
@@ -161,17 +366,17 @@ h3 { font-size: .95rem; }
   display: inline-flex; align-items: center; gap: .45rem; justify-content: center;
   font: inherit; font-weight: 600; font-size: .92rem;
   padding: .55rem 1.05rem; border-radius: 7px; border: 1px solid transparent;
-  background: var(--brand); color: #fff; cursor: pointer; text-decoration: none;
+  background: var(--brand); color: var(--brand-ink); cursor: pointer; text-decoration: none;
   white-space: nowrap;
 }
 .btn:hover { background: var(--brand-600); }
 .btn.secondary { background: var(--surface); color: var(--ink); border-color: var(--line-strong); }
-.btn.secondary:hover { background: var(--canvas); }
+.btn.secondary:hover { background: var(--hover); }
 .btn.subtle { background: transparent; color: var(--brand-600); border-color: transparent; padding-inline: .4rem; }
 .btn.subtle:hover { background: var(--brand-050); }
-.btn.danger { background: var(--danger); }
+.btn.danger { background: var(--danger); color: var(--brand-ink); }
 .btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, button:focus-visible {
-  outline: 2px solid var(--brand-600); outline-offset: 2px;
+  outline: 2px solid var(--focus-ring); outline-offset: 2px;
 }
 .btn-row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
 
@@ -183,11 +388,14 @@ h3 { font-size: .95rem; }
   margin-bottom: .25rem; letter-spacing: .01em;
 }
 .field-input, .field input[type=text], .field input[type=number], .field input[type=date],
+.field input[type=time], .field input[type=tel], .field textarea,
 .field select, .field input[type=password] {
   width: 100%; font: inherit; padding: .5rem .65rem;
   border: 1px solid var(--line-strong); border-radius: 7px;
   background: var(--surface); color: var(--ink);
 }
+.searchbar input, textarea { background: var(--surface); color: var(--ink); }
+::placeholder { color: var(--ink-faint); opacity: 1; }
 .field-input:focus { border-color: var(--brand-600); }
 .field .help { font-size: .78rem; color: var(--ink-faint); margin-top: .2rem; }
 .field .err { font-size: .8rem; color: var(--danger); margin-top: .2rem; font-weight: 600; }
@@ -201,13 +409,76 @@ h3 { font-size: .95rem; }
 }
 .fieldset-title:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
 
+/* ---------- Hindi input ----------
+   Typing Devanagari on an English keyboard. The candidate strip must be
+   unmissable (a silent rewrite is the failure mode we are avoiding) and the
+   on-screen pad must be finger-sized for a touch monitor at the front desk. */
+.hindi-wrap { position: relative; }
+.hindi-bar {
+  display: flex; gap: .35rem; justify-content: flex-end; margin-top: .25rem;
+}
+.hindi-toggle {
+  font: inherit; font-size: .72rem; font-weight: 650; cursor: pointer;
+  padding: .12rem .5rem; border-radius: 999px;
+  border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-soft);
+}
+.hindi-toggle:hover { background: var(--hover); color: var(--ink); }
+.hindi-toggle.on { background: var(--brand-050); border-color: var(--brand-600); color: var(--brand-600); }
+.hindi-strip {
+  position: absolute; z-index: 25; left: 0; top: 100%; margin-top: .2rem;
+  display: flex; gap: .3rem; flex-wrap: wrap; padding: .3rem;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: 8px; box-shadow: var(--shadow);
+}
+.hindi-cand {
+  font: inherit; cursor: pointer; display: flex; align-items: baseline; gap: .35rem;
+  padding: .25rem .6rem; border-radius: 6px; border: 1px solid transparent;
+  background: var(--surface-2); color: var(--ink);
+}
+.hindi-cand .dev { font-size: 1.05rem; }
+.hindi-cand .hint {
+  font-size: .65rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .05em;
+}
+.hindi-cand.first { background: var(--brand-050); border-color: var(--brand-600); }
+.hindi-cand.keep { background: transparent; border-color: var(--line); }
+.hindi-cand:hover { border-color: var(--brand-600); }
+.hindi-pad {
+  margin-top: .35rem; padding: .4rem; display: grid; gap: .25rem;
+  background: var(--surface-2); border: 1px solid var(--line-strong); border-radius: 8px;
+}
+.hindi-pad-row { display: flex; gap: .25rem; flex-wrap: wrap; }
+.hindi-key {
+  font: inherit; font-size: 1.02rem; cursor: pointer; flex: 1 1 auto;
+  min-width: 1.9rem; min-height: 2.1rem; padding: .2rem .3rem;
+  border: 1px solid var(--line-strong); border-radius: 6px;
+  background: var(--surface); color: var(--ink);
+}
+.hindi-key:hover { background: var(--brand-050); border-color: var(--brand-600); }
+.hindi-key.wide { min-width: 4.5rem; }
+
+/* ---------- shortcut hint ----------
+   Always shows what Tab will insert BEFORE it is inserted. A text expansion the
+   typist cannot see coming is how a wrong line lands in a prescription. */
+.shortcut-hint {
+  margin-top: .25rem; padding: .2rem .5rem; font-size: .78rem;
+  background: var(--info-bg); color: var(--info);
+  border: 1px solid var(--info-line); border-radius: 6px;
+  display: flex; gap: .4rem; align-items: baseline; flex-wrap: wrap;
+}
+.shortcut-hint kbd {
+  font: inherit; font-size: .7rem; font-weight: 700;
+  border: 1px solid var(--info-line); border-radius: 4px; padding: 0 .3rem;
+}
+.shortcut-hint .k { font-family: ui-monospace, Consolas, monospace; font-weight: 700; }
+.shortcut-hint .x { font-weight: 600; }
+
 /* ---------- search ---------- */
 .searchbar { display: flex; gap: .6rem; }
 .searchbar input {
   flex: 1; font: inherit; font-size: 1.02rem; padding: .7rem .9rem;
   border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface);
 }
-.searchbar input:focus { border-color: var(--brand-600); outline: 2px solid var(--brand-050); }
+.searchbar input:focus { border-color: var(--brand-600); outline: 2px solid var(--focus-ring); }
 
 /* ---------- tables ---------- */
 table.data { width: 100%; border-collapse: collapse; font-size: .92rem; }
@@ -218,7 +489,7 @@ table.data th {
 }
 table.data td { padding: .6rem .7rem; border-bottom: 1px solid var(--line); vertical-align: middle; }
 table.data tr:last-child td { border-bottom: 0; }
-table.data tr.clickable:hover { background: var(--brand-050); cursor: pointer; }
+table.data tr.clickable:hover { background: var(--hover); cursor: pointer; }
 table.data a.rowlink { color: var(--ink); text-decoration: none; font-weight: 600; }
 table.data a.rowlink:hover { color: var(--brand-600); }
 .table-wrap { overflow-x: auto; }
@@ -233,7 +504,7 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 .chip.warn   { background: var(--warn-bg);   color: var(--warn); }
 .chip.danger { background: var(--danger-bg); color: var(--danger); }
 .chip.info   { background: var(--info-bg);   color: var(--info); }
-.chip.muted  { background: #EEF2F1;          color: var(--ink-soft); }
+.chip.muted  { background: var(--chip-bg);   color: var(--chip-ink); }
 .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
 /* ---------- messages ---------- */
@@ -241,10 +512,10 @@ table.data a.rowlink:hover { color: var(--brand-600); }
   padding: .7rem 1rem; border-radius: var(--radius); margin-bottom: 1rem;
   font-weight: 550; font-size: .92rem; border: 1px solid transparent;
 }
-.msg.success { background: var(--ok-bg); color: var(--ok); border-color: #BFE0CC; }
-.msg.error   { background: var(--danger-bg); color: var(--danger); border-color: #EFC9C5; }
-.msg.warning { background: var(--warn-bg); color: var(--warn); border-color: #EAD9AE; }
-.msg.info    { background: var(--info-bg); color: var(--info); border-color: #C9DBEF; }
+.msg.success { background: var(--ok-bg); color: var(--ok); border-color: var(--ok-line); }
+.msg.error   { background: var(--danger-bg); color: var(--danger); border-color: var(--danger-line); }
+.msg.warning { background: var(--warn-bg); color: var(--warn); border-color: var(--warn-line); }
+.msg.info    { background: var(--info-bg); color: var(--info); border-color: var(--info-line); }
 
 /* ---------- patient banner ---------- */
 .patient-banner {
@@ -262,9 +533,9 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 .patient-banner .grow { flex: 1; }
 
 /* ---------- duplicate warning ---------- */
-.dup-warning { border: 1px solid #EAD9AE; background: var(--warn-bg); border-radius: var(--radius); padding: 1rem 1.1rem; }
+.dup-warning { border: 1px solid var(--warn-line); background: var(--warn-bg); border-radius: var(--radius); padding: 1rem 1.1rem; }
 .dup-warning h3 { color: var(--warn); margin-bottom: .3rem; }
-.dup-warning p { margin: 0 0 .8rem; font-size: .9rem; color: #6D4A08; }
+.dup-warning p { margin: 0 0 .8rem; font-size: .9rem; color: var(--warn-strong); }
 .dup-list { display: grid; gap: .5rem; }
 .dup-item {
   background: var(--surface); border: 1px solid var(--line); border-radius: 7px;
@@ -282,12 +553,12 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 /* ---------- login ---------- */
 .login-page {
   min-height: 100vh; display: grid; place-items: center;
-  background: linear-gradient(160deg, #0B5E4F 0%, #094437 100%);
+  background: var(--login-bg);
   padding: 1.5rem;
 }
 .login-card {
   background: var(--surface); border-radius: 14px; padding: 2rem;
-  width: min(400px, 100%); box-shadow: 0 12px 40px rgba(0,0,0,.22);
+  width: min(400px, 100%); box-shadow: 0 12px 40px rgba(0,0,0,.32);
 }
 .login-card .brand { font-weight: 650; letter-spacing: .17em; font-size: 1.3rem; color: var(--brand); }
 .login-card .tag { color: var(--ink-soft); font-size: .88rem; margin: .2rem 0 1.4rem; }
@@ -297,12 +568,14 @@ table.data a.rowlink:hover { color: var(--brand-600); }
   margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
   font-size: .82rem; color: var(--ink-soft);
 }
-.login-hint code { background: var(--canvas); padding: .1rem .35rem; border-radius: 4px; font-size: .8rem; }
+.login-hint code { background: var(--surface-2); padding: .1rem .35rem; border-radius: 4px; font-size: .8rem; }
 
-/* ---------- UPI QR ---------- */
-.upi-qr { display: inline-block; padding: 8px; background: #fff; border: 1px solid var(--line); border-radius: 8px; }
+/* ---------- UPI QR ----------
+   Deliberately NOT themed: a payment QR must stay dark-on-white in dark mode or
+   the patient's camera cannot read it. Tokens, so the rule is explicit. */
+.upi-qr { display: inline-block; padding: 8px; background: var(--qr-paper); border: 1px solid var(--line); border-radius: 8px; }
 .upi-qr svg { width: 150px; height: 150px; display: block; }
-.upi-qr svg path { fill: var(--ink); }
+.upi-qr svg path { fill: var(--qr-ink); }
 
 /* ---------- misc ---------- */
 .mono { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .85em; }
@@ -343,8 +616,12 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B5E4F'/%3E%3Ctext x='32' y='45' font-family='system-ui' font-size='34' font-weight='700' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 
+
+<script src="/static/js/hindi-input.js" defer></script>
+
+<script src="/static/js/shortcuts.js" defer></script>
 </head>
-<body hx-headers='{"X-CSRFToken": "PqnmEOQ0txReyHUrIneCxkYwo4x3MdmPmsBOuPAVruUCbbtxdo5QZLmNyGQAaYTY"}'>
+<body hx-headers='{"X-CSRFToken": "bjpq8Nka27jjjxIqrZwksxUR6h0TBWxkP5ubaxoKlAvRmtjXRtvrO89iPcva8JKp"}'>
 <div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
 padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
 align-items:center;gap:.6rem;flex-wrap:wrap">
@@ -380,6 +657,14 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         OPD queue
       </a>
       
+      <a href="#" data-inert="1" class="">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/><path d="m17 14 3 3-3 3"/></svg>
+        Shortcuts
+      </a>
+      <a href="#" data-inert="1" class="">
+        <svg viewBox="0 0 24 24"><path d="M7 3h10v18H7z"/><path d="M10 8h4M10 12h4M10 16h2"/></svg>
+        Proformas
+      </a>
       
       <a href="pharmacy.html" class="">
         <svg viewBox="0 0 24 24"><path d="M4 8h16v12H4z"/><path d="M9 8V5h6v3"/><path d="M12 12v4M10 14h4"/></svg>
@@ -404,7 +689,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <strong>Sunita Devi</strong>
       Front desk
       <form method="post" action="#" style="margin-top:.35rem">
-        <input type="hidden" name="csrfmiddlewaretoken" value="PqnmEOQ0txReyHUrIneCxkYwo4x3MdmPmsBOuPAVruUCbbtxdo5QZLmNyGQAaYTY">
+        <input type="hidden" name="csrfmiddlewaretoken" value="bjpq8Nka27jjjxIqrZwksxUR6h0TBWxkP5ubaxoKlAvRmtjXRtvrO89iPcva8JKp">
         <button type="submit" style="background:none;border:0;padding:0;color:#9FC4BA;font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline">Sign out</button>
       </form>
     </div>
@@ -429,6 +714,54 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
   
   <a class="btn" href="register.html">+ Register patient</a>
   
+
+      
+<details class="appearance">
+  <summary title="Appearance — theme and text size" aria-label="Appearance settings">
+    
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor" stroke="none"/></svg>
+    
+    <span class="label">Appearance</span>
+  </summary>
+  <div class="appearance-menu">
+    <p class="menu-title">Theme</p>
+    <form method="post" action="#"
+         >
+      <input type="hidden" name="csrfmiddlewaretoken" value="bjpq8Nka27jjjxIqrZwksxUR6h0TBWxkP5ubaxoKlAvRmtjXRtvrO89iPcva8JKp">
+      <input type="hidden" name="next" value="/patients/">
+      <button name="theme" value="auto" class="opt on">
+        Follow this computer <span class="tick">✓</span>
+      </button>
+      <button name="theme" value="light" class="opt ">
+        Light
+      </button>
+      <button name="theme" value="dark" class="opt ">
+        Dark
+      </button>
+    </form>
+
+    <p class="menu-title">Text size</p>
+    <form method="post" action="#"
+         >
+      <input type="hidden" name="csrfmiddlewaretoken" value="bjpq8Nka27jjjxIqrZwksxUR6h0TBWxkP5ubaxoKlAvRmtjXRtvrO89iPcva8JKp">
+      <input type="hidden" name="next" value="/patients/">
+      <button name="text_size" value="normal" class="opt on">
+        Normal <span class="tick">✓</span>
+      </button>
+      <button name="text_size" value="large" class="opt ">
+        Large
+      </button>
+      <button name="text_size" value="xlarge" class="opt ">
+        Extra large
+      </button>
+    </form>
+
+    
+    <p class="menu-note" lang="hi">तेज़ रोशनी में Light mode ज़्यादा पढ़ने लायक है।</p>
+    <p class="menu-note en">Dark suits a dim ward at night; light reads better in a bright hall.
+      Saved to your login, not this computer.</p>
+  </div>
+</details>
 
     </header>
 
@@ -461,6 +794,19 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <tbody>
         
         <tr>
+          <td class="mono tabular nowrap">BLD-000050</td>
+          <td><a class="rowlink" href="#" data-inert="1">Kamla Devi</a></td>
+          <td class="nowrap tabular">64 / F</td>
+          <td class="mono tabular">9004561230</td>
+          <td>
+
+  <span class="chip ok" title="ABHA 91194561402346 · KYC verified"><span class="dot"></span>KYC verified</span>
+
+</td>
+          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
+        </tr>
+        
+        <tr>
           <td class="mono tabular nowrap">BLD-000049</td>
           <td><a class="rowlink" href="#" data-inert="1">Priya Tyagi</a></td>
           <td class="nowrap tabular">68 / F</td>
@@ -480,7 +826,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
           <td class="mono tabular">9005292110</td>
           <td>
 
-  <span class="chip muted">No ABHA</span>
+  <span class="chip ok" title="ABHA 91105290282388 · KYC verified"><span class="dot"></span>KYC verified</span>
 
 </td>
           <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
@@ -572,19 +918,6 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
           <td>
 
   <span class="chip ok" title="ABHA 91700608072198 · KYC verified"><span class="dot"></span>KYC verified</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-        <tr>
-          <td class="mono tabular nowrap">BLD-000033</td>
-          <td><a class="rowlink" href="#" data-inert="1">Rekha Sharma</a></td>
-          <td class="nowrap tabular">31 / F</td>
-          <td class="mono tabular">9003116362</td>
-          <td>
-
-  <span class="chip warn" title="ABHA on file but not KYC-verified"><span class="dot"></span>Not verified</span>
 
 </td>
           <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
