@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Patients · AGAAEE HIMS</title>
+<title>Messages · AGAAEE HIMS</title>
 <style>/* ===========================================================================
    AGAAEE HIMS — application shell.
    A tool, not a document: dense, scannable, keyboard-first. Palette ties to the
@@ -621,13 +621,13 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 
 <script src="/static/js/shortcuts.js" defer></script>
 </head>
-<body hx-headers='{"X-CSRFToken": "enGZ7B4NxvTHYHCDfRO6TIqsKWwcL1u05PYbAQSEFso9Sew24N5xuvvElB0STwkh"}'>
+<body hx-headers='{"X-CSRFToken": "Fwa14FFPuI93rffh5YQSntLyALnnQ9bgpeIoGknIYhSZS3IaMS5m9gqXrke7rYDh"}'>
 <div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
 padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
 align-items:center;gap:.6rem;flex-wrap:wrap">
 <span style="background:#E8A13D;color:#12211D;padding:.1rem .5rem;border-radius:4px;
 font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
-<span>Patient search — a real page from AGAAEE HIMS, with sample data.</span>
+<span>Patient messages — a real page from AGAAEE HIMS, with sample data.</span>
 <span style="flex:1"></span>
 <a href="index.html" style="color:#9FC4BA">← All screens</a>
 <a href="../index.html" style="color:#9FC4BA">agaaee.in</a>
@@ -642,7 +642,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/></svg>
         Dashboard
       </a>
-      <a href="patients.html" class="active">
+      <a href="patients.html" class="">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         Patients
       </a>
@@ -657,6 +657,11 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         OPD queue
       </a>
       
+      <a href="worklist.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M9 3h6v3H9z"/><path d="M6 6h12v15H6z"/><path d="M9 12h6M9 16h4"/></svg>
+        Consultations
+      </a>
+      
       <a href="shortcuts.html" class="">
         <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/><path d="m17 14 3 3-3 3"/></svg>
         Shortcuts
@@ -664,6 +669,11 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <a href="proformas.html" class="">
         <svg viewBox="0 0 24 24"><path d="M7 3h10v18H7z"/><path d="M10 8h4M10 12h4M10 16h2"/></svg>
         Proformas
+      </a>
+      
+      <a href="ward.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18M6 10V7h5v3"/></svg>
+        Ward
       </a>
       
       <a href="lab.html" class="">
@@ -678,9 +688,14 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>
         Billing
       </a>
-      <a href="messages.html" class="">
+      <a href="messages.html" class="active">
         <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 20.5l1.6-4.9A8.4 8.4 0 1 1 21 11.5z"/></svg>
         Messages
+      </a>
+      
+      <a href="day-close.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M6 20V10M11 20V4M16 20v-7"/></svg>
+        Day close
       </a>
       
       <a href="abdm-outbox.html" class="">
@@ -692,13 +707,18 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Audit trail
       </a>
       
+      <a href="#" data-inert="1" class="">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M22 12h-3M5 12H2M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7 5.6 5.6"/></svg>
+        Facility
+      </a>
+      
     </nav>
     <div class="spacer"></div>
     <div class="who">
-      <strong>Sunita Devi</strong>
-      Front desk
+      <strong>Dr. Meena Verma</strong>
+      Owner / Administrator
       <form method="post" action="#" style="margin-top:.35rem">
-        <input type="hidden" name="csrfmiddlewaretoken" value="enGZ7B4NxvTHYHCDfRO6TIqsKWwcL1u05PYbAQSEFso9Sew24N5xuvvElB0STwkh">
+        <input type="hidden" name="csrfmiddlewaretoken" value="Fwa14FFPuI93rffh5YQSntLyALnnQ9bgpeIoGknIYhSZS3IaMS5m9gqXrke7rYDh">
         <button type="submit" style="background:none;border:0;padding:0;color:#9FC4BA;font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline">Sign out</button>
       </form>
     </div>
@@ -720,10 +740,6 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       </div>
       <div class="grow"></div>
       
-  
-  <a class="btn" href="register.html">+ Register patient</a>
-  
-
       
 <details class="appearance">
   <summary title="Appearance — theme and text size" aria-label="Appearance settings">
@@ -736,8 +752,8 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Theme</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="enGZ7B4NxvTHYHCDfRO6TIqsKWwcL1u05PYbAQSEFso9Sew24N5xuvvElB0STwkh">
-      <input type="hidden" name="next" value="/patients/">
+      <input type="hidden" name="csrfmiddlewaretoken" value="Fwa14FFPuI93rffh5YQSntLyALnnQ9bgpeIoGknIYhSZS3IaMS5m9gqXrke7rYDh">
+      <input type="hidden" name="next" value="/messages/">
       <button name="theme" value="auto" class="opt on">
         Follow this computer <span class="tick">✓</span>
       </button>
@@ -752,8 +768,8 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Text size</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="enGZ7B4NxvTHYHCDfRO6TIqsKWwcL1u05PYbAQSEFso9Sew24N5xuvvElB0STwkh">
-      <input type="hidden" name="next" value="/patients/">
+      <input type="hidden" name="csrfmiddlewaretoken" value="Fwa14FFPuI93rffh5YQSntLyALnnQ9bgpeIoGknIYhSZS3IaMS5m9gqXrke7rYDh">
+      <input type="hidden" name="next" value="/messages/">
       <button name="text_size" value="normal" class="opt on">
         Normal <span class="tick">✓</span>
       </button>
@@ -779,164 +795,52 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       
 <div class="page-head">
   <div class="grow">
-    <h1>Patients</h1>
-    <p>Search by mobile, UHID, name or ABHA number.</p>
+    <h1>Messages</h1>
+    <p>Prescriptions, bills, reminders and token updates sent to patients — and the ones
+       we refused to send because the patient had not opted in.</p>
   </div>
+</div>
+
+
+<div class="msg info">
+  <strong>Demo mode.</strong> Nothing is actually delivered. Every message below is real text
+  addressed to a real number — tap <em>Send on WhatsApp</em> on any row and WhatsApp opens with
+  it filled in, ready to send by hand. Automatic delivery starts the day the WhatsApp Business
+  account is connected; no screen changes.
+</div>
+
+
+<div class="grid cols-4 mb-2">
+  <div class="stat"><div class="label">Today</div>
+    <div class="value">0</div><div class="foot">messages</div></div>
+  <div class="stat"><div class="label">Not sent</div>
+    <div class="value">0</div><div class="foot">no consent / no number</div></div>
+  <div class="stat"><div class="label">Cost today</div>
+    <div class="value">₹0.00</div><div class="foot">at published tariff</div></div>
+  <div class="stat"><div class="label">Most sent</div>
+    <div class="value" style="font-size:1.1rem">
+      
+    </div>
+    <div class="foot"></div></div>
 </div>
 
 <div class="card">
-  <div class="card-body">
-    <form class="searchbar" action="#" method="get"
-         
-         >
-      <input type="search" name="q" value="" placeholder="Search patients…" autocomplete="off" autofocus>
-      <button class="btn" type="submit">Search</button>
-    </form>
-  </div>
-</div>
-
-<div class="card" id="search-results">
-  
+  <div class="card-head"><h2>Sent and refused</h2></div>
   <div class="table-wrap">
     <table class="data">
-      <thead><tr><th>UHID</th><th>Patient</th><th>Age / Sex</th><th>Mobile</th><th>ABHA</th><th></th></tr></thead>
+      <thead><tr><th>When</th><th>Patient</th><th>Type</th><th>Message</th><th>Status</th><th></th></tr></thead>
       <tbody>
         
-        <tr>
-          <td class="mono tabular nowrap">BLD-000050</td>
-          <td><a class="rowlink" href="#" data-inert="1">Devendra Kumar</a></td>
-          <td class="nowrap tabular">41 / M</td>
-          <td class="mono tabular">9004561233</td>
-          <td>
-
-  <span class="chip ok" title="ABHA 91335216920510 · KYC verified"><span class="dot"></span>KYC verified</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-        <tr>
-          <td class="mono tabular nowrap">BLD-000049</td>
-          <td><a class="rowlink" href="#" data-inert="1">Priya Tyagi</a></td>
-          <td class="nowrap tabular">68 / F</td>
-          <td class="mono tabular">9005872097</td>
-          <td>
-
-  <span class="chip ok" title="ABHA 91205686878333 · KYC verified"><span class="dot"></span>KYC verified</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-        <tr>
-          <td class="mono tabular nowrap">BLD-000017</td>
-          <td><a class="rowlink" href="#" data-inert="1">Vinod Tyagi</a></td>
-          <td class="nowrap tabular">75 / M</td>
-          <td class="mono tabular">9005292110</td>
-          <td>
-
-  <span class="chip muted">No ABHA</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-        <tr>
-          <td class="mono tabular nowrap">BLD-000002</td>
-          <td><a class="rowlink" href="#" data-inert="1">Manoj Tomar</a></td>
-          <td class="nowrap tabular">76 / M</td>
-          <td class="mono tabular">9003436173</td>
-          <td>
-
-  <span class="chip ok" title="ABHA 91105304402245 · KYC verified"><span class="dot"></span>KYC verified</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-        <tr>
-          <td class="mono tabular nowrap">BLD-000037</td>
-          <td><a class="rowlink" href="#" data-inert="1">Deepak Bhati</a></td>
-          <td class="nowrap tabular">33 / M</td>
-          <td class="mono tabular">9009900609</td>
-          <td>
-
-  <span class="chip muted">No ABHA</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-        <tr>
-          <td class="mono tabular nowrap">BLD-000025</td>
-          <td><a class="rowlink" href="#" data-inert="1">Sanjay Bhati</a></td>
-          <td class="nowrap tabular">63 / M</td>
-          <td class="mono tabular">9006867186</td>
-          <td>
-
-  <span class="chip ok" title="ABHA 91734694472233 · KYC verified"><span class="dot"></span>KYC verified</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-        <tr>
-          <td class="mono tabular nowrap">BLD-000041</td>
-          <td><a class="rowlink" href="#" data-inert="1">Naveen Sharma</a></td>
-          <td class="nowrap tabular">37 / M</td>
-          <td class="mono tabular">9009834719</td>
-          <td>
-
-  <span class="chip ok" title="ABHA 91981380371001 · KYC verified"><span class="dot"></span>KYC verified</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-        <tr>
-          <td class="mono tabular nowrap">BLD-000021</td>
-          <td><a class="rowlink" href="#" data-inert="1">Pankaj Tomar</a></td>
-          <td class="nowrap tabular">15 / M</td>
-          <td class="mono tabular">9008350274</td>
-          <td>
-
-  <span class="chip ok" title="ABHA 91859385011962 · KYC verified"><span class="dot"></span>KYC verified</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-        <tr>
-          <td class="mono tabular nowrap">BLD-000030</td>
-          <td><a class="rowlink" href="#" data-inert="1">Mukesh Kashyap</a></td>
-          <td class="nowrap tabular">76 / M</td>
-          <td class="mono tabular">9006741270</td>
-          <td>
-
-  <span class="chip ok" title="ABHA 91744731547165 · KYC verified"><span class="dot"></span>KYC verified</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-        <tr>
-          <td class="mono tabular nowrap">BLD-000044</td>
-          <td><a class="rowlink" href="#" data-inert="1">Vinod Tomar</a></td>
-          <td class="nowrap tabular">5 / M</td>
-          <td class="mono tabular">9001707516</td>
-          <td>
-
-  <span class="chip ok" title="ABHA 91700608072198 · KYC verified"><span class="dot"></span>KYC verified</span>
-
-</td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
+        <tr><td colspan="6">
+          <div class="empty">
+            <p>No messages yet.</p>
+            <p class="small">Send a prescription or a bill from its screen and it appears here.</p>
+          </div>
+        </td></tr>
         
       </tbody>
     </table>
   </div>
-
-
 </div>
 
     </main>
