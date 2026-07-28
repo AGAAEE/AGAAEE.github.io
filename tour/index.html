@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product tour · AGAAEE HIMS</title>
+<style>
+  :root { --brand:#0B5E4F; --ink:#12211D; --soft:#55645E; --line:#E2E8E5; --bg:#F5F8F7; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; line-height:1.55; }
+  header { background:var(--brand); color:#fff; padding:2.6rem 1.5rem; }
+  header .in { max-width:1000px; margin:0 auto; }
+  header .eyebrow { font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+                    color:#9FC4BA; font-weight:700; }
+  header h1 { margin:.4rem 0 .5rem; font-size:2rem; letter-spacing:-.01em; }
+  header p { margin:0; color:#C8DED8; max-width:58ch; }
+  header a { color:#fff; }
+  main { max-width:1000px; margin:0 auto; padding:2rem 1.5rem 4rem; }
+  .note { background:#FBF1DC; border:1px solid #EAD9AE; color:#6D4A08;
+          padding:.9rem 1.1rem; border-radius:10px; font-size:.92rem; margin-bottom:1.6rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; }
+  a.card { background:#fff; border:1px solid var(--line); border-radius:12px;
+           padding:1.2rem 1.25rem; text-decoration:none; color:inherit; display:block;
+           transition:border-color .15s, transform .15s; }
+  a.card:hover { border-color:var(--brand); transform:translateY(-2px); }
+  a.card h3 { margin:0 0 .4rem; font-size:1.05rem; }
+  a.card p { margin:0 0 .7rem; color:var(--soft); font-size:.92rem; }
+  a.card .go { color:var(--brand); font-weight:650; font-size:.88rem; }
+  footer { max-width:1000px; margin:0 auto; padding:0 1.5rem 3rem; color:var(--soft); font-size:.86rem; }
+</style>
+</head>
+<body>
+<header>
+  <div class="in">
+    <div class="eyebrow">AGAAEE HIMS</div>
+    <h1>Product tour</h1>
+    <p>Every page below is a real screen from the working software, exported straight from
+       the application. Nothing here is a mock-up or an illustration.</p>
+  </div>
+</header>
+<main>
+  <div class="note">
+    <strong>Sample data only.</strong> Every patient, doctor and prescription shown is
+    fabricated for demonstration. The connection to India's national health network (ABDM)
+    is simulated while our sandbox registration is being approved — the screens themselves
+    are the real ones.
+  </div>
+  <div class="grid">
+      <a class="card" href="dashboard.html">
+        <h3>Dashboard</h3>
+        <p>The owner's morning view: who has been registered, how many carry a national health ID, and how many are KYC-verified.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="opd-queue.html">
+        <h3>OPD queue</h3>
+        <p>The front desk's screen. Tokens, waiting times and one-click actions; it refreshes itself, so nobody re-loads a page while a queue builds up.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="display-board.html">
+        <h3>Waiting-room display</h3>
+        <p>What the patients see. Token numbers and the doctor — never a patient's name, because this screen hangs in a public corridor.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="patients.html">
+        <h3>Patient search</h3>
+        <p>Search by mobile, UHID, name or ABHA number. The KYC chip shows at a glance whose records can be linked to the national network.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="register.html">
+        <h3>Registration</h3>
+        <p>One screen, and age is accepted when a date of birth is not known. A near-duplicate raises a confirmation before a second file can ever be created for one person.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="worklist.html">
+        <h3>Doctor's worklist</h3>
+        <p>Who is waiting, and how long they have been waiting.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="pharmacy.html">
+        <h3>Pharmacy counter</h3>
+        <p>Today's signed prescriptions, flagged where they contain scheduled medicines.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="stock.html">
+        <h3>Stock and batches</h3>
+        <p>Every quantity is a projection of an append-only ledger. MRP lives on the batch — two batches of one medicine can legitimately carry different printed prices.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="h1-register.html">
+        <h3>Schedule H1 register</h3>
+        <p>The register a drug inspector asks for, written automatically with every H1 sale — in the same transaction as the stock movement, so it can never drift.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="billing.html">
+        <h3>Billing</h3>
+        <p>Invoices and collections. A posted invoice can never be edited; corrections are credit notes.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="ward.html">
+        <h3>Ward</h3>
+        <p>Admitted patients, with discharge summaries that assemble themselves from the stay.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="abdm-outbox.html">
+        <h3>ABDM health records</h3>
+        <p>Real FHIR health records built for India's national network and validated locally — waiting only for the sandbox credentials to be pushed.</p>
+        <span class="go">Open screen →</span>
+      </a>
+      <a class="card" href="audit.html">
+        <h3>Audit trail</h3>
+        <p>Who did what, when. Append-only: a correction is always a new row.</p>
+        <span class="go">Open screen →</span>
+      </a>
+  </div>
+</main>
+<footer>
+  AGAAEE · Bulandshahr, Uttar Pradesh · <a href="../index.html">agaaee.in</a>
+</footer>
+</body>
+</html>

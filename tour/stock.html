@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stock · AGAAEE HIMS</title>
+<style>/* ===========================================================================
+   AGAAEE HIMS — application shell.
+   A tool, not a document: dense, scannable, keyboard-first. Palette ties to the
+   agaaee.in brand green but desaturated for hours of screen time; state is
+   carried by shape+colour (chips, rails) so it reads at a glance, and semantic
+   colours (ok / warn / danger) are kept separate from the brand accent.
+   =========================================================================== */
+
+:root {
+  --brand:        #0B5E4F;
+  --brand-600:    #0E7462;
+  --brand-050:    #E8F2EF;
+  --ink:          #12211D;
+  --ink-soft:     #5C6E68;
+  --ink-faint:    #8A9A94;
+  --line:         #E2E8E5;
+  --line-strong:  #CBD5D1;
+  --surface:      #FFFFFF;
+  --canvas:       #F5F8F7;
+  --ok:           #1B7F4B;
+  --ok-bg:        #E7F4EC;
+  --warn:         #9A6300;
+  --warn-bg:      #FBF1DC;
+  --danger:       #A8291F;
+  --danger-bg:    #FBEAE8;
+  --info:         #2A5B93;
+  --info-bg:      #E9F0F8;
+  --radius:       9px;
+  --shadow:       0 1px 2px rgba(18, 33, 29, .06), 0 4px 12px rgba(18, 33, 29, .04);
+  --sidebar-w:    232px;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--brand-600); }
+h1, h2, h3 { margin: 0; font-weight: 650; letter-spacing: -0.01em; }
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.1rem; }
+h3 { font-size: .95rem; }
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ---------- shell ---------- */
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: var(--sidebar-w);
+  flex: none;
+  background: var(--brand);
+  color: #DCEAE6;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.sidebar .brand {
+  padding: 1.15rem 1.15rem .9rem;
+  font-weight: 650;
+  letter-spacing: .16em;
+  font-size: 1.05rem;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.sidebar .brand small {
+  display: block; letter-spacing: .04em; font-size: .68rem;
+  font-weight: 500; color: #9FC4BA; margin-top: .15rem;
+}
+.sidebar nav { padding: .7rem .6rem; display: flex; flex-direction: column; gap: 2px; }
+.sidebar nav a {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .5rem .65rem; border-radius: 7px;
+  color: #C8DED8; text-decoration: none; font-size: .92rem; font-weight: 500;
+}
+.sidebar nav a:hover { background: rgba(255,255,255,.08); color: #fff; }
+.sidebar nav a.active { background: rgba(255,255,255,.16); color: #fff; font-weight: 600; }
+.sidebar nav a svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.7; }
+.sidebar .spacer { flex: 1; }
+.sidebar .who {
+  padding: .85rem 1.1rem; border-top: 1px solid rgba(255,255,255,.12);
+  font-size: .82rem; color: #A9C8C0;
+}
+.sidebar .who strong { display: block; color: #fff; font-weight: 600; font-size: .9rem; }
+.sidebar .who a { color: #9FC4BA; font-size: .8rem; }
+
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.topbar {
+  background: var(--surface); border-bottom: 1px solid var(--line);
+  padding: .7rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+  position: sticky; top: 0; z-index: 10;
+}
+.topbar .facility { font-weight: 600; }
+.topbar .facility span { color: var(--ink-faint); font-weight: 400; font-size: .85rem; }
+.topbar .grow { flex: 1; }
+
+.content { padding: 1.5rem; max-width: 1180px; width: 100%; }
+
+/* ---------- demo banner ---------- */
+.demo-banner {
+  background: var(--warn-bg); color: var(--warn);
+  border-bottom: 1px solid #EAD9AE;
+  padding: .4rem 1.5rem; font-size: .82rem; font-weight: 600;
+  display: flex; align-items: center; gap: .5rem;
+}
+
+/* ---------- cards & layout ---------- */
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.card + .card { margin-top: 1rem; }
+.card-head {
+  padding: .85rem 1.1rem; border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: .75rem;
+}
+.card-head h2 { flex: 1; }
+.card-body { padding: 1.1rem; }
+.card-body.tight { padding: .5rem 1.1rem; }
+
+.grid { display: grid; gap: 1rem; }
+.grid.cols-4 { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+.page-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.1rem; }
+.page-head .grow { flex: 1; }
+.page-head p { margin: .25rem 0 0; color: var(--ink-soft); font-size: .92rem; }
+
+/* ---------- stat tiles ---------- */
+.stat {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: .9rem 1rem; box-shadow: var(--shadow);
+}
+.stat .label {
+  font-size: .74rem; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink-faint); font-weight: 650;
+}
+.stat .value { font-size: 1.9rem; font-weight: 650; line-height: 1.15; margin-top: .2rem; }
+.stat .foot { font-size: .8rem; color: var(--ink-soft); }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: .45rem; justify-content: center;
+  font: inherit; font-weight: 600; font-size: .92rem;
+  padding: .55rem 1.05rem; border-radius: 7px; border: 1px solid transparent;
+  background: var(--brand); color: #fff; cursor: pointer; text-decoration: none;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--brand-600); }
+.btn.secondary { background: var(--surface); color: var(--ink); border-color: var(--line-strong); }
+.btn.secondary:hover { background: var(--canvas); }
+.btn.subtle { background: transparent; color: var(--brand-600); border-color: transparent; padding-inline: .4rem; }
+.btn.subtle:hover { background: var(--brand-050); }
+.btn.danger { background: var(--danger); }
+.btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, button:focus-visible {
+  outline: 2px solid var(--brand-600); outline-offset: 2px;
+}
+.btn-row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+
+/* ---------- forms ---------- */
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .9rem 1.1rem; }
+.form-grid .full { grid-column: 1 / -1; }
+.field label, .field > .lbl {
+  display: block; font-size: .8rem; font-weight: 650; color: var(--ink-soft);
+  margin-bottom: .25rem; letter-spacing: .01em;
+}
+.field-input, .field input[type=text], .field input[type=number], .field input[type=date],
+.field select, .field input[type=password] {
+  width: 100%; font: inherit; padding: .5rem .65rem;
+  border: 1px solid var(--line-strong); border-radius: 7px;
+  background: var(--surface); color: var(--ink);
+}
+.field-input:focus { border-color: var(--brand-600); }
+.field .help { font-size: .78rem; color: var(--ink-faint); margin-top: .2rem; }
+.field .err { font-size: .8rem; color: var(--danger); margin-top: .2rem; font-weight: 600; }
+.field.check { display: flex; align-items: center; gap: .5rem; }
+.field.check label { margin: 0; font-weight: 500; color: var(--ink); font-size: .92rem; }
+.field.check input { width: 17px; height: 17px; accent-color: var(--brand); }
+.fieldset-title {
+  grid-column: 1 / -1; font-size: .74rem; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--ink-faint); font-weight: 700;
+  border-top: 1px solid var(--line); padding-top: .9rem; margin-top: .3rem;
+}
+.fieldset-title:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+
+/* ---------- search ---------- */
+.searchbar { display: flex; gap: .6rem; }
+.searchbar input {
+  flex: 1; font: inherit; font-size: 1.02rem; padding: .7rem .9rem;
+  border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface);
+}
+.searchbar input:focus { border-color: var(--brand-600); outline: 2px solid var(--brand-050); }
+
+/* ---------- tables ---------- */
+table.data { width: 100%; border-collapse: collapse; font-size: .92rem; }
+table.data th {
+  text-align: left; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--ink-faint); font-weight: 700; padding: .5rem .7rem;
+  border-bottom: 1px solid var(--line);
+}
+table.data td { padding: .6rem .7rem; border-bottom: 1px solid var(--line); vertical-align: middle; }
+table.data tr:last-child td { border-bottom: 0; }
+table.data tr.clickable:hover { background: var(--brand-050); cursor: pointer; }
+table.data a.rowlink { color: var(--ink); text-decoration: none; font-weight: 600; }
+table.data a.rowlink:hover { color: var(--brand-600); }
+.table-wrap { overflow-x: auto; }
+
+/* ---------- chips ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: .3rem;
+  font-size: .75rem; font-weight: 650; padding: .16rem .55rem; border-radius: 999px;
+  white-space: nowrap;
+}
+.chip.ok     { background: var(--ok-bg);     color: var(--ok); }
+.chip.warn   { background: var(--warn-bg);   color: var(--warn); }
+.chip.danger { background: var(--danger-bg); color: var(--danger); }
+.chip.info   { background: var(--info-bg);   color: var(--info); }
+.chip.muted  { background: #EEF2F1;          color: var(--ink-soft); }
+.chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* ---------- messages ---------- */
+.msg {
+  padding: .7rem 1rem; border-radius: var(--radius); margin-bottom: 1rem;
+  font-weight: 550; font-size: .92rem; border: 1px solid transparent;
+}
+.msg.success { background: var(--ok-bg); color: var(--ok); border-color: #BFE0CC; }
+.msg.error   { background: var(--danger-bg); color: var(--danger); border-color: #EFC9C5; }
+.msg.warning { background: var(--warn-bg); color: var(--warn); border-color: #EAD9AE; }
+.msg.info    { background: var(--info-bg); color: var(--info); border-color: #C9DBEF; }
+
+/* ---------- patient banner ---------- */
+.patient-banner {
+  background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--brand);
+  border-radius: var(--radius); padding: 1rem 1.15rem; box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 1.15rem; flex-wrap: wrap;
+}
+.patient-banner .who h1 { font-size: 1.3rem; }
+.patient-banner .meta { color: var(--ink-soft); font-size: .9rem; margin-top: .15rem; }
+.patient-banner .uhid {
+  font-size: .82rem; font-weight: 700; letter-spacing: .04em;
+  color: var(--brand); background: var(--brand-050);
+  padding: .2rem .55rem; border-radius: 6px;
+}
+.patient-banner .grow { flex: 1; }
+
+/* ---------- duplicate warning ---------- */
+.dup-warning { border: 1px solid #EAD9AE; background: var(--warn-bg); border-radius: var(--radius); padding: 1rem 1.1rem; }
+.dup-warning h3 { color: var(--warn); margin-bottom: .3rem; }
+.dup-warning p { margin: 0 0 .8rem; font-size: .9rem; color: #6D4A08; }
+.dup-list { display: grid; gap: .5rem; }
+.dup-item {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 7px;
+  padding: .6rem .8rem; display: flex; align-items: center; gap: .8rem;
+}
+.dup-item .grow { flex: 1; }
+.dup-item .name { font-weight: 650; }
+.dup-item .meta { font-size: .82rem; color: var(--ink-soft); }
+
+/* ---------- empty state ---------- */
+.empty { text-align: center; padding: 2.4rem 1rem; color: var(--ink-faint); }
+.empty svg { width: 34px; height: 34px; stroke: currentColor; fill: none; stroke-width: 1.4; margin-bottom: .5rem; }
+.empty p { margin: .2rem 0; }
+
+/* ---------- login ---------- */
+.login-page {
+  min-height: 100vh; display: grid; place-items: center;
+  background: linear-gradient(160deg, #0B5E4F 0%, #094437 100%);
+  padding: 1.5rem;
+}
+.login-card {
+  background: var(--surface); border-radius: 14px; padding: 2rem;
+  width: min(400px, 100%); box-shadow: 0 12px 40px rgba(0,0,0,.22);
+}
+.login-card .brand { font-weight: 650; letter-spacing: .17em; font-size: 1.3rem; color: var(--brand); }
+.login-card .tag { color: var(--ink-soft); font-size: .88rem; margin: .2rem 0 1.4rem; }
+.login-card .field { margin-bottom: .9rem; }
+.login-card .btn { width: 100%; padding-block: .65rem; }
+.login-hint {
+  margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+  font-size: .82rem; color: var(--ink-soft);
+}
+.login-hint code { background: var(--canvas); padding: .1rem .35rem; border-radius: 4px; font-size: .8rem; }
+
+/* ---------- UPI QR ---------- */
+.upi-qr { display: inline-block; padding: 8px; background: #fff; border: 1px solid var(--line); border-radius: 8px; }
+.upi-qr svg { width: 150px; height: 150px; display: block; }
+.upi-qr svg path { fill: var(--ink); }
+
+/* ---------- misc ---------- */
+.mono { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .85em; }
+.muted { color: var(--ink-soft); }
+.faint { color: var(--ink-faint); }
+.small { font-size: .85rem; }
+.right { text-align: right; }
+.nowrap { white-space: nowrap; }
+.mt-1 { margin-top: .5rem; } .mt-2 { margin-top: 1rem; } .mb-2 { margin-bottom: 1rem; }
+
+/* Narrow screens: the sidebar becomes a horizontal strip rather than sliding
+   off-canvas — a hidden nav with no toggle is an unreachable nav, and the front
+   desk may well be on a small laptop or a tablet. */
+@media (max-width: 820px) {
+  .shell { flex-direction: column; }
+  .sidebar {
+    width: 100%; height: auto; position: static;
+    flex-direction: row; align-items: center; overflow-x: auto;
+  }
+  .sidebar .brand {
+    border-bottom: 0; border-right: 1px solid rgba(255,255,255,.12);
+    white-space: nowrap; padding: .75rem 1rem; font-size: .95rem;
+  }
+  .sidebar .brand small { display: none; }
+  .sidebar nav { flex-direction: row; padding: .4rem; gap: .2rem; }
+  .sidebar nav a { white-space: nowrap; padding: .45rem .6rem; }
+  .sidebar .spacer { flex: 1; }
+  .sidebar .who {
+    border-top: 0; padding: .45rem 1rem; white-space: nowrap; font-size: .78rem;
+  }
+  .sidebar .who strong { display: inline; margin-right: .35rem; }
+  .sidebar .who form { display: inline; margin: 0 0 0 .4rem; }
+  .content { padding: 1rem; }
+  .demo-banner { flex-wrap: wrap; padding-inline: 1rem; }
+  .topbar { padding-inline: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B5E4F'/%3E%3Ctext x='32' y='45' font-family='system-ui' font-size='34' font-weight='700' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
+</head>
+<body hx-headers='{"X-CSRFToken": "b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4"}'>
+<div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
+padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
+align-items:center;gap:.6rem;flex-wrap:wrap">
+<span style="background:#E8A13D;color:#12211D;padding:.1rem .5rem;border-radius:4px;
+font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
+<span>Stock and batches — a real page from AGAAEE HIMS, with sample data.</span>
+<span style="flex:1"></span>
+<a href="index.html" style="color:#9FC4BA">← All screens</a>
+<a href="../index.html" style="color:#9FC4BA">agaaee.in</a>
+</div>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="brand">AGAAEE <small>Hospital Management</small></div>
+    <nav>
+      <a href="dashboard.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/></svg>
+        Dashboard
+      </a>
+      <a href="patients.html" class="">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        Patients
+      </a>
+      
+      <a href="opd-queue.html" class="">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        OPD queue
+      </a>
+      
+      
+      <a href="pharmacy.html" class="active">
+        <svg viewBox="0 0 24 24"><path d="M4 8h16v12H4z"/><path d="M9 8V5h6v3"/><path d="M12 12v4M10 14h4"/></svg>
+        Pharmacy
+      </a>
+      <a href="billing.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>
+        Billing
+      </a>
+      <a href="abdm-outbox.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+        ABDM records
+      </a>
+      <a href="audit.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M5 3h9l5 5v13H5z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
+        Audit trail
+      </a>
+      
+    </nav>
+    <div class="spacer"></div>
+    <div class="who">
+      <strong>Ramesh Gupta</strong>
+      Pharmacist
+      <form method="post" action="#" style="margin-top:.35rem">
+        <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+        <button type="submit" style="background:none;border:0;padding:0;color:#9FC4BA;font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline">Sign out</button>
+      </form>
+    </div>
+  </aside>
+
+  <div class="main">
+    
+    <div class="demo-banner">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      Demo mode — sample data only. ABDM connection: <strong>MOCK</strong> (sandbox approval pending).
+    </div>
+    
+
+    <header class="topbar">
+      <div class="facility">
+        Sunrise Nursing Home
+          <span>· Bulandshahr, Uttar Pradesh</span>
+        
+      </div>
+      <div class="grow"></div>
+      
+    </header>
+
+    <main class="content">
+      
+      
+<div class="page-head">
+  <div class="grow">
+    <h1>Stock</h1>
+    <p>Every quantity is a projection of the append-only ledger — never a number someone typed over.</p>
+  </div>
+</div>
+
+<div class="grid cols-4 mb-2">
+  <div class="stat"><div class="label">Batches</div><div class="value tabular">17</div></div>
+  <div class="stat"><div class="label">Near expiry</div><div class="value tabular">1</div><div class="foot">within 90 days</div></div>
+  <div class="stat"><div class="label">Expired in stock</div><div class="value tabular">1</div><div class="foot">unsaleable</div></div>
+  <div class="stat"><div class="label">Low stock</div><div class="value tabular">1</div><div class="foot">10 or fewer</div></div>
+</div>
+
+
+
+<div class="card">
+  <div class="card-head"><h2>Batches</h2><span class="faint small">MRP is per batch, not per medicine</span></div>
+  <div class="table-wrap">
+    <table class="data">
+      <thead>
+        <tr><th>Medicine</th><th>Batch</th><th>Expiry</th><th class="right">Qty</th>
+            <th class="right">MRP (pack)</th><th class="right">MRP (unit)</th><th>Status</th><th class="right">Adjust</th></tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td><strong>Glycomet 500</strong>
+            <span class="chip danger">Sch. H</span>
+            <div class="faint small">Metformin 500 mg</div></td>
+          <td class="mono small">MET2405</td>
+          <td class="small nowrap">Jul 2026
+            <span class="chip danger">Expired</span>
+            </td>
+          <td class="right tabular">30</td>
+          <td class="right tabular">₹42.00</td>
+          <td class="right tabular">₹2.10</td>
+          <td><span class="chip muted">Saleable</span></td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Pantop 40</strong>
+            <span class="chip danger">Sch. H</span>
+            <div class="faint small">Pantoprazole 40 mg</div></td>
+          <td class="mono small">PAN2411</td>
+          <td class="small nowrap">Oct 2026
+            <span class="chip warn">90d</span></td>
+          <td class="right tabular">50</td>
+          <td class="right tabular">₹112.00</td>
+          <td class="right tabular">₹7.47</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Lantus 100IU</strong>
+            <span class="chip danger">Sch. H</span>
+            <div class="faint small">Insulin glargine 100 IU/ml</div></td>
+          <td class="mono small">INS2505</td>
+          <td class="small nowrap">Feb 2027
+            </td>
+          <td class="right tabular">12</td>
+          <td class="right tabular">₹1420.00</td>
+          <td class="right tabular">₹1420.00</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Azithral 500</strong>
+            <span class="chip danger">Sch. H1</span>
+            <div class="faint small">Azithromycin 500 mg</div></td>
+          <td class="mono small">AZT2412</td>
+          <td class="small nowrap">Feb 2027
+            </td>
+          <td class="right tabular">37</td>
+          <td class="right tabular">₹128.00</td>
+          <td class="right tabular">₹25.60</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Calpol 500</strong>
+            
+            <div class="faint small">Paracetamol 500 mg</div></td>
+          <td class="mono small">PCM2501B</td>
+          <td class="small nowrap">Apr 2027
+            </td>
+          <td class="right tabular">51</td>
+          <td class="right tabular">₹38.50</td>
+          <td class="right tabular">₹2.57</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Septran DS</strong>
+            <span class="chip danger">Sch. H</span>
+            <div class="faint small">Cotrimoxazole 800/160 mg</div></td>
+          <td class="mono small">COT2409</td>
+          <td class="small nowrap">Apr 2027
+            </td>
+          <td class="right tabular">40</td>
+          <td class="right tabular">₹54.00</td>
+          <td class="right tabular">₹5.40</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Monocef 1g</strong>
+            <span class="chip danger">Sch. H1</span>
+            <div class="faint small">Ceftriaxone 1 g</div></td>
+          <td class="mono small">CTR2501</td>
+          <td class="small nowrap">May 2027
+            </td>
+          <td class="right tabular">20</td>
+          <td class="right tabular">₹245.00</td>
+          <td class="right tabular">₹245.00</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Mox 500</strong>
+            <span class="chip danger">Sch. H</span>
+            <div class="faint small">Amoxicillin 500 mg</div></td>
+          <td class="mono small">MOX2408</td>
+          <td class="small nowrap">May 2027
+            </td>
+          <td class="right tabular">80</td>
+          <td class="right tabular">₹94.00</td>
+          <td class="right tabular">₹9.40</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Morcontin 10</strong>
+            <span class="chip danger">Sch. END</span>
+            <div class="faint small">Morphine sulphate 10 mg</div></td>
+          <td class="mono small">MOR2502</td>
+          <td class="small nowrap">May 2027
+            </td>
+          <td class="right tabular">10</td>
+          <td class="right tabular">₹180.00</td>
+          <td class="right tabular">₹18.00</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Brufen 400</strong>
+            
+            <div class="faint small">Ibuprofen 400 mg</div></td>
+          <td class="mono small">IBU2410</td>
+          <td class="small nowrap">Jun 2027
+            </td>
+          <td class="right tabular">50</td>
+          <td class="right tabular">₹36.00</td>
+          <td class="right tabular">₹2.40</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Alprax 0.5</strong>
+            <span class="chip danger">Sch. X</span>
+            <div class="faint small">Alprazolam 0.5 mg</div></td>
+          <td class="mono small">ALP2503</td>
+          <td class="small nowrap">Jul 2027
+            </td>
+          <td class="right tabular">20</td>
+          <td class="right tabular">₹68.00</td>
+          <td class="right tabular">₹6.80</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Amlong 5</strong>
+            <span class="chip danger">Sch. H</span>
+            <div class="faint small">Amlodipine 5 mg</div></td>
+          <td class="mono small">AML2502</td>
+          <td class="small nowrap">Aug 2027
+            </td>
+          <td class="right tabular">60</td>
+          <td class="right tabular">₹58.00</td>
+          <td class="right tabular">₹3.87</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Calpol 500</strong>
+            
+            <div class="faint small">Paracetamol 500 mg</div></td>
+          <td class="mono small">PCM2409A</td>
+          <td class="small nowrap">Sep 2027
+            </td>
+          <td class="right tabular">120</td>
+          <td class="right tabular">₹32.00</td>
+          <td class="right tabular">₹2.13</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Glycomet 500</strong>
+            <span class="chip danger">Sch. H</span>
+            <div class="faint small">Metformin 500 mg</div></td>
+          <td class="mono small">MET2506</td>
+          <td class="small nowrap">Oct 2027
+            </td>
+          <td class="right tabular">70</td>
+          <td class="right tabular">₹44.00</td>
+          <td class="right tabular">₹2.20</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Levocet 5</strong>
+            
+            <div class="faint small">Levocetirizine 5 mg</div></td>
+          <td class="mono small">LVC2503</td>
+          <td class="small nowrap">Dec 2027
+            </td>
+          <td class="right tabular">87</td>
+          <td class="right tabular">₹45.00</td>
+          <td class="right tabular">₹4.50</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Electral</strong>
+            
+            <div class="faint small">Oral rehydration salts 21.8 g</div></td>
+          <td class="mono small">ORS2504</td>
+          <td class="small nowrap">Mar 2028
+            </td>
+          <td class="right tabular">100</td>
+          <td class="right tabular">₹22.00</td>
+          <td class="right tabular">₹22.00</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Dispovan 5ml</strong>
+            
+            <div class="faint small">Disposable syringe 5 ml</div></td>
+          <td class="mono small">SYR2601</td>
+          <td class="small nowrap">Jan 2029
+            </td>
+          <td class="right tabular">200</td>
+          <td class="right tabular">₹9.00</td>
+          <td class="right tabular">₹9.00</td>
+          <td><span class="chip ok">Saleable</span>
+              </td>
+          <td class="right">
+            
+            <form method="post" action="#" class="btn-row" style="justify-content:flex-end;gap:.3rem">
+              <input type="hidden" name="csrfmiddlewaretoken" value="b2pD9OjoaZVrNXDU18AZM0LzvgtjVNCkasFyGJ4ua59bCasovXIEOhiEoRKmL2C4">
+              <input type="number" name="quantity_delta" class="field-input" style="width:5rem" placeholder="±">
+              <select name="reason_code" class="field-input" style="width:8rem">
+                <option value="COUNT_VARIANCE">Count</option>
+                <option value="DAMAGE">Damage</option>
+                <option value="EXPIRY">Expiry</option>
+                <option value="RECALL">Recall</option>
+              </select>
+              <button class="btn subtle" type="submit">Post</button>
+            </form>
+            
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>

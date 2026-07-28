@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Now serving · Sunrise Nursing Home</title>
+
+<style>
+  /* Waiting-room screen: read from across the room, no patient names — only
+     token numbers and the doctor. Dark ground so it sits quietly on a TV. */
+  :root { --bg:#0A1F1A; --panel:#12312A; --line:#1E463C; --ink:#EAF3F0; --accent:#5FD2B0; --dim:#8FB5AB; }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink); min-height:100vh;
+    font-family: system-ui, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+    display:flex; flex-direction:column;
+  }
+  header {
+    padding:1.4rem 2.5rem; border-bottom:1px solid var(--line);
+    display:flex; align-items:baseline; gap:1.2rem;
+  }
+  header h1 { margin:0; font-size:1.9rem; font-weight:650; letter-spacing:-.01em; }
+  header .sub { color:var(--dim); font-size:1.05rem; }
+  header .clock { margin-left:auto; font-size:1.6rem; font-variant-numeric:tabular-nums; color:var(--accent); font-weight:600; }
+  main { flex:1; padding:2rem 2.5rem; display:grid; grid-template-columns: 1.4fr 1fr; gap:2.5rem; }
+  h2 { font-size:1rem; text-transform:uppercase; letter-spacing:.14em; color:var(--dim); margin:0 0 1.2rem; font-weight:700; }
+  .serving { display:grid; gap:1.1rem; }
+  .serving .row {
+    background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    padding:1.6rem 2rem; display:flex; align-items:center; gap:2rem;
+  }
+  .serving .tok { font-size:5rem; font-weight:700; line-height:1; color:var(--accent); font-variant-numeric:tabular-nums; }
+  .serving .doc { font-size:1.6rem; font-weight:600; }
+  .serving .room { color:var(--dim); font-size:1.1rem; margin-top:.2rem; }
+  .waiting { display:flex; flex-wrap:wrap; gap:.7rem; align-content:flex-start; }
+  .waiting .tok {
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:.7rem 1.1rem; font-size:2rem; font-weight:650;
+    font-variant-numeric:tabular-nums; color:var(--ink); min-width:4.2rem; text-align:center;
+  }
+  .none { color:var(--dim); font-size:1.4rem; padding:1.5rem 0; }
+  footer { padding:1rem 2.5rem; border-top:1px solid var(--line); color:var(--dim); font-size:.95rem; display:flex; gap:1rem; }
+  footer .grow { flex:1; }
+  @media (max-width: 900px) { main { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
+padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
+align-items:center;gap:.6rem;flex-wrap:wrap">
+<span style="background:#E8A13D;color:#12211D;padding:.1rem .5rem;border-radius:4px;
+font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
+<span>Waiting-room display — a real page from AGAAEE HIMS, with sample data.</span>
+<span style="flex:1"></span>
+<a href="index.html" style="color:#9FC4BA">← All screens</a>
+<a href="../index.html" style="color:#9FC4BA">agaaee.in</a>
+</div>
+
+<header>
+  <h1>Sunrise Nursing Home</h1>
+  <span class="sub">अब बुलाया जा रहा है · Now serving</span>
+  <span class="clock" id="clock"></span>
+</header>
+
+<div id="board" style="display:contents">
+  <main>
+  <section>
+    <h2>Now serving · अभी</h2>
+    <div class="serving">
+      
+      <div class="none">No token is being served right now.</div>
+      
+    </div>
+  </section>
+
+  <section>
+    <h2>Waiting · प्रतीक्षा में (2)</h2>
+    <div class="waiting">
+      <div class="tok">6</div><div class="tok">7</div>
+    </div>
+  </section>
+</main>
+
+</div>
+
+<footer>
+  <span>कृपया अपनी बारी की प्रतीक्षा करें · Please wait for your token</span>
+  <span class="grow"></span>
+  <span>AGAAEE HIMS</span>
+</footer>
+
+<script>
+  function tick(){ const d=new Date(); document.getElementById('clock').textContent =
+    d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}); }
+  tick(); setInterval(tick, 15000);
+</script>
+</body>
+</html>

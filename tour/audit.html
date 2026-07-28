@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audit trail · AGAAEE HIMS</title>
+<style>/* ===========================================================================
+   AGAAEE HIMS — application shell.
+   A tool, not a document: dense, scannable, keyboard-first. Palette ties to the
+   agaaee.in brand green but desaturated for hours of screen time; state is
+   carried by shape+colour (chips, rails) so it reads at a glance, and semantic
+   colours (ok / warn / danger) are kept separate from the brand accent.
+   =========================================================================== */
+
+:root {
+  --brand:        #0B5E4F;
+  --brand-600:    #0E7462;
+  --brand-050:    #E8F2EF;
+  --ink:          #12211D;
+  --ink-soft:     #5C6E68;
+  --ink-faint:    #8A9A94;
+  --line:         #E2E8E5;
+  --line-strong:  #CBD5D1;
+  --surface:      #FFFFFF;
+  --canvas:       #F5F8F7;
+  --ok:           #1B7F4B;
+  --ok-bg:        #E7F4EC;
+  --warn:         #9A6300;
+  --warn-bg:      #FBF1DC;
+  --danger:       #A8291F;
+  --danger-bg:    #FBEAE8;
+  --info:         #2A5B93;
+  --info-bg:      #E9F0F8;
+  --radius:       9px;
+  --shadow:       0 1px 2px rgba(18, 33, 29, .06), 0 4px 12px rgba(18, 33, 29, .04);
+  --sidebar-w:    232px;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--brand-600); }
+h1, h2, h3 { margin: 0; font-weight: 650; letter-spacing: -0.01em; }
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.1rem; }
+h3 { font-size: .95rem; }
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ---------- shell ---------- */
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: var(--sidebar-w);
+  flex: none;
+  background: var(--brand);
+  color: #DCEAE6;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.sidebar .brand {
+  padding: 1.15rem 1.15rem .9rem;
+  font-weight: 650;
+  letter-spacing: .16em;
+  font-size: 1.05rem;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.sidebar .brand small {
+  display: block; letter-spacing: .04em; font-size: .68rem;
+  font-weight: 500; color: #9FC4BA; margin-top: .15rem;
+}
+.sidebar nav { padding: .7rem .6rem; display: flex; flex-direction: column; gap: 2px; }
+.sidebar nav a {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .5rem .65rem; border-radius: 7px;
+  color: #C8DED8; text-decoration: none; font-size: .92rem; font-weight: 500;
+}
+.sidebar nav a:hover { background: rgba(255,255,255,.08); color: #fff; }
+.sidebar nav a.active { background: rgba(255,255,255,.16); color: #fff; font-weight: 600; }
+.sidebar nav a svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.7; }
+.sidebar .spacer { flex: 1; }
+.sidebar .who {
+  padding: .85rem 1.1rem; border-top: 1px solid rgba(255,255,255,.12);
+  font-size: .82rem; color: #A9C8C0;
+}
+.sidebar .who strong { display: block; color: #fff; font-weight: 600; font-size: .9rem; }
+.sidebar .who a { color: #9FC4BA; font-size: .8rem; }
+
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.topbar {
+  background: var(--surface); border-bottom: 1px solid var(--line);
+  padding: .7rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+  position: sticky; top: 0; z-index: 10;
+}
+.topbar .facility { font-weight: 600; }
+.topbar .facility span { color: var(--ink-faint); font-weight: 400; font-size: .85rem; }
+.topbar .grow { flex: 1; }
+
+.content { padding: 1.5rem; max-width: 1180px; width: 100%; }
+
+/* ---------- demo banner ---------- */
+.demo-banner {
+  background: var(--warn-bg); color: var(--warn);
+  border-bottom: 1px solid #EAD9AE;
+  padding: .4rem 1.5rem; font-size: .82rem; font-weight: 600;
+  display: flex; align-items: center; gap: .5rem;
+}
+
+/* ---------- cards & layout ---------- */
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.card + .card { margin-top: 1rem; }
+.card-head {
+  padding: .85rem 1.1rem; border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: .75rem;
+}
+.card-head h2 { flex: 1; }
+.card-body { padding: 1.1rem; }
+.card-body.tight { padding: .5rem 1.1rem; }
+
+.grid { display: grid; gap: 1rem; }
+.grid.cols-4 { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+.page-head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.1rem; }
+.page-head .grow { flex: 1; }
+.page-head p { margin: .25rem 0 0; color: var(--ink-soft); font-size: .92rem; }
+
+/* ---------- stat tiles ---------- */
+.stat {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: .9rem 1rem; box-shadow: var(--shadow);
+}
+.stat .label {
+  font-size: .74rem; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink-faint); font-weight: 650;
+}
+.stat .value { font-size: 1.9rem; font-weight: 650; line-height: 1.15; margin-top: .2rem; }
+.stat .foot { font-size: .8rem; color: var(--ink-soft); }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: .45rem; justify-content: center;
+  font: inherit; font-weight: 600; font-size: .92rem;
+  padding: .55rem 1.05rem; border-radius: 7px; border: 1px solid transparent;
+  background: var(--brand); color: #fff; cursor: pointer; text-decoration: none;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--brand-600); }
+.btn.secondary { background: var(--surface); color: var(--ink); border-color: var(--line-strong); }
+.btn.secondary:hover { background: var(--canvas); }
+.btn.subtle { background: transparent; color: var(--brand-600); border-color: transparent; padding-inline: .4rem; }
+.btn.subtle:hover { background: var(--brand-050); }
+.btn.danger { background: var(--danger); }
+.btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, button:focus-visible {
+  outline: 2px solid var(--brand-600); outline-offset: 2px;
+}
+.btn-row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+
+/* ---------- forms ---------- */
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .9rem 1.1rem; }
+.form-grid .full { grid-column: 1 / -1; }
+.field label, .field > .lbl {
+  display: block; font-size: .8rem; font-weight: 650; color: var(--ink-soft);
+  margin-bottom: .25rem; letter-spacing: .01em;
+}
+.field-input, .field input[type=text], .field input[type=number], .field input[type=date],
+.field select, .field input[type=password] {
+  width: 100%; font: inherit; padding: .5rem .65rem;
+  border: 1px solid var(--line-strong); border-radius: 7px;
+  background: var(--surface); color: var(--ink);
+}
+.field-input:focus { border-color: var(--brand-600); }
+.field .help { font-size: .78rem; color: var(--ink-faint); margin-top: .2rem; }
+.field .err { font-size: .8rem; color: var(--danger); margin-top: .2rem; font-weight: 600; }
+.field.check { display: flex; align-items: center; gap: .5rem; }
+.field.check label { margin: 0; font-weight: 500; color: var(--ink); font-size: .92rem; }
+.field.check input { width: 17px; height: 17px; accent-color: var(--brand); }
+.fieldset-title {
+  grid-column: 1 / -1; font-size: .74rem; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--ink-faint); font-weight: 700;
+  border-top: 1px solid var(--line); padding-top: .9rem; margin-top: .3rem;
+}
+.fieldset-title:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+
+/* ---------- search ---------- */
+.searchbar { display: flex; gap: .6rem; }
+.searchbar input {
+  flex: 1; font: inherit; font-size: 1.02rem; padding: .7rem .9rem;
+  border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface);
+}
+.searchbar input:focus { border-color: var(--brand-600); outline: 2px solid var(--brand-050); }
+
+/* ---------- tables ---------- */
+table.data { width: 100%; border-collapse: collapse; font-size: .92rem; }
+table.data th {
+  text-align: left; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--ink-faint); font-weight: 700; padding: .5rem .7rem;
+  border-bottom: 1px solid var(--line);
+}
+table.data td { padding: .6rem .7rem; border-bottom: 1px solid var(--line); vertical-align: middle; }
+table.data tr:last-child td { border-bottom: 0; }
+table.data tr.clickable:hover { background: var(--brand-050); cursor: pointer; }
+table.data a.rowlink { color: var(--ink); text-decoration: none; font-weight: 600; }
+table.data a.rowlink:hover { color: var(--brand-600); }
+.table-wrap { overflow-x: auto; }
+
+/* ---------- chips ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: .3rem;
+  font-size: .75rem; font-weight: 650; padding: .16rem .55rem; border-radius: 999px;
+  white-space: nowrap;
+}
+.chip.ok     { background: var(--ok-bg);     color: var(--ok); }
+.chip.warn   { background: var(--warn-bg);   color: var(--warn); }
+.chip.danger { background: var(--danger-bg); color: var(--danger); }
+.chip.info   { background: var(--info-bg);   color: var(--info); }
+.chip.muted  { background: #EEF2F1;          color: var(--ink-soft); }
+.chip .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* ---------- messages ---------- */
+.msg {
+  padding: .7rem 1rem; border-radius: var(--radius); margin-bottom: 1rem;
+  font-weight: 550; font-size: .92rem; border: 1px solid transparent;
+}
+.msg.success { background: var(--ok-bg); color: var(--ok); border-color: #BFE0CC; }
+.msg.error   { background: var(--danger-bg); color: var(--danger); border-color: #EFC9C5; }
+.msg.warning { background: var(--warn-bg); color: var(--warn); border-color: #EAD9AE; }
+.msg.info    { background: var(--info-bg); color: var(--info); border-color: #C9DBEF; }
+
+/* ---------- patient banner ---------- */
+.patient-banner {
+  background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--brand);
+  border-radius: var(--radius); padding: 1rem 1.15rem; box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 1.15rem; flex-wrap: wrap;
+}
+.patient-banner .who h1 { font-size: 1.3rem; }
+.patient-banner .meta { color: var(--ink-soft); font-size: .9rem; margin-top: .15rem; }
+.patient-banner .uhid {
+  font-size: .82rem; font-weight: 700; letter-spacing: .04em;
+  color: var(--brand); background: var(--brand-050);
+  padding: .2rem .55rem; border-radius: 6px;
+}
+.patient-banner .grow { flex: 1; }
+
+/* ---------- duplicate warning ---------- */
+.dup-warning { border: 1px solid #EAD9AE; background: var(--warn-bg); border-radius: var(--radius); padding: 1rem 1.1rem; }
+.dup-warning h3 { color: var(--warn); margin-bottom: .3rem; }
+.dup-warning p { margin: 0 0 .8rem; font-size: .9rem; color: #6D4A08; }
+.dup-list { display: grid; gap: .5rem; }
+.dup-item {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 7px;
+  padding: .6rem .8rem; display: flex; align-items: center; gap: .8rem;
+}
+.dup-item .grow { flex: 1; }
+.dup-item .name { font-weight: 650; }
+.dup-item .meta { font-size: .82rem; color: var(--ink-soft); }
+
+/* ---------- empty state ---------- */
+.empty { text-align: center; padding: 2.4rem 1rem; color: var(--ink-faint); }
+.empty svg { width: 34px; height: 34px; stroke: currentColor; fill: none; stroke-width: 1.4; margin-bottom: .5rem; }
+.empty p { margin: .2rem 0; }
+
+/* ---------- login ---------- */
+.login-page {
+  min-height: 100vh; display: grid; place-items: center;
+  background: linear-gradient(160deg, #0B5E4F 0%, #094437 100%);
+  padding: 1.5rem;
+}
+.login-card {
+  background: var(--surface); border-radius: 14px; padding: 2rem;
+  width: min(400px, 100%); box-shadow: 0 12px 40px rgba(0,0,0,.22);
+}
+.login-card .brand { font-weight: 650; letter-spacing: .17em; font-size: 1.3rem; color: var(--brand); }
+.login-card .tag { color: var(--ink-soft); font-size: .88rem; margin: .2rem 0 1.4rem; }
+.login-card .field { margin-bottom: .9rem; }
+.login-card .btn { width: 100%; padding-block: .65rem; }
+.login-hint {
+  margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--line);
+  font-size: .82rem; color: var(--ink-soft);
+}
+.login-hint code { background: var(--canvas); padding: .1rem .35rem; border-radius: 4px; font-size: .8rem; }
+
+/* ---------- UPI QR ---------- */
+.upi-qr { display: inline-block; padding: 8px; background: #fff; border: 1px solid var(--line); border-radius: 8px; }
+.upi-qr svg { width: 150px; height: 150px; display: block; }
+.upi-qr svg path { fill: var(--ink); }
+
+/* ---------- misc ---------- */
+.mono { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .85em; }
+.muted { color: var(--ink-soft); }
+.faint { color: var(--ink-faint); }
+.small { font-size: .85rem; }
+.right { text-align: right; }
+.nowrap { white-space: nowrap; }
+.mt-1 { margin-top: .5rem; } .mt-2 { margin-top: 1rem; } .mb-2 { margin-bottom: 1rem; }
+
+/* Narrow screens: the sidebar becomes a horizontal strip rather than sliding
+   off-canvas — a hidden nav with no toggle is an unreachable nav, and the front
+   desk may well be on a small laptop or a tablet. */
+@media (max-width: 820px) {
+  .shell { flex-direction: column; }
+  .sidebar {
+    width: 100%; height: auto; position: static;
+    flex-direction: row; align-items: center; overflow-x: auto;
+  }
+  .sidebar .brand {
+    border-bottom: 0; border-right: 1px solid rgba(255,255,255,.12);
+    white-space: nowrap; padding: .75rem 1rem; font-size: .95rem;
+  }
+  .sidebar .brand small { display: none; }
+  .sidebar nav { flex-direction: row; padding: .4rem; gap: .2rem; }
+  .sidebar nav a { white-space: nowrap; padding: .45rem .6rem; }
+  .sidebar .spacer { flex: 1; }
+  .sidebar .who {
+    border-top: 0; padding: .45rem 1rem; white-space: nowrap; font-size: .78rem;
+  }
+  .sidebar .who strong { display: inline; margin-right: .35rem; }
+  .sidebar .who form { display: inline; margin: 0 0 0 .4rem; }
+  .content { padding: 1rem; }
+  .demo-banner { flex-wrap: wrap; padding-inline: 1rem; }
+  .topbar { padding-inline: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B5E4F'/%3E%3Ctext x='32' y='45' font-family='system-ui' font-size='34' font-weight='700' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
+</head>
+<body hx-headers='{"X-CSRFToken": "AqfFBsRZ3aHUFkP0ERTN05vk85kPaAzcmtELBQlKueGCiTKqEhtGoz46NNbslKCC"}'>
+<div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
+padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
+align-items:center;gap:.6rem;flex-wrap:wrap">
+<span style="background:#E8A13D;color:#12211D;padding:.1rem .5rem;border-radius:4px;
+font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
+<span>Audit trail — a real page from AGAAEE HIMS, with sample data.</span>
+<span style="flex:1"></span>
+<a href="index.html" style="color:#9FC4BA">← All screens</a>
+<a href="../index.html" style="color:#9FC4BA">agaaee.in</a>
+</div>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="brand">AGAAEE <small>Hospital Management</small></div>
+    <nav>
+      <a href="dashboard.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/></svg>
+        Dashboard
+      </a>
+      <a href="patients.html" class="">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        Patients
+      </a>
+      
+      <a href="register.html" class="">
+        <svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M3 20c0-3.3 3.1-6 7-6"/><path d="M18 14v6M15 17h6"/></svg>
+        Register patient
+      </a>
+      
+      <a href="opd-queue.html" class="">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        OPD queue
+      </a>
+      
+      <a href="worklist.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M9 3h6v3H9z"/><path d="M6 6h12v15H6z"/><path d="M9 12h6M9 16h4"/></svg>
+        Consultations
+      </a>
+      
+      
+      <a href="ward.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18h18M6 10V7h5v3"/></svg>
+        Ward
+      </a>
+      
+      <a href="pharmacy.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M4 8h16v12H4z"/><path d="M9 8V5h6v3"/><path d="M12 12v4M10 14h4"/></svg>
+        Pharmacy
+      </a>
+      <a href="billing.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>
+        Billing
+      </a>
+      <a href="abdm-outbox.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+        ABDM records
+      </a>
+      <a href="audit.html" class="active">
+        <svg viewBox="0 0 24 24"><path d="M5 3h9l5 5v13H5z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
+        Audit trail
+      </a>
+      
+      <a href="#" data-inert="1" class="">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M22 12h-3M5 12H2M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7 5.6 5.6"/></svg>
+        Facility
+      </a>
+      
+    </nav>
+    <div class="spacer"></div>
+    <div class="who">
+      <strong>Dr. Meena Verma</strong>
+      Owner / Administrator
+      <form method="post" action="#" style="margin-top:.35rem">
+        <input type="hidden" name="csrfmiddlewaretoken" value="AqfFBsRZ3aHUFkP0ERTN05vk85kPaAzcmtELBQlKueGCiTKqEhtGoz46NNbslKCC">
+        <button type="submit" style="background:none;border:0;padding:0;color:#9FC4BA;font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline">Sign out</button>
+      </form>
+    </div>
+  </aside>
+
+  <div class="main">
+    
+    <div class="demo-banner">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      Demo mode — sample data only. ABDM connection: <strong>MOCK</strong> (sandbox approval pending).
+    </div>
+    
+
+    <header class="topbar">
+      <div class="facility">
+        Sunrise Nursing Home
+          <span>· Bulandshahr, Uttar Pradesh</span>
+        
+      </div>
+      <div class="grow"></div>
+      
+    </header>
+
+    <main class="content">
+      
+      
+<div class="page-head">
+  <div class="grow">
+    <h1>Audit trail</h1>
+    <p>Append-only record of who did what, when. Rows can never be edited or deleted —
+       a correction is always a new row.</p>
+  </div>
+</div>
+
+<div class="grid cols-4 mb-2">
+  
+  <div class="stat">
+    <div class="label">CREATE</div>
+    <div class="value tabular">40</div>
+  </div>
+  
+  <div class="stat">
+    <div class="label">PRINT</div>
+    <div class="value tabular">26</div>
+  </div>
+  
+  <div class="stat">
+    <div class="label">EXPORT</div>
+    <div class="value tabular">7</div>
+  </div>
+  
+  <div class="stat">
+    <div class="label">LOGIN</div>
+    <div class="value tabular">3</div>
+  </div>
+  
+  <div class="stat">
+    <div class="label">UPDATE</div>
+    <div class="value tabular">1</div>
+  </div>
+  
+</div>
+
+<div class="card">
+  <div class="card-head"><h2>Recent activity</h2><span class="faint small">latest 200 events</span></div>
+  
+  <div class="table-wrap">
+    <table class="data">
+      <thead>
+        <tr><th>When</th><th>Who</th><th>Action</th><th>Record</th><th>Detail</th><th>Hash</th></tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:41:35</td>
+          <td class="nowrap">Dr. Meena Verma</td>
+          <td><span class="chip muted">Signed in</span></td>
+          <td class="small muted">user</td>
+          <td class="small">Signed in</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="6382deb80b7b8dd8a9f737268f4b31cc60f430ab00f2f94757b4c43478b25978">6382deb80b…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="fe220adee4a6b69c440c3623e593513e046b4f704f23435a351cf23527d592a6">fe220adee4…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="34febb869b354f20f1d028c925f369f05e899556c44cad3b8c89ffc58fc2672c">34febb869b…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Ramesh Gupta</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">dispense</td>
+          <td class="small">Dispensed 3 item(s) · invoice PHR/2627/00001</td>
+          <td class="mono faint small nowrap" title="f7a158ef026ae8fab239fb54555e52f9e2d44c924af0f3f9bcaeca32afc36e10">f7a158ef02…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00002</td>
+          <td class="mono faint small nowrap" title="962357625df8ac0cc6badf4f007d685249697cdf2d3f8eb8fa1c37fcef801863">962357625d…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00002 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="719a75d3f65a99dafc36eb813a2a8971d57598235ac7308d93bbcd190e904efd">719a75d3f6…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00001</td>
+          <td class="mono faint small nowrap" title="70349f45dc7c4c6f9376a9265c478de45560bcf2563aded417586547374c4900">70349f45dc…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="81356d1df4ac12c222e4aa5a549320c1180d3d32d88ba44bf82ec1de25bad371">81356d1df4…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Vinod Rastogi</td>
+          <td class="mono faint small nowrap" title="0b652561fc1bdf7808102176c197894425c34664f18c0c275ed29c6db588fe5b">0b652561fc…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Geeta Tyagi</td>
+          <td class="mono faint small nowrap" title="57672a1fabb931461962292968273cdd5918581120e3a750eb953fbbf6f0f6ac">57672a1fab…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Kavita Singh</td>
+          <td class="mono faint small nowrap" title="f40df61713f12364e52c52af39805f0ad2110a4c5683e13aaa7e877643b14538">f40df61713…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:39:59</td>
+          <td class="nowrap">system</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">seed</td>
+          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 9 printed</td>
+          <td class="mono faint small nowrap" title="a58ef0e18cb420ea7989b76b71774f7ceb5093d372fb5f940b59120dd4e73a64">a58ef0e18c…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Scan &amp; Share arrival (simulated) · token 9</td>
+          <td class="mono faint small nowrap" title="a58ef0e18cb420ea7989b76b71774f7ceb5093d372fb5f940b59120dd4e73a64">a58ef0e18c…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">bridgeoutboxentry</td>
+          <td class="small">FHIR bundle downloaded (Prescription)</td>
+          <td class="mono faint small nowrap" title="d05bf39f69831fe4b718a23f93e30344ad9762c286bda9c6f9b665b6747fb7a2">d05bf39f69…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="057fb72df261b88c6b3766841099f924af2805761235e567529900c8252acbbb">057fb72df2…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip info">Updated</span></td>
+          <td class="small muted">patient</td>
+          <td class="small">ABHA verified (simulated)</td>
+          <td class="mono faint small nowrap" title="a62db252494e821d731b6625523c77b22cd3dc78541326450fd38f25ac057501">a62db25249…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Ramesh Gupta</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">dispense</td>
+          <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00001</td>
+          <td class="mono faint small nowrap" title="d2d393515b7fc2461a76c5fc68e6d5083455c52fa4a6e592a279f6aaa15970ac">d2d393515b…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00001 printed</td>
+          <td class="mono faint small nowrap" title="2b088078d74fcaa26e72c7776edd69eb7444a695e31e922458339e3e27fbe9e7">2b088078d7…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00001</td>
+          <td class="mono faint small nowrap" title="4187c1f4d0f7ec85570388dfb69a019d7bf213a318a8b32c9dcc788529407e70">4187c1f4d0…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="2b088078d74fcaa26e72c7776edd69eb7444a695e31e922458339e3e27fbe9e7">2b088078d7…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="4267cde987d4d0163415c5a4b78b8edda1a1e7a64405ff9129b248d1970bd42b">4267cde987…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="4267cde987d4d0163415c5a4b78b8edda1a1e7a64405ff9129b248d1970bd42b">4267cde987…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="4267cde987d4d0163415c5a4b78b8edda1a1e7a64405ff9129b248d1970bd42b">4267cde987…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="bf453e72b52316986946b331f721f00e9b4bcb06d57ce40b75010a1354f2def4">bf453e72b5…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="bf453e72b52316986946b331f721f00e9b4bcb06d57ce40b75010a1354f2def4">bf453e72b5…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 issued to Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="bf453e72b52316986946b331f721f00e9b4bcb06d57ce40b75010a1354f2def4">bf453e72b5…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:38:32</td>
+          <td class="nowrap">system</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">seed</td>
+          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 9 printed</td>
+          <td class="mono faint small nowrap" title="fd38362afa24fa90d8ede239049e5ae20e37724b702d1ba8e790aa36c87bfbb7">fd38362afa…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Scan &amp; Share arrival (simulated) · token 9</td>
+          <td class="mono faint small nowrap" title="fd38362afa24fa90d8ede239049e5ae20e37724b702d1ba8e790aa36c87bfbb7">fd38362afa…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">bridgeoutboxentry</td>
+          <td class="small">FHIR bundle downloaded (Prescription)</td>
+          <td class="mono faint small nowrap" title="216ec361756900b0d1e77f32ec4d70ed9bdc46ff75dee5d4993c3a7dfedf0a1b">216ec36175…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="2dedf4b29d95629e48894b50d31d1da12e9fd781f2acbec37636407e863b2709">2dedf4b29d…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap">Ramesh Gupta</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">dispense</td>
+          <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00001</td>
+          <td class="mono faint small nowrap" title="d007161f529da92ed5882b0404edcfe6e5005cd48d6f18409d5c2d1eebb8fa9f">d007161f52…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00001 printed</td>
+          <td class="mono faint small nowrap" title="58d794356169a7ccb340d5b06953bf50df9ed247a38ff331c14599a214a3f13d">58d7943561…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00001</td>
+          <td class="mono faint small nowrap" title="4a9925da9f3e846755e3c2f7b820cb325e56ac2c7d692a7a2268d5f296c46691">4a9925da9f…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="58d794356169a7ccb340d5b06953bf50df9ed247a38ff331c14599a214a3f13d">58d7943561…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:50</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="14963e2b1dbf508cc832db13ea69128c2d9cfa7b4e68caabcfd4af49e8c6fb14">14963e2b1d…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:50</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="14963e2b1dbf508cc832db13ea69128c2d9cfa7b4e68caabcfd4af49e8c6fb14">14963e2b1d…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:50</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="14963e2b1dbf508cc832db13ea69128c2d9cfa7b4e68caabcfd4af49e8c6fb14">14963e2b1d…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:50</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="7861b1533752eb4d5e81dd99ee1a8bc5fae170e94f38e87b6ca3f1593be250a6">7861b15337…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:50</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="7861b1533752eb4d5e81dd99ee1a8bc5fae170e94f38e87b6ca3f1593be250a6">7861b15337…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:50</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 issued to Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="7861b1533752eb4d5e81dd99ee1a8bc5fae170e94f38e87b6ca3f1593be250a6">7861b15337…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:37:49</td>
+          <td class="nowrap">system</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">seed</td>
+          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:32</td>
+          <td class="nowrap">Ramesh Gupta</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">dispense</td>
+          <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00001</td>
+          <td class="mono faint small nowrap" title="a064328b0fbfc58c00cc7cc808374d9c547ef1eaa61dd0f1f3c0514343a6a7e5">a064328b0f…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:32</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00001 printed</td>
+          <td class="mono faint small nowrap" title="eadac266dc8c98169c3362c54e3de24a86c31195c9267d75ea35b6c534cf020c">eadac266dc…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:32</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00001</td>
+          <td class="mono faint small nowrap" title="39f453954cda9ac1b126673fdd7e09c95d200885b8756f3b16c940fc592f7976">39f453954c…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:32</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="eadac266dc8c98169c3362c54e3de24a86c31195c9267d75ea35b6c534cf020c">eadac266dc…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:31</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Vinod Tyagi</td>
+          <td class="mono faint small nowrap" title="6effa3a4b07c15d81fc274dc2dff4546d3d3cae48fa9d609c485dbc89e758638">6effa3a4b0…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:31</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Vinod Tyagi</td>
+          <td class="mono faint small nowrap" title="6effa3a4b07c15d81fc274dc2dff4546d3d3cae48fa9d609c485dbc89e758638">6effa3a4b0…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:31</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Vinod Tyagi</td>
+          <td class="mono faint small nowrap" title="6effa3a4b07c15d81fc274dc2dff4546d3d3cae48fa9d609c485dbc89e758638">6effa3a4b0…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:31</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="a2cff3dc8df7a0f4e44c7d8789c06036abc67918bd30c7cb6e5d9bdbab05f224">a2cff3dc8d…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:31</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="a2cff3dc8df7a0f4e44c7d8789c06036abc67918bd30c7cb6e5d9bdbab05f224">a2cff3dc8d…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:31</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 issued to Vinod Tyagi</td>
+          <td class="mono faint small nowrap" title="a2cff3dc8df7a0f4e44c7d8789c06036abc67918bd30c7cb6e5d9bdbab05f224">a2cff3dc8d…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:30:30</td>
+          <td class="nowrap">system</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">seed</td>
+          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:26:09</td>
+          <td class="nowrap">system</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">seed</td>
+          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:19:22</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Signed in</span></td>
+          <td class="small muted">user</td>
+          <td class="small">Signed in</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00002 printed</td>
+          <td class="mono faint small nowrap" title="24ff61fd11c4e21616955a1d8e565665faf9cecd3e58a1ec6947184ce4182aad">24ff61fd11…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00002</td>
+          <td class="mono faint small nowrap" title="a23836ed9d276218d35e37c460cf7e8279cab0842ecbacef5948cc78ed52bc8b">a23836ed9d…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00002 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="24ff61fd11c4e21616955a1d8e565665faf9cecd3e58a1ec6947184ce4182aad">24ff61fd11…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Vinod Tyagi</td>
+          <td class="mono faint small nowrap" title="75a397f28034be236c7df4baf6ae84b62fb8cfbdce2304ac7cc994f3ff12c605">75a397f280…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Vinod Tyagi</td>
+          <td class="mono faint small nowrap" title="75a397f28034be236c7df4baf6ae84b62fb8cfbdce2304ac7cc994f3ff12c605">75a397f280…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Vinod Tyagi</td>
+          <td class="mono faint small nowrap" title="75a397f28034be236c7df4baf6ae84b62fb8cfbdce2304ac7cc994f3ff12c605">75a397f280…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 9 printed</td>
+          <td class="mono faint small nowrap" title="159dae93795ed549aeebb2fe881762c13396ef052d5e8d9fc6546ce4d466262f">159dae9379…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 9 printed</td>
+          <td class="mono faint small nowrap" title="159dae93795ed549aeebb2fe881762c13396ef052d5e8d9fc6546ce4d466262f">159dae9379…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 9 issued to Vinod Tyagi</td>
+          <td class="mono faint small nowrap" title="159dae93795ed549aeebb2fe881762c13396ef052d5e8d9fc6546ce4d466262f">159dae9379…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:41</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="5569a75919ecdbc677f9b00c3f67508cbc11892301d1871c25100aec233b6eda">5569a75919…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:41</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="2cc964c5bb67455475ba6a314625df9f3a57f5b7ddb11b06c8035991992993a5">2cc964c5bb…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:41</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="2cc964c5bb67455475ba6a314625df9f3a57f5b7ddb11b06c8035991992993a5">2cc964c5bb…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:41</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="2cc964c5bb67455475ba6a314625df9f3a57f5b7ddb11b06c8035991992993a5">2cc964c5bb…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:41</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="1cc5637fdd69f79232f0d87d3350d77b49f43dbaf8d23699a8fc0c4f8ce91d38">1cc5637fdd…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:41</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="1cc5637fdd69f79232f0d87d3350d77b49f43dbaf8d23699a8fc0c4f8ce91d38">1cc5637fdd…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:18:41</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 issued to Priya Tyagi</td>
+          <td class="mono faint small nowrap" title="1cc5637fdd69f79232f0d87d3350d77b49f43dbaf8d23699a8fc0c4f8ce91d38">1cc5637fdd…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 18:14:18</td>
+          <td class="nowrap">system</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">seed</td>
+          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 16:55:55</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">patient</td>
+          <td class="small">Registered Ramesh Chandra Sharma (BLD-000050)</td>
+          <td class="mono faint small nowrap" title="e8b1db763243579382cd4dbb2a72ac9ed2ac731925c1e7892757774c9627f87b">e8b1db7632…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 16:51:56</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Signed in</span></td>
+          <td class="small muted">user</td>
+          <td class="small">Signed in</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">28 Jul 16:50:42</td>
+          <td class="nowrap">system</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">seed</td>
+          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+</div>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>
