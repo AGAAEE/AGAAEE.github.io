@@ -472,6 +472,100 @@ h3 { font-size: .95rem; }
 .shortcut-hint .k { font-family: ui-monospace, Consolas, monospace; font-weight: 700; }
 .shortcut-hint .x { font-weight: 600; }
 
+/* ---------- the cashless clock ----------
+   The countdown IS the feature. It has to be readable across a desk, and a
+   breach has to be impossible to mistake for anything else. */
+.chip.clock { font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.chip.clock.big { font-size: 1rem; padding: .3rem .8rem; }
+.kvrow {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding: .35rem 0; border-bottom: 1px solid var(--line);
+}
+.kvrow:last-of-type { border-bottom: 0; }
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.timeline li {
+  display: grid; gap: .1rem; padding-left: .8rem;
+  border-left: 2px solid var(--line-strong);
+}
+.timeline .t-when { font-size: .74rem; color: var(--ink-faint); font-weight: 700; }
+.timeline .t-what { font-size: .9rem; }
+
+/* ---------- connection strip ----------
+   The failure mode being avoided is SILENCE: staff who cannot tell whether
+   their work reached the server stop trusting the software, and a receptionist
+   who re-registers a patient "just in case" creates the duplicate the MPI
+   exists to prevent. Fixed to the bottom so it never covers a form field. */
+.netbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  padding: .55rem 1rem; font-size: .85rem; font-weight: 600; text-align: center;
+  border-top: 1px solid transparent;
+}
+.netbar.off     { background: var(--warn-bg);   color: var(--warn);   border-color: var(--warn-line); }
+.netbar.waiting { background: var(--info-bg);   color: var(--info);   border-color: var(--info-line); }
+.netbar.ok      { background: var(--ok-bg);     color: var(--ok);     border-color: var(--ok-line); }
+
+/* ---------- nursing ----------
+   Ward screens are used on a phone, held in one hand, standing up. Cards, big
+   targets, no horizontal tables. */
+.bed-grid { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+.bed-card.attention, .dose-card.attention { border-left: 4px solid var(--warn); }
+.bed-top { display: flex; align-items: flex-start; gap: .6rem; justify-content: space-between; }
+.bed-vitals { margin-top: .5rem; font-variant-numeric: tabular-nums; font-size: .92rem; }
+.vitals-grid { display: grid; gap: .7rem .9rem; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.vitals-grid .field-input { font-size: 1.15rem; padding: .55rem .6rem; }
+.dose-card { margin-top: .7rem; }
+.dose-actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin-top: .6rem; }
+.dose-reason { flex: 1 1 180px; min-width: 150px; }
+
+/* The nurse handoff card inside the doctor's screen. Tinted so it is instantly
+   obvious that someone else wrote this. */
+.nurse-card {
+  background: var(--info-bg); border: 1px solid var(--info-line);
+  border-left: 4px solid var(--info); border-radius: var(--radius);
+  padding: .7rem .8rem; display: grid; gap: .45rem;
+}
+.nurse-card-head { display: flex; gap: .6rem; align-items: baseline; flex-wrap: wrap; }
+.nurse-round {
+  font: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: grid; gap: .15rem; padding: .5rem .65rem; border-radius: 8px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--info-line);
+}
+.nurse-round:hover { border-color: var(--info); }
+.nurse-round.used { opacity: .6; }
+.nurse-round .nr-when { font-size: .72rem; color: var(--ink-faint); font-weight: 700; }
+.nurse-round .nr-line { font-variant-numeric: tabular-nums; font-size: .92rem; }
+.nurse-round .nr-note { font-size: .85rem; color: var(--ink-soft); font-style: italic; }
+.nurse-round .nr-who { font-size: .75rem; color: var(--ink-faint); }
+
+/* ---------- the guide ---------- */
+.guide-toc { display: flex; flex-wrap: wrap; gap: .4rem; }
+.guide-toc a {
+  font-size: .85rem; font-weight: 600; text-decoration: none;
+  padding: .3rem .7rem; border-radius: 999px;
+  background: var(--surface-2); color: var(--ink); border: 1px solid var(--line);
+}
+.guide-toc a:hover { background: var(--brand-050); border-color: var(--brand-600); color: var(--brand-600); }
+.guide-h { margin: 1.8rem 0 0; font-size: 1.25rem; scroll-margin-top: 4.5rem; }
+.guide-entry { margin-top: .7rem; }
+.guide-entry .card-head h2 { font-size: 1rem; }
+.guide-what { margin: 0 0 .6rem; }
+.guide-why, .guide-try { margin: .6rem 0 0; }
+.guide-why .lbl, .guide-try .lbl {
+  display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink-faint); font-weight: 700; margin-bottom: .15rem;
+}
+.guide-why { color: var(--ink-soft); }
+.guide-try {
+  background: var(--brand-050); border-left: 3px solid var(--brand-600);
+  border-radius: 0 8px 8px 0; padding: .55rem .8rem;
+}
+.guide-try ol { margin: .2rem 0 0; padding-left: 1.1rem; }
+.guide-try li { margin: .2rem 0; }
+.guide-entry code {
+  font-family: ui-monospace, Consolas, monospace; font-size: .85em;
+  background: var(--surface-2); padding: .05rem .3rem; border-radius: 4px;
+}
+
 /* ---------- search ---------- */
 .searchbar { display: flex; gap: .6rem; }
 .searchbar input {
@@ -620,8 +714,10 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 <script src="/static/js/hindi-input.js" defer></script>
 
 <script src="/static/js/shortcuts.js" defer></script>
+
+<script src="/static/js/offline.js" defer></script>
 </head>
-<body hx-headers='{"X-CSRFToken": "Z0rIqM4Qx4JYFqc0O2VkaByP2WVGvL2UJIZ52rMJ1DsU6eFTvWaOWodeTvMq6AuV"}'>
+<body hx-headers='{"X-CSRFToken": "u8ER7w48Bj0z4cHMX5hYug1DtZAJC2CXHyOVl9fomMTQ0SLTEOtPPsRtPw0ZhjSe"}'>
 <div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
 padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
 align-items:center;gap:.6rem;flex-wrap:wrap">
@@ -676,6 +772,10 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Ward
       </a>
       
+      <a href="rounds.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-9.5A3.5 3.5 0 0 1 12 9a3.5 3.5 0 0 1 7 2.5c0 5-7 9.5-7 9.5z"/><path d="M12 3v3M10.5 4.5h3"/></svg>
+        Rounds
+      </a>
       <a href="lab.html" class="">
         <svg viewBox="0 0 24 24"><path d="M9 3v7L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L15 10V3"/><path d="M8 3h8M7.5 14h9"/></svg>
         Lab
@@ -683,6 +783,10 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <a href="pharmacy.html" class="">
         <svg viewBox="0 0 24 24"><path d="M4 8h16v12H4z"/><path d="M9 8V5h6v3"/><path d="M12 12v4M10 14h4"/></svg>
         Pharmacy
+      </a>
+      <a href="claims.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6z"/><path d="M12 8v4l2.5 1.5"/></svg>
+        Cashless desk
       </a>
       <a href="billing.html" class="">
         <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>
@@ -693,6 +797,12 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Messages
       </a>
       
+      <a href="payouts.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5.5c0-1.4-2.2-2.5-5-2.5s-5 1.1-5 2.5S9.2 8 12 8s5 1.1 5 2.5-2.2 2.5-5 2.5-5-1.1-5-2.5"/></svg>
+        Doctor payouts
+      </a>
+      
+      
       <a href="day-close.html" class="">
         <svg viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M6 20V10M11 20V4M16 20v-7"/></svg>
         Day close
@@ -701,6 +811,14 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <a href="abdm-outbox.html" class="">
         <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
         ABDM records
+      </a>
+      <a href="registers.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M4 4h13a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2z"/><path d="M8 8h7M8 12h7M8 16h4"/></svg>
+        Registers
+      </a>
+      <a href="#" data-inert="1" class="">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.2 2.4c-.6.2-1 .8-1 1.4v.4"/><path d="M12 17h.01"/></svg>
+        Guide — what is all this?
       </a>
       <a href="audit.html" class="active">
         <svg viewBox="0 0 24 24"><path d="M5 3h9l5 5v13H5z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
@@ -718,7 +836,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <strong>Dr. Meena Verma</strong>
       Owner / Administrator
       <form method="post" action="#" style="margin-top:.35rem">
-        <input type="hidden" name="csrfmiddlewaretoken" value="Z0rIqM4Qx4JYFqc0O2VkaByP2WVGvL2UJIZ52rMJ1DsU6eFTvWaOWodeTvMq6AuV">
+        <input type="hidden" name="csrfmiddlewaretoken" value="u8ER7w48Bj0z4cHMX5hYug1DtZAJC2CXHyOVl9fomMTQ0SLTEOtPPsRtPw0ZhjSe">
         <button type="submit" style="background:none;border:0;padding:0;color:#9FC4BA;font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline">Sign out</button>
       </form>
     </div>
@@ -752,7 +870,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Theme</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="Z0rIqM4Qx4JYFqc0O2VkaByP2WVGvL2UJIZ52rMJ1DsU6eFTvWaOWodeTvMq6AuV">
+      <input type="hidden" name="csrfmiddlewaretoken" value="u8ER7w48Bj0z4cHMX5hYug1DtZAJC2CXHyOVl9fomMTQ0SLTEOtPPsRtPw0ZhjSe">
       <input type="hidden" name="next" value="/audit/">
       <button name="theme" value="auto" class="opt on">
         Follow this computer <span class="tick">✓</span>
@@ -768,7 +886,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Text size</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="Z0rIqM4Qx4JYFqc0O2VkaByP2WVGvL2UJIZ52rMJ1DsU6eFTvWaOWodeTvMq6AuV">
+      <input type="hidden" name="csrfmiddlewaretoken" value="u8ER7w48Bj0z4cHMX5hYug1DtZAJC2CXHyOVl9fomMTQ0SLTEOtPPsRtPw0ZhjSe">
       <input type="hidden" name="next" value="/audit/">
       <button name="text_size" value="normal" class="opt on">
         Normal <span class="tick">✓</span>
@@ -805,27 +923,27 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
   
   <div class="stat">
     <div class="label">CREATE</div>
-    <div class="value tabular">100</div>
+    <div class="value tabular">236</div>
   </div>
   
   <div class="stat">
     <div class="label">PRINT</div>
-    <div class="value tabular">57</div>
+    <div class="value tabular">121</div>
   </div>
   
   <div class="stat">
     <div class="label">EXPORT</div>
-    <div class="value tabular">27</div>
-  </div>
-  
-  <div class="stat">
-    <div class="label">LOGIN</div>
-    <div class="value tabular">7</div>
+    <div class="value tabular">70</div>
   </div>
   
   <div class="stat">
     <div class="label">UPDATE</div>
-    <div class="value tabular">5</div>
+    <div class="value tabular">15</div>
+  </div>
+  
+  <div class="stat">
+    <div class="label">LOGIN</div>
+    <div class="value tabular">11</div>
   </div>
   
 </div>
@@ -841,277 +959,709 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <tbody>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:38</td>
+          <td class="nowrap tabular small">29 Jul 19:27:53</td>
           <td class="nowrap">Dr. Meena Verma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="9c8dc97df4855d42ce836aa955824bbd0b6f28687c787bc0f3b422ea45e69a30">9c8dc97df4…</td>
+          <td class="small">Prescription printed · Mohan Lal Tomar</td>
+          <td class="mono faint small nowrap" title="7c030b17a38869ffb417d0f156e41772da428018b78125c3f1331eb932d16480">7c030b17a3…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:27:53</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Token 9 printed</td>
-          <td class="mono faint small nowrap" title="cdba646122fe4ff57a611f4367719d870fae72ed962decd52db5d21aab1ae76e">cdba646122…</td>
+          <td class="small">Token 15 printed</td>
+          <td class="mono faint small nowrap" title="9103aaf3a044b6e9b2a0d31fe99292354a795855b8143f3e5090d0598b512362">9103aaf3a0…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:27:53</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Scan &amp; Share arrival (simulated) · token 9</td>
-          <td class="mono faint small nowrap" title="cdba646122fe4ff57a611f4367719d870fae72ed962decd52db5d21aab1ae76e">cdba646122…</td>
+          <td class="small">Scan &amp; Share arrival (simulated) · token 15</td>
+          <td class="mono faint small nowrap" title="9103aaf3a044b6e9b2a0d31fe99292354a795855b8143f3e5090d0598b512362">9103aaf3a0…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:27:53</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">bridgeoutboxentry</td>
           <td class="small">FHIR bundle downloaded (Prescription)</td>
-          <td class="mono faint small nowrap" title="1b380fdec4ce4977bc4c9d0689c7d4ab72543a1034e8eff6ea7405801ba073ce">1b380fdec4…</td>
+          <td class="mono faint small nowrap" title="3953c40b423dfbd67ada88094a27d35ef8180e40bf617e58d4c87a216dbdf498">3953c40b42…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:27:53</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="cc0bae3309b8e60cb4fca0ab1adbc496e47f24b9ce8e8796fde569aae3c2347f">cc0bae3309…</td>
+          <td class="mono faint small nowrap" title="4bfcce43a747c56614d48c6a2d6141f35ede70479da329427e08c0d0b24d1c0a">4bfcce43a7…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:27:53</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip info">Updated</span></td>
           <td class="small muted">patient</td>
           <td class="small">ABHA verified (simulated)</td>
-          <td class="mono faint small nowrap" title="5a39bdeb572a48f7f714856cb77af69b7c570f4ce3a72c340c3994cea65238cb">5a39bdeb57…</td>
+          <td class="mono faint small nowrap" title="8b5c0414e43f3a697cc65a0af0d025a3230ed619799e2dd6543735e2d3f5cc9c">8b5c0414e4…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:27:53</td>
+          <td class="nowrap">Ramesh Gupta</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">dispense</td>
+          <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00005</td>
+          <td class="mono faint small nowrap" title="beffd99d77ae942f33c1174fb7c57ccfbcdb8872096046ee081143072865b4d6">beffd99d77…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:52</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00006 printed</td>
+          <td class="mono faint small nowrap" title="38dce632cfa03c76d97cb6db5ef5c6d60414ff9e98c3809ef6d98dbfd1e9840c">38dce632cf…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:52</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00006</td>
+          <td class="mono faint small nowrap" title="10d5545d99cd90dfa000a47a91dd57b74996dcdb1aa1f06409980e883f6f1166">10d5545d99…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:52</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00006 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="38dce632cfa03c76d97cb6db5ef5c6d60414ff9e98c3809ef6d98dbfd1e9840c">38dce632cf…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:52</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Mohan Lal Tomar</td>
+          <td class="mono faint small nowrap" title="7c030b17a38869ffb417d0f156e41772da428018b78125c3f1331eb932d16480">7c030b17a3…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:52</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Mohan Lal Tomar</td>
+          <td class="mono faint small nowrap" title="7c030b17a38869ffb417d0f156e41772da428018b78125c3f1331eb932d16480">7c030b17a3…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:52</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Mohan Lal Tomar</td>
+          <td class="mono faint small nowrap" title="7c030b17a38869ffb417d0f156e41772da428018b78125c3f1331eb932d16480">7c030b17a3…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:52</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 14 printed</td>
+          <td class="mono faint small nowrap" title="30bad52d131da20b8b768a04d292087e61b6d00addb6771db2e5ce35c9aee770">30bad52d13…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:52</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 14 printed</td>
+          <td class="mono faint small nowrap" title="30bad52d131da20b8b768a04d292087e61b6d00addb6771db2e5ce35c9aee770">30bad52d13…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:52</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 14 issued to Mohan Lal Tomar</td>
+          <td class="mono faint small nowrap" title="30bad52d131da20b8b768a04d292087e61b6d00addb6771db2e5ce35c9aee770">30bad52d13…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:40</td>
+          <td class="nowrap">Dr. Meena Verma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Kamla Devi W/O Mohan Lal</td>
+          <td class="mono faint small nowrap" title="c5d43b5f791fc932207f55ccf1320ff56ad0800ae435840d17652037d1f173e1">c5d43b5f79…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:40</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 13 printed</td>
+          <td class="mono faint small nowrap" title="8ab05c1ae0900241ae2eedffbfbc1c774bc6da6a9f5aa613c3a0e9e8ea65bac0">8ab05c1ae0…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:40</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Scan &amp; Share arrival (simulated) · token 13</td>
+          <td class="mono faint small nowrap" title="8ab05c1ae0900241ae2eedffbfbc1c774bc6da6a9f5aa613c3a0e9e8ea65bac0">8ab05c1ae0…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:40</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">bridgeoutboxentry</td>
+          <td class="small">FHIR bundle downloaded (Prescription)</td>
+          <td class="mono faint small nowrap" title="4dbef1e45b6d87bf9ee6b042f66e12138b4cb9d4399dcc098ad96efe87f8088e">4dbef1e45b…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:40</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="9e2bd9a7578b973752ebe580425490825dd4f469254868039bf1b364753a05df">9e2bd9a757…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip info">Updated</span></td>
+          <td class="small muted">patient</td>
+          <td class="small">ABHA verified (simulated)</td>
+          <td class="mono faint small nowrap" title="9b554a1b647b27a952943328762e91db668ea87c60c79dcdf3c1929613507290">9b554a1b64…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Ramesh Gupta</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">dispense</td>
+          <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00004</td>
+          <td class="mono faint small nowrap" title="d4576390169cc0d88b52dd7bae0b551d33efae1187d4ab1765ee9ea46f0aa41a">d457639016…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00005 printed</td>
+          <td class="mono faint small nowrap" title="10da5fd0bc0cd193fa2c3c9e4af926c74994d6b585b1dca5bf0a8f1b2e9928b6">10da5fd0bc…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00005</td>
+          <td class="mono faint small nowrap" title="f41c09f9d9e425549c6141605ed0cc0755cb3bc6ba1d70ddcb53027e13ca1a78">f41c09f9d9…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00005 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="10da5fd0bc0cd193fa2c3c9e4af926c74994d6b585b1dca5bf0a8f1b2e9928b6">10da5fd0bc…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Kamla Devi W/O Mohan Lal</td>
+          <td class="mono faint small nowrap" title="c5d43b5f791fc932207f55ccf1320ff56ad0800ae435840d17652037d1f173e1">c5d43b5f79…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Kamla Devi W/O Mohan Lal</td>
+          <td class="mono faint small nowrap" title="c5d43b5f791fc932207f55ccf1320ff56ad0800ae435840d17652037d1f173e1">c5d43b5f79…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Kamla Devi W/O Mohan Lal</td>
+          <td class="mono faint small nowrap" title="c5d43b5f791fc932207f55ccf1320ff56ad0800ae435840d17652037d1f173e1">c5d43b5f79…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 12 printed</td>
+          <td class="mono faint small nowrap" title="6733186e18b003a965dec34cf1e21ac835b00c235197e09016892f85e66b5408">6733186e18…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 12 printed</td>
+          <td class="mono faint small nowrap" title="6733186e18b003a965dec34cf1e21ac835b00c235197e09016892f85e66b5408">6733186e18…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:27:39</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 12 issued to Kamla Devi W/O Mohan Lal</td>
+          <td class="mono faint small nowrap" title="6733186e18b003a965dec34cf1e21ac835b00c235197e09016892f85e66b5408">6733186e18…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:45</td>
+          <td class="nowrap">Dr. Meena Verma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · सीता देवी</td>
+          <td class="mono faint small nowrap" title="390d684716e3c4d9d0800b8635c8967319d94befd88eb029e733c0073f47a192">390d684716…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:45</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 11 printed</td>
+          <td class="mono faint small nowrap" title="6dc6315a3f917ea58e0a7d12bed5ab69bb80acb7769ce4f999f3bf173fd7f732">6dc6315a3f…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:45</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Scan &amp; Share arrival (simulated) · token 11</td>
+          <td class="mono faint small nowrap" title="6dc6315a3f917ea58e0a7d12bed5ab69bb80acb7769ce4f999f3bf173fd7f732">6dc6315a3f…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:45</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">bridgeoutboxentry</td>
+          <td class="small">FHIR bundle downloaded (Prescription)</td>
+          <td class="mono faint small nowrap" title="900b3bde9f88284c4218b68cd77ce4218dcd543bc7c686d9550d9b21f79352ad">900b3bde9f…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:45</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="8995aa7eca5da5924468ecf9e669df4711731d2818f89043314e96c9fb3fef1d">8995aa7eca…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:45</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip info">Updated</span></td>
+          <td class="small muted">patient</td>
+          <td class="small">ABHA verified (simulated)</td>
+          <td class="mono faint small nowrap" title="2c7852f9e5ae67825bef27275f92742778a04754119858a83701d2c94e5986b8">2c7852f9e5…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:45</td>
+          <td class="nowrap">Ramesh Gupta</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">dispense</td>
+          <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00003</td>
+          <td class="mono faint small nowrap" title="ff1ee0523dfd4353f727f7e2da839a6052385d152a987a4d97d45a9ad7a58eb4">ff1ee0523d…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:45</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00004 printed</td>
+          <td class="mono faint small nowrap" title="aef03f15782f79f89feafc804a487087360b64287451c07e31bb9e66b0edd58b">aef03f1578…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:45</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00004</td>
+          <td class="mono faint small nowrap" title="09589b2294730387aa1f2c5413336f34927a2e6e8aca70dc652a722ddd7cbf0f">09589b2294…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:45</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00004 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="aef03f15782f79f89feafc804a487087360b64287451c07e31bb9e66b0edd58b">aef03f1578…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:44</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · सीता देवी</td>
+          <td class="mono faint small nowrap" title="390d684716e3c4d9d0800b8635c8967319d94befd88eb029e733c0073f47a192">390d684716…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:44</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · सीता देवी</td>
+          <td class="mono faint small nowrap" title="390d684716e3c4d9d0800b8635c8967319d94befd88eb029e733c0073f47a192">390d684716…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:44</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · सीता देवी</td>
+          <td class="mono faint small nowrap" title="390d684716e3c4d9d0800b8635c8967319d94befd88eb029e733c0073f47a192">390d684716…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:44</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 10 printed</td>
+          <td class="mono faint small nowrap" title="54c3fbc33cba1dcafb20668190302d65f3cfd13384dd9ff6783f1d4cad4e44dc">54c3fbc33c…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:44</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 10 printed</td>
+          <td class="mono faint small nowrap" title="54c3fbc33cba1dcafb20668190302d65f3cfd13384dd9ff6783f1d4cad4e44dc">54c3fbc33c…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:26:44</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 10 issued to सीता देवी</td>
+          <td class="mono faint small nowrap" title="54c3fbc33cba1dcafb20668190302d65f3cfd13384dd9ff6783f1d4cad4e44dc">54c3fbc33c…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
+          <td class="nowrap">Dr. Meena Verma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="de5959704a85d65a14e530710f723689db38a9bcadc673e3d5c7ada298daf6f4">de5959704a…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 9 printed</td>
+          <td class="mono faint small nowrap" title="ecaa9f18a52673a2c6c3eb45d54deb3e4d23d8f65a2b1cfbf9b01ab6ec43bd78">ecaa9f18a5…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Scan &amp; Share arrival (simulated) · token 9</td>
+          <td class="mono faint small nowrap" title="ecaa9f18a52673a2c6c3eb45d54deb3e4d23d8f65a2b1cfbf9b01ab6ec43bd78">ecaa9f18a5…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">bridgeoutboxentry</td>
+          <td class="small">FHIR bundle downloaded (Prescription)</td>
+          <td class="mono faint small nowrap" title="f062340e553c89f5e54536b323358cae1bf691f6903c5ab5cd942fcc2c20ab32">f062340e55…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="90f900ad41bd8ae76cc8c6d1489195d24d47973a017fb0340a6c839fcc833407">90f900ad41…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip info">Updated</span></td>
+          <td class="small muted">patient</td>
+          <td class="small">ABHA verified (simulated)</td>
+          <td class="mono faint small nowrap" title="afc80effc5c6f535cb7a4ca209138d66ed103b6b069845769ddd29bca5b1c313">afc80effc5…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
           <td class="nowrap">Ramesh Gupta</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">dispense</td>
           <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00002</td>
-          <td class="mono faint small nowrap" title="4a44b0882f233db07444c67b44f8cad36e71f003aca5e5f8a11315ca0b1170c7">4a44b0882f…</td>
+          <td class="mono faint small nowrap" title="e4e3988345b32915d99f197e3fac67b91176744deecfa928edf3192da6625e3d">e4e3988345…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00003 printed</td>
-          <td class="mono faint small nowrap" title="be31a71755117d9bf38e914fc46a8797000745acb00297ea902057d7b65c1a6f">be31a71755…</td>
+          <td class="mono faint small nowrap" title="c69933b2413e7e31a62217bdf80980b463d1eb4e6ea1910585f67005ea5ef1cb">c69933b241…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
           <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00003</td>
-          <td class="mono faint small nowrap" title="b9c273efa2052a433316f03209883effec5bda1f78dbdcf2a905b32c7319e919">b9c273efa2…</td>
+          <td class="mono faint small nowrap" title="b5da31d9e033ae9ebbf297dc56418dc3f9ca68ddc5127fb86e21e0fffe8530a5">b5da31d9e0…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00003 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="be31a71755117d9bf38e914fc46a8797000745acb00297ea902057d7b65c1a6f">be31a71755…</td>
+          <td class="mono faint small nowrap" title="c69933b2413e7e31a62217bdf80980b463d1eb4e6ea1910585f67005ea5ef1cb">c69933b241…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="9c8dc97df4855d42ce836aa955824bbd0b6f28687c787bc0f3b422ea45e69a30">9c8dc97df4…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="de5959704a85d65a14e530710f723689db38a9bcadc673e3d5c7ada298daf6f4">de5959704a…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="9c8dc97df4855d42ce836aa955824bbd0b6f28687c787bc0f3b422ea45e69a30">9c8dc97df4…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="de5959704a85d65a14e530710f723689db38a9bcadc673e3d5c7ada298daf6f4">de5959704a…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="9c8dc97df4855d42ce836aa955824bbd0b6f28687c787bc0f3b422ea45e69a30">9c8dc97df4…</td>
+          <td class="small">Consultation signed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="de5959704a85d65a14e530710f723689db38a9bcadc673e3d5c7ada298daf6f4">de5959704a…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="c3706d2406f5f1ed35173dd552d9558328b0b6503236d32e8af6810f027041b4">c3706d2406…</td>
+          <td class="mono faint small nowrap" title="dbbcb2b3f4c914cd4267638e510f42a9668cc40c8b32009eceb7f128f9fd0b3e">dbbcb2b3f4…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="c3706d2406f5f1ed35173dd552d9558328b0b6503236d32e8af6810f027041b4">c3706d2406…</td>
+          <td class="mono faint small nowrap" title="dbbcb2b3f4c914cd4267638e510f42a9668cc40c8b32009eceb7f128f9fd0b3e">dbbcb2b3f4…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:55:37</td>
+          <td class="nowrap tabular small">29 Jul 19:22:41</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Token 8 issued to Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="c3706d2406f5f1ed35173dd552d9558328b0b6503236d32e8af6810f027041b4">c3706d2406…</td>
+          <td class="small">Token 8 issued to Sita Devi</td>
+          <td class="mono faint small nowrap" title="dbbcb2b3f4c914cd4267638e510f42a9668cc40c8b32009eceb7f128f9fd0b3e">dbbcb2b3f4…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:54:38</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">laborder</td>
-          <td class="small">Lab report printed · Meena Saxena</td>
-          <td class="mono faint small nowrap" title="8ae107ca3692677522f2e03d6869748a6e2087043d4ad92ca77098aa57670efc">8ae107ca36…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:54</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Signed in</span></td>
-          <td class="small muted">user</td>
-          <td class="small">Signed in</td>
-          <td class="mono faint small nowrap" title=""></td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:40</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="694d6dac49674b10200c55f44aef1ea09dd9a1e8cd6d69a946a774b35f4e9735">694d6dac49…</td>
+          <td class="mono faint small nowrap" title="e4e000dbc20c9ba48cdcda2c5f583eaddd967251b8d970b4fd608842edc27dba">e4e000dbc2…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:40</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="f928272882c195ff6c51661ff579fc7c66ba96910bcb5b75004ecf004abf0aef">f928272882…</td>
+          <td class="mono faint small nowrap" title="8f1ea41c891552c8f2e320b93b54556e0a08811ef0c8227b37c53c95c8857be3">8f1ea41c89…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:40</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 3 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="2fde433de95ecc06367d047a080ac9d554458c72e457f93e038aa614a952ad3c">2fde433de9…</td>
+          <td class="mono faint small nowrap" title="954c04577a1b7f279ec226f9bddebfaab335f6f4f54e2b5e289a6e67bbac7cbd">954c04577a…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:39</td>
           <td class="nowrap">Ramesh Gupta</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">dispense</td>
           <td class="small">Dispensed 3 item(s) · invoice PHR/2627/00001</td>
-          <td class="mono faint small nowrap" title="35b11354377ab8a4b5da9e7c127250dc2a51d55c886f1a27d6fd05104a84500b">35b1135437…</td>
+          <td class="mono faint small nowrap" title="abda7b8ba89a0a64eb1e3ee44fd073d6b8f6da3626cd40e60c3ce9dd30a40039">abda7b8ba8…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:39</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
           <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00002</td>
-          <td class="mono faint small nowrap" title="2062f3e40be7dada365d74fc2a66bac9a347c0d5541ec7f3337262a9cdd8fe14">2062f3e40b…</td>
+          <td class="mono faint small nowrap" title="fcdb18817716cdb98731c410b1c1012dfd7edcff2d669edac941f020700ad285">fcdb188177…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:39</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00002 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="297d5e34797b22fcbdf6dea7f977cf688be7cce5b18e502b90a3a23d32b097fd">297d5e3479…</td>
+          <td class="mono faint small nowrap" title="18b48c3330c60be8107dae284477ab73ca600dbde32b9095c28d6e9ba5bcca83">18b48c3330…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:39</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
           <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00001</td>
-          <td class="mono faint small nowrap" title="0d40c0b2e9e663b2cb75d8d5e702784baea32bb2581acfa2d53ebf78302d1186">0d40c0b2e9…</td>
+          <td class="mono faint small nowrap" title="bdbce22ddee75dfe09896b1dcff3c7fa1f2d020d82bd3ef6414b3709c9cfd0fe">bdbce22dde…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:39</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="c51b48928157ccd15540ccfb3c4eb433914f93096e243f607b90d0f821076c0b">c51b489281…</td>
+          <td class="mono faint small nowrap" title="f017acfb35bc468d3b5e8a36783d5bdabb1dddc148f99eae81550fb9e20ba78b">f017acfb35…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:39</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Poonam Verma</td>
-          <td class="mono faint small nowrap" title="edd620e7c356ff6ef9173ac204aad51bd0689a43d3c25cf9aa4451156775833c">edd620e7c3…</td>
+          <td class="small">Consultation signed · Anjali Tomar</td>
+          <td class="mono faint small nowrap" title="8ffdccfc1a46c476f480da7736603ffc38fff10f475da324f7a2841d6aabe96b">8ffdccfc1a…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:39</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Ashok Singh</td>
-          <td class="mono faint small nowrap" title="f8c86955a9db87c042c42a8595c2b5cff37c20a78d1e6f10f188eb0b3a4f8835">f8c86955a9…</td>
+          <td class="small">Consultation signed · पूजा त्यागी</td>
+          <td class="mono faint small nowrap" title="94eb7841dc9b14c57b283e921f3e55fb6f94540d4dc503e2a9fab5bb64d3cd82">94eb7841dc…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:27</td>
+          <td class="nowrap tabular small">29 Jul 19:22:39</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Meena Saxena</td>
-          <td class="mono faint small nowrap" title="69a7f4a64bbe95992b09fa45f306268fdd927df35bc37ed19af9829b30523cec">69a7f4a64b…</td>
+          <td class="small">Consultation signed · Pooja Bhati</td>
+          <td class="mono faint small nowrap" title="064347dedfc99946498ea0c30233acceb66b1be0ab602000900355a3c6eea100">064347dedf…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:53:26</td>
+          <td class="nowrap tabular small">29 Jul 19:20:51</td>
           <td class="nowrap">system</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="small">Seeded demo world (166 synthetic patients)</td>
           <td class="mono faint small nowrap" title=""></td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:45:14</td>
+          <td class="nowrap tabular small">29 Jul 19:17:45</td>
+          <td class="nowrap">Dr. Meena Verma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">inspection_pack</td>
+          <td class="small">Inspection pack printed (90 days)</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:17:35</td>
+          <td class="nowrap">Dr. Meena Verma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">inspection_pack</td>
+          <td class="small">Inspection pack printed (90 days)</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:17:34</td>
           <td class="nowrap">Dr. Meena Verma</td>
           <td><span class="chip muted">Signed in</span></td>
           <td class="small muted">user</td>
@@ -1120,799 +1670,664 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:21</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Dr. Meena Verma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="193d3adf8c56add08341a2d792a756bb83a6e6201bd5d730c679b8950b6098b6">193d3adf8c…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="9dbe3efb830197f3a123a399d3dda38cb30c743ad800c38bda09af3189940dd6">9dbe3efb83…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Token 9 printed</td>
-          <td class="mono faint small nowrap" title="a68a538f07814df5c178806015a2db16f609089dd03fe6beb62626abc0c19bc3">a68a538f07…</td>
+          <td class="mono faint small nowrap" title="8e1d648f0a60ebf469074cbc8698cc628ae7f79191f683e915c023530889168e">8e1d648f0a…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Scan &amp; Share arrival (simulated) · token 9</td>
-          <td class="mono faint small nowrap" title="a68a538f07814df5c178806015a2db16f609089dd03fe6beb62626abc0c19bc3">a68a538f07…</td>
+          <td class="mono faint small nowrap" title="8e1d648f0a60ebf469074cbc8698cc628ae7f79191f683e915c023530889168e">8e1d648f0a…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">bridgeoutboxentry</td>
           <td class="small">FHIR bundle downloaded (Prescription)</td>
-          <td class="mono faint small nowrap" title="e1cd388d68417e8fb4d873200f25844017b8e808a76b7a5ae68c537c2d34cce2">e1cd388d68…</td>
+          <td class="mono faint small nowrap" title="77973753c47c3fa71d9a4aa4af4f9c6054914915723cbf942839a1219a1f1df3">77973753c4…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="6d498a7e7c4a3c836f52e9808a628a187b90c6178b9c64ed3f949d8fefd7faba">6d498a7e7c…</td>
+          <td class="mono faint small nowrap" title="bf91c96965dbe6bb166687ea6f3ebaa516e0124152079b285ac7efd5d70a55f1">bf91c96965…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip info">Updated</span></td>
           <td class="small muted">patient</td>
           <td class="small">ABHA verified (simulated)</td>
-          <td class="mono faint small nowrap" title="6d7f7351a5da35d64e672346f42f48edabddc9f9b3eca822dce8f52aae67defb">6d7f7351a5…</td>
+          <td class="mono faint small nowrap" title="00b2bfc7c4b5530ed17e528ac530c5d816d692ed4cee8937ffdcaa87fe0f9eb3">00b2bfc7c4…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Ramesh Gupta</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">dispense</td>
           <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00002</td>
-          <td class="mono faint small nowrap" title="d962403b45cc5b9aff71a057d56ae419f6875d5ca07937d5ef620c66cfa071da">d962403b45…</td>
+          <td class="mono faint small nowrap" title="c74920f00b7f8780e53dcb25fa9ad9d8cdc8d2352db7c61b329983788d8b8193">c74920f00b…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00003 printed</td>
-          <td class="mono faint small nowrap" title="78d5bcf1589f150c29bfd80ca85264eecd87994320e6544493195d88b2e5970c">78d5bcf158…</td>
+          <td class="mono faint small nowrap" title="27ea02b4b540c0ec65317ff39f2c2e5dc7b94ad26a4f43143e8990b12650eabb">27ea02b4b5…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
           <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00003</td>
-          <td class="mono faint small nowrap" title="a888b1032762297937485371b00e290db951ca4df211ae76f500fd23718bdd50">a888b10327…</td>
+          <td class="mono faint small nowrap" title="9ca326f4368f78368e26e339ff80c5ae67faefb4546b00149dda88117348a112">9ca326f436…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00003 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="78d5bcf1589f150c29bfd80ca85264eecd87994320e6544493195d88b2e5970c">78d5bcf158…</td>
+          <td class="mono faint small nowrap" title="27ea02b4b540c0ec65317ff39f2c2e5dc7b94ad26a4f43143e8990b12650eabb">27ea02b4b5…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="193d3adf8c56add08341a2d792a756bb83a6e6201bd5d730c679b8950b6098b6">193d3adf8c…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="9dbe3efb830197f3a123a399d3dda38cb30c743ad800c38bda09af3189940dd6">9dbe3efb83…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="193d3adf8c56add08341a2d792a756bb83a6e6201bd5d730c679b8950b6098b6">193d3adf8c…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="9dbe3efb830197f3a123a399d3dda38cb30c743ad800c38bda09af3189940dd6">9dbe3efb83…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="193d3adf8c56add08341a2d792a756bb83a6e6201bd5d730c679b8950b6098b6">193d3adf8c…</td>
+          <td class="small">Consultation signed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="9dbe3efb830197f3a123a399d3dda38cb30c743ad800c38bda09af3189940dd6">9dbe3efb83…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="77ce966ca62fbbde457ca20ab820c32bd63216143b41ab6e936755252fc9d34a">77ce966ca6…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="77ce966ca62fbbde457ca20ab820c32bd63216143b41ab6e936755252fc9d34a">77ce966ca6…</td>
+          <td class="mono faint small nowrap" title="39aca964883ea8947f52a0d22066f43d9ae996538680583819e670778205808e">39aca96488…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:20</td>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
           <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 issued to Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="77ce966ca62fbbde457ca20ab820c32bd63216143b41ab6e936755252fc9d34a">77ce966ca6…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:19</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Exported</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="1ee6ea5b123083b3eaedadb0ed2b4422d8df9ab2fcd9ad3dd9d1a433cf588d42">1ee6ea5b12…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:19</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Exported</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="f2d2cecda4471aca6b2fce53824d9e37913c40ef2f5b1a968aea927da1c187a3">f2d2cecda4…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:19</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Exported</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="918d5f71ab8ad095aa2670e3b6408d5dbaa4a518881f0ba39ad90914931db060">918d5f71ab…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:19</td>
-          <td class="nowrap">Ramesh Gupta</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">dispense</td>
-          <td class="small">Dispensed 3 item(s) · invoice PHR/2627/00001</td>
-          <td class="mono faint small nowrap" title="a47a1ebf561a2d0dfef67fce048c3ce90d86b06bcfdb8849af2eda7fbdd9e611">a47a1ebf56…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:19</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">payment</td>
-          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00002</td>
-          <td class="mono faint small nowrap" title="78c62aafa60c285ab75fd274d58164f8ec3f1a71f66c937adf0a3480df21da6f">78c62aafa6…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:19</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00002 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="88128654ab68d3176ba3af048e68972f26fda7961451234170ec7ca062b4d3c8">88128654ab…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:19</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">payment</td>
-          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00001</td>
-          <td class="mono faint small nowrap" title="4188e69b4c5a40597929396102dc137cea9be98ae499a7285d0dd5c822186dba">4188e69b4c…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:19</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="b25c05e82c644e2e7da2e561efaa46f4484150c631ebbb81dc2963dcc913bcb1">b25c05e82c…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:19</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Pankaj Agarwal</td>
-          <td class="mono faint small nowrap" title="25ebf29c817abfe725dc9e16d3d35a0f690afa1f62d71987f081913d26a0b83e">25ebf29c81…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:18</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Kavita Kashyap</td>
-          <td class="mono faint small nowrap" title="255dc56f1d9a57ca4023b0371314f4cf19230db22bacf613f75dcfcb20215f77">255dc56f1d…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:18</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Vinod Tomar</td>
-          <td class="mono faint small nowrap" title="2de1f0001bd5489d84b6957372d7576d311f85f399b52800ee9d17f6c82c2315">2de1f0001b…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:44:17</td>
-          <td class="nowrap">system</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
-          <td class="mono faint small nowrap" title=""></td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:17</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Exported</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="888e7ef8dbf6c9530974ffa8d9fba55a5ffb20a2996cbe9ac3bfa575318a5df3">888e7ef8db…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:17</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Exported</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="b064909751892ef95b593bca0d28ac6db847836a9048753549c62cfb2b3caecf">b064909751…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:17</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Exported</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="ae8459d6c9657c238696b7a5eef29c70ac9a46a1e300568f22b9b04211f52aa0">ae8459d6c9…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:17</td>
-          <td class="nowrap">Ramesh Gupta</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">dispense</td>
-          <td class="small">Dispensed 3 item(s) · invoice PHR/2627/00001</td>
-          <td class="mono faint small nowrap" title="a815d41a70039aa243b4e451faf6bae4641e1b71153dbbf632f239d2909ccbfe">a815d41a70…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:17</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">payment</td>
-          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00002</td>
-          <td class="mono faint small nowrap" title="e1775941841aad0c33a75390fdcb43dab64db4c9bdcc727a5455d0a90ad9c726">e177594184…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:17</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00002 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="1ef205fe0ac3b0b2c0884dcbb7238f8ddcdb3609cd273ca017b1ec4a06a65879">1ef205fe0a…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:17</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">payment</td>
-          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00001</td>
-          <td class="mono faint small nowrap" title="07e940d062a9414bfd6cef409108e931b8ab8562f1acb110f67cadc780b242d4">07e940d062…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:17</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="785ec212239587cbae6d3448d785069743931322e829b6ef165853ae655484cc">785ec21223…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:16</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Manoj Bhati</td>
-          <td class="mono faint small nowrap" title="b5f084c02c5fdbc4f6a39d403c051f7e80e4873d40095950ef008b6c860fbe2f">b5f084c02c…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:16</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Sunita Tyagi</td>
-          <td class="mono faint small nowrap" title="c86f20e2603567ea5c2a22e66c6d0d1c6d212aa42e062dd9c68d0eb39101528e">c86f20e260…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:16</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Mukesh Yadav</td>
-          <td class="mono faint small nowrap" title="bea701fae2367846ce4654d1db2c84ecf8b977fb2e2d875c264e5673d16f3f1b">bea701fae2…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:41:15</td>
-          <td class="nowrap">system</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
-          <td class="mono faint small nowrap" title=""></td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:32:04</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="39aca964883ea8947f52a0d22066f43d9ae996538680583819e670778205808e">39aca96488…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:17:17</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Token 8 issued to Sita Devi</td>
+          <td class="mono faint small nowrap" title="39aca964883ea8947f52a0d22066f43d9ae996538680583819e670778205808e">39aca96488…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:21</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="d787d2570972fde496107f69a30cdb9e2e462346bccd71551a1d2056504e6d9f">d787d25709…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:21</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="df62909fc544bba1c31e61fe484472058d49338a16d396289608af12a9db93d6">df62909fc5…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:21</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 3 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="1c442b0f79341d5408303484681047de1155d39dd647ec0c2fb01da4a29bb99f">1c442b0f79…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:21</td>
+          <td class="nowrap">Ramesh Gupta</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">dispense</td>
+          <td class="small">Dispensed 3 item(s) · invoice PHR/2627/00001</td>
+          <td class="mono faint small nowrap" title="9909b8b307c82990549210daef7739462a51edc96af675774bc18bd1ca732498">9909b8b307…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:21</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00002</td>
+          <td class="mono faint small nowrap" title="6b256d5af0276ea5eee53962f910367bde35cfded7fd4ab3459be756175c20f7">6b256d5af0…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:21</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00002 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="98e636f66225f2fba5e2b6c30c0236c79049fae2af7838d6f1b74e5fe63bdc41">98e636f662…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:21</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00001</td>
+          <td class="mono faint small nowrap" title="1e02d94161d77ff1cd55d3feac86b83bd21e1840b545ba2de5fc578709c4bb51">1e02d94161…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:21</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="1d528a45674769b604956eed96e94ec65b7fba964b9264b028548e8f5f154f94">1d528a4567…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:21</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Poonam Gupta</td>
-          <td class="mono faint small nowrap" title="fb0fc1fc1471f208be61852971bac717b2200fa7ca75dd948d896ebecd02c17a">fb0fc1fc14…</td>
+          <td class="small">Consultation signed · Rekha Bhati</td>
+          <td class="mono faint small nowrap" title="b8aefe370e13b180ed790cbf7f6a91170764915df8e6cd2e0c1b2ab9a612d7f0">b8aefe370e…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:31:56</td>
+          <td class="nowrap tabular small">29 Jul 19:16:20</td>
           <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Signed in</span></td>
-          <td class="small muted">user</td>
-          <td class="small">Signed in</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Arun Kashyap</td>
+          <td class="mono faint small nowrap" title="c707d0dfa996b81f4460be11b68238080d5e220ce0aa1f90022a80d5f1155b0e">c707d0dfa9…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:20</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Rajesh Yadav</td>
+          <td class="mono faint small nowrap" title="2a2f413df8cd898e5a4f7d75b97a3e4a8731919161d2c764e4aa953824e5a228">2a2f413df8…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 19:16:19</td>
+          <td class="nowrap">system</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">seed</td>
+          <td class="small">Seeded demo world (166 synthetic patients)</td>
           <td class="mono faint small nowrap" title=""></td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:30:05</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Signed in</span></td>
-          <td class="small muted">user</td>
-          <td class="small">Signed in</td>
-          <td class="mono faint small nowrap" title=""></td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:51</td>
+          <td class="nowrap tabular small">29 Jul 19:05:48</td>
           <td class="nowrap">Dr. Meena Verma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="f8b80611ce244ac74502657e73026b1687272b6dcfc22b899adbb6b78b8ff71a">f8b80611ce…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="fdd62c42acc442d47b331161fed61d4ad0889c6134a32b411924aad47835f6e3">fdd62c42ac…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:48</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Token 9 printed</td>
-          <td class="mono faint small nowrap" title="9a0bbdb86a3e0fb4d2eb4e2fb1ecd09fcda77f02b9227369c3ecfc1437c6f79d">9a0bbdb86a…</td>
+          <td class="mono faint small nowrap" title="c29f74c9818abc49b3334cd8b15ae967fa774bda5507e626aaab70a1904c34e7">c29f74c981…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:48</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Scan &amp; Share arrival (simulated) · token 9</td>
-          <td class="mono faint small nowrap" title="9a0bbdb86a3e0fb4d2eb4e2fb1ecd09fcda77f02b9227369c3ecfc1437c6f79d">9a0bbdb86a…</td>
+          <td class="mono faint small nowrap" title="c29f74c9818abc49b3334cd8b15ae967fa774bda5507e626aaab70a1904c34e7">c29f74c981…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:48</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">bridgeoutboxentry</td>
           <td class="small">FHIR bundle downloaded (Prescription)</td>
-          <td class="mono faint small nowrap" title="04169a4523972bfd6f034eb91360f77e5b569845cece249dfb35f3efe42be053">04169a4523…</td>
+          <td class="mono faint small nowrap" title="e02f5851f544eadd7c3aa96fbfa7adb51bb815658641765270ab373dee74996f">e02f5851f5…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:48</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="d27eb4c88fe30d56cfb13cddc44b416fbb914bdefa81f2404d2270e6a758fdef">d27eb4c88f…</td>
+          <td class="mono faint small nowrap" title="29a0974ac6fe904bd68afaf9195069d6b65d15f63bc0599631a076e7c3873cfe">29a0974ac6…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:48</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip info">Updated</span></td>
           <td class="small muted">patient</td>
           <td class="small">ABHA verified (simulated)</td>
-          <td class="mono faint small nowrap" title="8a798ce05daab778def45c564de2309b3c79ffe2a5aa3e7cdeb9036f4546949c">8a798ce05d…</td>
+          <td class="mono faint small nowrap" title="4615489254472c0c12485d30ab959eade7c31fbed67d441bc63a58705e5b1096">4615489254…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:48</td>
           <td class="nowrap">Ramesh Gupta</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">dispense</td>
           <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00002</td>
-          <td class="mono faint small nowrap" title="2ca5f7ede640034809fe6bcfa6ea930bcdda3c2c797bd5df313b053955d1adc5">2ca5f7ede6…</td>
+          <td class="mono faint small nowrap" title="b8b974c020aef9d99d90e7981f27e5bb8f8659bbd39ffedfb1ff88d6d352eda6">b8b974c020…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:47</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00003 printed</td>
-          <td class="mono faint small nowrap" title="f23bfe345ebe83c3b19012616e5bf8f1229486c9576de4cb46b4dbc617e34291">f23bfe345e…</td>
+          <td class="mono faint small nowrap" title="2336be2d4f176e12b4bd94b001e15c184928126bde5fb07decb0f0861104cdb3">2336be2d4f…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:47</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
           <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00003</td>
-          <td class="mono faint small nowrap" title="7ec23a7a7a1c474ba455bf06b95093551c0aa0bbf043a381a3d1db2518c2699a">7ec23a7a7a…</td>
+          <td class="mono faint small nowrap" title="db24fb63e0d2c9c17e86cc8314ba5971e974d7d433bc393fb386eda4f9b807c9">db24fb63e0…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:47</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00003 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="f23bfe345ebe83c3b19012616e5bf8f1229486c9576de4cb46b4dbc617e34291">f23bfe345e…</td>
+          <td class="mono faint small nowrap" title="2336be2d4f176e12b4bd94b001e15c184928126bde5fb07decb0f0861104cdb3">2336be2d4f…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:47</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="f8b80611ce244ac74502657e73026b1687272b6dcfc22b899adbb6b78b8ff71a">f8b80611ce…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="fdd62c42acc442d47b331161fed61d4ad0889c6134a32b411924aad47835f6e3">fdd62c42ac…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:47</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="f8b80611ce244ac74502657e73026b1687272b6dcfc22b899adbb6b78b8ff71a">f8b80611ce…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="fdd62c42acc442d47b331161fed61d4ad0889c6134a32b411924aad47835f6e3">fdd62c42ac…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:47</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="f8b80611ce244ac74502657e73026b1687272b6dcfc22b899adbb6b78b8ff71a">f8b80611ce…</td>
+          <td class="small">Consultation signed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="fdd62c42acc442d47b331161fed61d4ad0889c6134a32b411924aad47835f6e3">fdd62c42ac…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:47</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="31cc019f01d4c35a0c3788c10579dec17f7434ec291751ef4235f3873930593d">31cc019f01…</td>
+          <td class="mono faint small nowrap" title="31fe10a12fed60db4e3c4d48d2f909b60ce969bab5b2abdf86205a6959d3ec34">31fe10a12f…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:47</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="31cc019f01d4c35a0c3788c10579dec17f7434ec291751ef4235f3873930593d">31cc019f01…</td>
+          <td class="mono faint small nowrap" title="31fe10a12fed60db4e3c4d48d2f909b60ce969bab5b2abdf86205a6959d3ec34">31fe10a12f…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:50</td>
+          <td class="nowrap tabular small">29 Jul 19:05:47</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Token 8 issued to Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="31cc019f01d4c35a0c3788c10579dec17f7434ec291751ef4235f3873930593d">31cc019f01…</td>
+          <td class="small">Token 8 issued to Sita Devi</td>
+          <td class="mono faint small nowrap" title="31fe10a12fed60db4e3c4d48d2f909b60ce969bab5b2abdf86205a6959d3ec34">31fe10a12f…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:49</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="0eb6c84b591c965a496555e0df394872576f3728f4a44dce370c30c20888184d">0eb6c84b59…</td>
+          <td class="mono faint small nowrap" title="d8c0ec8355924591e326d5c857e3aa78d5a86f4fbc5845c014c0e5c30d5e178c">d8c0ec8355…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:49</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="ebe979633838e63bfedf1344c22b5998ea5ad1732db1048eba82c1417d589b7d">ebe9796338…</td>
+          <td class="mono faint small nowrap" title="d3769272ba29dd81ba62738771c6c28bdc0b99c01b83b3c54c4ff23578b7242c">d3769272ba…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:49</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="4f5a9b7f215436ed95388fd6519169b02d0ca9ff2e1193f1a102235d2e364725">4f5a9b7f21…</td>
+          <td class="small">Built 3 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="f5e664e3a055241adb15f7ef5fecb7a0ed70c69ef2248800eab751255a26d313">f5e664e3a0…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:49</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Ramesh Gupta</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">dispense</td>
           <td class="small">Dispensed 3 item(s) · invoice PHR/2627/00001</td>
-          <td class="mono faint small nowrap" title="db7f9ede9a3d0c8b4af5c65f3716b36860fc7fde71af0422718249f6a39ebbc6">db7f9ede9a…</td>
+          <td class="mono faint small nowrap" title="90828f4b2fbf8afce3a57bc6cd0729da2600d45fe5950a306c44517a9e465c2d">90828f4b2f…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:49</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
           <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00002</td>
-          <td class="mono faint small nowrap" title="b9be9345133feddeb7cc9b7ddd3998cba61143e9a87dddafcffab74d259b7e60">b9be934513…</td>
+          <td class="mono faint small nowrap" title="4d8ee0e4415bf83aa4006b15d3221497cab71d3898b4738e55f9134e21dd2e3a">4d8ee0e441…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:49</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00002 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="d2d79604f79c146eb3f4c608c3a97a1e08bc051e91f3554cdae5bd84dd62195a">d2d79604f7…</td>
+          <td class="mono faint small nowrap" title="778ffffc249ddf563d4d3504a0d90472f162c0ed2f8a430c6ca66aae4cf1c1c5">778ffffc24…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:48</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
           <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00001</td>
-          <td class="mono faint small nowrap" title="7a3bfa469392208a1e5c9869e0e390ed44e957e17284c3dfaf84327b20dee76a">7a3bfa4693…</td>
+          <td class="mono faint small nowrap" title="f51dd144abcdc6f5b498c5f150e4a8e89fed07241bf48a153c38df4a8ab9ef7d">f51dd144ab…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:48</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="549cc2416c867d280da4ecaf8d5846f0109d58edf5440571cc328bf88ffcbba9">549cc2416c…</td>
+          <td class="mono faint small nowrap" title="e66f674b1a6be42938c05757130f51e181499144041ab38bc46c070262b2d7e3">e66f674b1a…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:48</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="9ebb9259d730ae5e115efb470d9dc287b1115717beafe3101298a612bbf0aaf9">9ebb9259d7…</td>
+          <td class="small">Consultation signed · Mahesh Yadav</td>
+          <td class="mono faint small nowrap" title="19430633562506db4d02ec82fbfb55c592370cb80f4f078a8aad16d54681ca9a">1943063356…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:48</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Sarita Chauhan</td>
-          <td class="mono faint small nowrap" title="5a7f3a14b9eeef26a79fcb23e792d50c9d693948577d16c8200081be3fd6beb7">5a7f3a14b9…</td>
+          <td class="small">Consultation signed · Naveen Singh</td>
+          <td class="mono faint small nowrap" title="7dc04d8f1e088384f1bf94893484a86977a7acd9aad0a1d29be4e7552a4f7546">7dc04d8f1e…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:48</td>
+          <td class="nowrap tabular small">29 Jul 19:05:46</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Poonam Gupta</td>
-          <td class="mono faint small nowrap" title="39905c05ecaee2bc58d0a2038c48631e51f0b2aa760496ea554d3e82cff65d85">39905c05ec…</td>
+          <td class="small">Consultation signed · Deepak Pandey</td>
+          <td class="mono faint small nowrap" title="c5fc4c6f851dc7a3a4d825a54d2a53c41e3760bc0bd1ab54715f2007b803893a">c5fc4c6f85…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:28:38</td>
+          <td class="nowrap tabular small">29 Jul 19:05:45</td>
           <td class="nowrap">system</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="small">Seeded demo world (166 synthetic patients)</td>
           <td class="mono faint small nowrap" title=""></td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 19:03:58</td>
+          <td class="nowrap">system</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">seed</td>
+          <td class="small">Seeded demo world (166 synthetic patients)</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 18:58:26</td>
           <td class="nowrap">Dr. Meena Verma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="8f500de08c3cd5b19fe2ca9e8bca1f07e12d9f4ba5139b248b9d55f401a622d1">8f500de08c…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="019cd69e2495f8890b5f7bbc7f99ae969f092f8b57cb8485e3792a6f317322ef">019cd69e24…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:26</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Token 2 printed</td>
-          <td class="mono faint small nowrap" title="286bef6485041dfb2127c143c01f109fb08ca867157c33377c37137c84b39ec2">286bef6485…</td>
+          <td class="small">Token 9 printed</td>
+          <td class="mono faint small nowrap" title="42e393b3b0827b218f99c83c46ee838b7934548acb7da008d2d43a79666e10f7">42e393b3b0…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:26</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Scan &amp; Share arrival (simulated) · token 2</td>
-          <td class="mono faint small nowrap" title="286bef6485041dfb2127c143c01f109fb08ca867157c33377c37137c84b39ec2">286bef6485…</td>
+          <td class="small">Scan &amp; Share arrival (simulated) · token 9</td>
+          <td class="mono faint small nowrap" title="42e393b3b0827b218f99c83c46ee838b7934548acb7da008d2d43a79666e10f7">42e393b3b0…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:26</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">bridgeoutboxentry</td>
           <td class="small">FHIR bundle downloaded (Prescription)</td>
-          <td class="mono faint small nowrap" title="3f8ddafa4f75ab8758e102ffd72410210257d6a48beef71e15dafea7cb0e9019">3f8ddafa4f…</td>
+          <td class="mono faint small nowrap" title="4ada27f83fff09505ec0f371bcbf2e5d8a2c9a0a8b9470ba0a8ce0255d0c440c">4ada27f83f…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:26</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="06e68f18cf8f6c39c89f60f0f665e0d43b79911aece8ff95b2315569decee6ee">06e68f18cf…</td>
+          <td class="mono faint small nowrap" title="5432e0f19b78fe656a4cbfd14ab40b670f565c8954b4ca714abb3992a57c6ff0">5432e0f19b…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:26</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip info">Updated</span></td>
           <td class="small muted">patient</td>
           <td class="small">ABHA verified (simulated)</td>
-          <td class="mono faint small nowrap" title="1eb32542a1c0830ec95898059ccd3eae73993e69bcf1c25e535a1bad102b2181">1eb32542a1…</td>
+          <td class="mono faint small nowrap" title="f3a33fbcc7fecaf2b4f9a1a74f5b1df7ab9dd7568c5f85a599cd2c3f0f81057f">f3a33fbcc7…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:26</td>
           <td class="nowrap">Ramesh Gupta</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">dispense</td>
           <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00002</td>
-          <td class="mono faint small nowrap" title="677bd6108dd6180c8cfa82c708da0c8f31f9e8b5e237661d8afa8fc9e7607926">677bd6108d…</td>
+          <td class="mono faint small nowrap" title="2c218eb62d251a76eeb4ec82ec30d2853aa7a35761d98c3a870df5a5052611b6">2c218eb62d…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:25</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00003 printed</td>
-          <td class="mono faint small nowrap" title="24657589f33cb40ee6d72b9b877b49813d6184fb6d62d9be79f9b8181b0a1d08">24657589f3…</td>
+          <td class="mono faint small nowrap" title="c9d033557cfc8768f74c91c9e42f4b93dcce95970292fe4fbed02b03c0b9affa">c9d033557c…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:25</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
           <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00003</td>
-          <td class="mono faint small nowrap" title="823dd4695c7ace2ca8cb169a4719f47f1b4e495816a815c3950906c0e3f6aac0">823dd4695c…</td>
+          <td class="mono faint small nowrap" title="9a3e02719c8eb832901a84e0d0074808eb632d599a82c9c725da8330cda62d55">9a3e02719c…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:25</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00003 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="24657589f33cb40ee6d72b9b877b49813d6184fb6d62d9be79f9b8181b0a1d08">24657589f3…</td>
+          <td class="mono faint small nowrap" title="c9d033557cfc8768f74c91c9e42f4b93dcce95970292fe4fbed02b03c0b9affa">c9d033557c…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:25</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="8f500de08c3cd5b19fe2ca9e8bca1f07e12d9f4ba5139b248b9d55f401a622d1">8f500de08c…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="019cd69e2495f8890b5f7bbc7f99ae969f092f8b57cb8485e3792a6f317322ef">019cd69e24…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:25</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="8f500de08c3cd5b19fe2ca9e8bca1f07e12d9f4ba5139b248b9d55f401a622d1">8f500de08c…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="019cd69e2495f8890b5f7bbc7f99ae969f092f8b57cb8485e3792a6f317322ef">019cd69e24…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:25</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="8f500de08c3cd5b19fe2ca9e8bca1f07e12d9f4ba5139b248b9d55f401a622d1">8f500de08c…</td>
+          <td class="small">Consultation signed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="019cd69e2495f8890b5f7bbc7f99ae969f092f8b57cb8485e3792a6f317322ef">019cd69e24…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:25</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Token 1 printed</td>
-          <td class="mono faint small nowrap" title="d996c71a54c8a99a36c6fe49c107184da5ff0aa56a03588dc5e54f3d6b2c4f4f">d996c71a54…</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="9cf715ecd5f095c7d2495f02f4db3ea72c165d1733fc4571ecf0c6054b85d7ff">9cf715ecd5…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:25</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Token 1 printed</td>
-          <td class="mono faint small nowrap" title="d996c71a54c8a99a36c6fe49c107184da5ff0aa56a03588dc5e54f3d6b2c4f4f">d996c71a54…</td>
+          <td class="small">Token 8 printed</td>
+          <td class="mono faint small nowrap" title="9cf715ecd5f095c7d2495f02f4db3ea72c165d1733fc4571ecf0c6054b85d7ff">9cf715ecd5…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:08:32</td>
+          <td class="nowrap tabular small">29 Jul 18:58:25</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Token 1 issued to Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="d996c71a54c8a99a36c6fe49c107184da5ff0aa56a03588dc5e54f3d6b2c4f4f">d996c71a54…</td>
+          <td class="small">Token 8 issued to Sita Devi</td>
+          <td class="mono faint small nowrap" title="9cf715ecd5f095c7d2495f02f4db3ea72c165d1733fc4571ecf0c6054b85d7ff">9cf715ecd5…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">29 Jul 00:07:52</td>
-          <td class="nowrap">Dr. Meena Verma</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Geeta Tyagi</td>
-          <td class="mono faint small nowrap" title="f429bef32fa84ae851978814d1273e927469fefad41771bd637d8f02e85191fc">f429bef32f…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:41:35</td>
+          <td class="nowrap tabular small">29 Jul 18:57:57</td>
           <td class="nowrap">Dr. Meena Verma</td>
           <td><span class="chip muted">Signed in</span></td>
           <td class="small muted">user</td>
@@ -1921,687 +2336,426 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="6382deb80b7b8dd8a9f737268f4b31cc60f430ab00f2f94757b4c43478b25978">6382deb80b…</td>
+          <td class="mono faint small nowrap" title="4dce32a90efdce8df1b1351698f9d88648f7a983b5418885577f83bf40302254">4dce32a90e…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="fe220adee4a6b69c440c3623e593513e046b4f704f23435a351cf23527d592a6">fe220adee4…</td>
+          <td class="mono faint small nowrap" title="d60d3b3f9ff180831302268e1754079f338cec8508d5c9b71f3246087aa8749e">d60d3b3f9f…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="34febb869b354f20f1d028c925f369f05e899556c44cad3b8c89ffc58fc2672c">34febb869b…</td>
+          <td class="small">Built 3 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="dd51b06a8914373fe9f18aaffa501a0d2923199ea616b8360841054ec9f4b1dc">dd51b06a89…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Ramesh Gupta</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">dispense</td>
           <td class="small">Dispensed 3 item(s) · invoice PHR/2627/00001</td>
-          <td class="mono faint small nowrap" title="f7a158ef026ae8fab239fb54555e52f9e2d44c924af0f3f9bcaeca32afc36e10">f7a158ef02…</td>
+          <td class="mono faint small nowrap" title="07f7e421126530d8246f84ad3de74769b65f0dc1a26c70a9d26b4f02d9cbc5b5">07f7e42112…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
           <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00002</td>
-          <td class="mono faint small nowrap" title="962357625df8ac0cc6badf4f007d685249697cdf2d3f8eb8fa1c37fcef801863">962357625d…</td>
+          <td class="mono faint small nowrap" title="dc762a18356eba66e42ea31cd95441623af1498d33d5fdd46a489182f2fc8ae6">dc762a1835…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00002 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="719a75d3f65a99dafc36eb813a2a8971d57598235ac7308d93bbcd190e904efd">719a75d3f6…</td>
+          <td class="mono faint small nowrap" title="96f2a2c7588b2ff3b2187aab0d0487dc15652ed99a9a5438dacdd22019bd1fcd">96f2a2c758…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
           <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00001</td>
-          <td class="mono faint small nowrap" title="70349f45dc7c4c6f9376a9265c478de45560bcf2563aded417586547374c4900">70349f45dc…</td>
+          <td class="mono faint small nowrap" title="270f94cae95432e074d43e3a52b055813c86f741d875aae5aeabf85ca5bcfba6">270f94cae9…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="81356d1df4ac12c222e4aa5a549320c1180d3d32d88ba44bf82ec1de25bad371">81356d1df4…</td>
+          <td class="mono faint small nowrap" title="a162df7ef2ab0f7c09bd9f2fea3c3cbba63faa56d297161475e5aae9cf010690">a162df7ef2…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Vinod Rastogi</td>
-          <td class="mono faint small nowrap" title="0b652561fc1bdf7808102176c197894425c34664f18c0c275ed29c6db588fe5b">0b652561fc…</td>
+          <td class="small">Consultation signed · Manoj Kashyap</td>
+          <td class="mono faint small nowrap" title="a4a350270554e2896b527aa9b59d70b346acd13dee005b72e865f7ddbcaeb379">a4a3502705…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Geeta Tyagi</td>
-          <td class="mono faint small nowrap" title="57672a1fabb931461962292968273cdd5918581120e3a750eb953fbbf6f0f6ac">57672a1fab…</td>
+          <td class="small">Consultation signed · Rajesh Yadav</td>
+          <td class="mono faint small nowrap" title="6c5e603feba9d252ecb5245032b5c795bf04a03c644b018b4b196505e69622fa">6c5e603feb…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:40:01</td>
+          <td class="nowrap tabular small">29 Jul 18:57:41</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Kavita Singh</td>
-          <td class="mono faint small nowrap" title="f40df61713f12364e52c52af39805f0ad2110a4c5683e13aaa7e877643b14538">f40df61713…</td>
+          <td class="small">Consultation signed · Nisha Tyagi</td>
+          <td class="mono faint small nowrap" title="2de88ede730bdf725298063044dd7034d6af5e58f968b566488ba33ecd8cafea">2de88ede73…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:39:59</td>
+          <td class="nowrap tabular small">29 Jul 18:57:39</td>
           <td class="nowrap">system</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="small">Seeded demo world (166 synthetic patients)</td>
           <td class="mono faint small nowrap" title=""></td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:50:18</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">vitalsround</td>
+          <td class="small">Vitals recorded · Sita Devi</td>
+          <td class="mono faint small nowrap" title="1f1e0a23131c9c2c9c3e0dbf8d68707aeb1c7c63774a38f3f46505391ec7a909">1f1e0a2313…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 18:43:35</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Signed in</span></td>
+          <td class="small muted">user</td>
+          <td class="small">Signed in</td>
+          <td class="mono faint small nowrap" title=""></td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 18:40:38</td>
+          <td class="nowrap">Dr. Meena Verma</td>
+          <td><span class="chip muted">Printed</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="a016e92b70752d6171bb73876a7ec9feb8f692d163153911c20f456d4181e087">a016e92b70…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 18:40:38</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Token 9 printed</td>
-          <td class="mono faint small nowrap" title="a58ef0e18cb420ea7989b76b71774f7ceb5093d372fb5f940b59120dd4e73a64">a58ef0e18c…</td>
+          <td class="mono faint small nowrap" title="6b1c3fdd093b6dbb8def5b100b868e32b3ed67c8f0023810e2d5eb8070f2e979">6b1c3fdd09…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:38</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Scan &amp; Share arrival (simulated) · token 9</td>
-          <td class="mono faint small nowrap" title="a58ef0e18cb420ea7989b76b71774f7ceb5093d372fb5f940b59120dd4e73a64">a58ef0e18c…</td>
+          <td class="mono faint small nowrap" title="6b1c3fdd093b6dbb8def5b100b868e32b3ed67c8f0023810e2d5eb8070f2e979">6b1c3fdd09…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:38</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">bridgeoutboxentry</td>
           <td class="small">FHIR bundle downloaded (Prescription)</td>
-          <td class="mono faint small nowrap" title="d05bf39f69831fe4b718a23f93e30344ad9762c286bda9c6f9b665b6747fb7a2">d05bf39f69…</td>
+          <td class="mono faint small nowrap" title="a22c799e8aeb90e06acfda0668abb2c2495c7bc7d8a440ef532fc88ca97b5d70">a22c799e8a…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:38</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="057fb72df261b88c6b3766841099f924af2805761235e567529900c8252acbbb">057fb72df2…</td>
+          <td class="mono faint small nowrap" title="cbbe39cb201ae003b3c49402e028f8444d180c5d3bfee476732ffb61d6bc73d0">cbbe39cb20…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:38</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip info">Updated</span></td>
           <td class="small muted">patient</td>
           <td class="small">ABHA verified (simulated)</td>
-          <td class="mono faint small nowrap" title="a62db252494e821d731b6625523c77b22cd3dc78541326450fd38f25ac057501">a62db25249…</td>
+          <td class="mono faint small nowrap" title="48720e09063bed9f43b59401278332bc94dd5d905def6a6b61ded173c6545de9">48720e0906…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:38</td>
           <td class="nowrap">Ramesh Gupta</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">dispense</td>
-          <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00001</td>
-          <td class="mono faint small nowrap" title="d2d393515b7fc2461a76c5fc68e6d5083455c52fa4a6e592a279f6aaa15970ac">d2d393515b…</td>
+          <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00002</td>
+          <td class="mono faint small nowrap" title="b6b3de248fc02d336644aaf1e10c57c7bb9886fe488cf8fb1854852b8eeec03f">b6b3de248f…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:37</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00001 printed</td>
-          <td class="mono faint small nowrap" title="2b088078d74fcaa26e72c7776edd69eb7444a695e31e922458339e3e27fbe9e7">2b088078d7…</td>
+          <td class="small">Invoice OPD/2627/00003 printed</td>
+          <td class="mono faint small nowrap" title="05601a355eed86af15e5cd810ec601a38fc76319e0858dbf7bc85f48fe6bc0ab">05601a355e…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:37</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
-          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00001</td>
-          <td class="mono faint small nowrap" title="4187c1f4d0f7ec85570388dfb69a019d7bf213a318a8b32c9dcc788529407e70">4187c1f4d0…</td>
+          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00003</td>
+          <td class="mono faint small nowrap" title="da447bb28676279ef1bc4e433663ab3f09bd5ec9adc60f7bc4f4140837d99673">da447bb286…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:37</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="2b088078d74fcaa26e72c7776edd69eb7444a695e31e922458339e3e27fbe9e7">2b088078d7…</td>
+          <td class="small">Invoice OPD/2627/00003 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="05601a355eed86af15e5cd810ec601a38fc76319e0858dbf7bc85f48fe6bc0ab">05601a355e…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:37</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="4267cde987d4d0163415c5a4b78b8edda1a1e7a64405ff9129b248d1970bd42b">4267cde987…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="a016e92b70752d6171bb73876a7ec9feb8f692d163153911c20f456d4181e087">a016e92b70…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:37</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="4267cde987d4d0163415c5a4b78b8edda1a1e7a64405ff9129b248d1970bd42b">4267cde987…</td>
+          <td class="small">Prescription printed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="a016e92b70752d6171bb73876a7ec9feb8f692d163153911c20f456d4181e087">a016e92b70…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:37</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="4267cde987d4d0163415c5a4b78b8edda1a1e7a64405ff9129b248d1970bd42b">4267cde987…</td>
+          <td class="small">Consultation signed · Sita Devi</td>
+          <td class="mono faint small nowrap" title="a016e92b70752d6171bb73876a7ec9feb8f692d163153911c20f456d4181e087">a016e92b70…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:37</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="bf453e72b52316986946b331f721f00e9b4bcb06d57ce40b75010a1354f2def4">bf453e72b5…</td>
+          <td class="mono faint small nowrap" title="88a96c01b80e4dbe6f3ba858c248e77a4e855fab23c6d74ef80c76522e0eda2c">88a96c01b8…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:37</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip muted">Printed</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="bf453e72b52316986946b331f721f00e9b4bcb06d57ce40b75010a1354f2def4">bf453e72b5…</td>
+          <td class="mono faint small nowrap" title="88a96c01b80e4dbe6f3ba858c248e77a4e855fab23c6d74ef80c76522e0eda2c">88a96c01b8…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:33</td>
+          <td class="nowrap tabular small">29 Jul 18:40:37</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">encounter</td>
-          <td class="small">Token 8 issued to Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="bf453e72b52316986946b331f721f00e9b4bcb06d57ce40b75010a1354f2def4">bf453e72b5…</td>
+          <td class="small">Token 8 issued to Sita Devi</td>
+          <td class="mono faint small nowrap" title="88a96c01b80e4dbe6f3ba858c248e77a4e855fab23c6d74ef80c76522e0eda2c">88a96c01b8…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:38:32</td>
-          <td class="nowrap">system</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
-          <td class="mono faint small nowrap" title=""></td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:51</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 9 printed</td>
-          <td class="mono faint small nowrap" title="fd38362afa24fa90d8ede239049e5ae20e37724b702d1ba8e790aa36c87bfbb7">fd38362afa…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:51</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Scan &amp; Share arrival (simulated) · token 9</td>
-          <td class="mono faint small nowrap" title="fd38362afa24fa90d8ede239049e5ae20e37724b702d1ba8e790aa36c87bfbb7">fd38362afa…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:51</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Exported</span></td>
-          <td class="small muted">bridgeoutboxentry</td>
-          <td class="small">FHIR bundle downloaded (Prescription)</td>
-          <td class="mono faint small nowrap" title="216ec361756900b0d1e77f32ec4d70ed9bdc46ff75dee5d4993c3a7dfedf0a1b">216ec36175…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap tabular small">29 Jul 18:40:29</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip muted">Exported</span></td>
           <td class="small muted">encounter</td>
           <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
-          <td class="mono faint small nowrap" title="2dedf4b29d95629e48894b50d31d1da12e9fd781f2acbec37636407e863b2709">2dedf4b29d…</td>
+          <td class="mono faint small nowrap" title="381847456795777b64536d8058bc5489a27d2b7264b617933f5f708722961e2f">3818474567…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap tabular small">29 Jul 18:40:28</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 2 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="4f0bcc16c09d42370a69badf3fa2b5fe276ae9f43b8a4c24ada632ff89581bbc">4f0bcc16c0…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 18:40:28</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip muted">Exported</span></td>
+          <td class="small muted">encounter</td>
+          <td class="small">Built 3 FHIR bundle(s) for the ABDM outbox</td>
+          <td class="mono faint small nowrap" title="10c26dd692f67e46d873eb1a8e3157d3006e616f2bb6b7a1cda7db446ba17412">10c26dd692…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 18:40:28</td>
           <td class="nowrap">Ramesh Gupta</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">dispense</td>
-          <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00001</td>
-          <td class="mono faint small nowrap" title="d007161f529da92ed5882b0404edcfe6e5005cd48d6f18409d5c2d1eebb8fa9f">d007161f52…</td>
+          <td class="small">Dispensed 3 item(s) · invoice PHR/2627/00001</td>
+          <td class="mono faint small nowrap" title="5c4d3b1704ae434d9b7a39b3595e40fadfac5aa80ee7d9ec3eeedb96f5c0f50e">5c4d3b1704…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:51</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00001 printed</td>
-          <td class="mono faint small nowrap" title="58d794356169a7ccb340d5b06953bf50df9ed247a38ff331c14599a214a3f13d">58d7943561…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:51</td>
+          <td class="nowrap tabular small">29 Jul 18:40:28</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">payment</td>
-          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00001</td>
-          <td class="mono faint small nowrap" title="4a9925da9f3e846755e3c2f7b820cb325e56ac2c7d692a7a2268d5f296c46691">4a9925da9f…</td>
+          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00002</td>
+          <td class="mono faint small nowrap" title="72e069f133e65c3a3baa726296bde2d9c019079494e39c83051e44f3a9c1617b">72e069f133…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:51</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="58d794356169a7ccb340d5b06953bf50df9ed247a38ff331c14599a214a3f13d">58d7943561…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:50</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="14963e2b1dbf508cc832db13ea69128c2d9cfa7b4e68caabcfd4af49e8c6fb14">14963e2b1d…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:50</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="14963e2b1dbf508cc832db13ea69128c2d9cfa7b4e68caabcfd4af49e8c6fb14">14963e2b1d…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:50</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="14963e2b1dbf508cc832db13ea69128c2d9cfa7b4e68caabcfd4af49e8c6fb14">14963e2b1d…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:50</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="7861b1533752eb4d5e81dd99ee1a8bc5fae170e94f38e87b6ca3f1593be250a6">7861b15337…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:50</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="7861b1533752eb4d5e81dd99ee1a8bc5fae170e94f38e87b6ca3f1593be250a6">7861b15337…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:50</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 issued to Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="7861b1533752eb4d5e81dd99ee1a8bc5fae170e94f38e87b6ca3f1593be250a6">7861b15337…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:37:49</td>
-          <td class="nowrap">system</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
-          <td class="mono faint small nowrap" title=""></td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:32</td>
-          <td class="nowrap">Ramesh Gupta</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">dispense</td>
-          <td class="small">Dispensed 1 item(s) · invoice PHR/2627/00001</td>
-          <td class="mono faint small nowrap" title="a064328b0fbfc58c00cc7cc808374d9c547ef1eaa61dd0f1f3c0514343a6a7e5">a064328b0f…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:32</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00001 printed</td>
-          <td class="mono faint small nowrap" title="eadac266dc8c98169c3362c54e3de24a86c31195c9267d75ea35b6c534cf020c">eadac266dc…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:32</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">payment</td>
-          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00001</td>
-          <td class="mono faint small nowrap" title="39f453954cda9ac1b126673fdd7e09c95d200885b8756f3b16c940fc592f7976">39f453954c…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:32</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="eadac266dc8c98169c3362c54e3de24a86c31195c9267d75ea35b6c534cf020c">eadac266dc…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:31</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="6effa3a4b07c15d81fc274dc2dff4546d3d3cae48fa9d609c485dbc89e758638">6effa3a4b0…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:31</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="6effa3a4b07c15d81fc274dc2dff4546d3d3cae48fa9d609c485dbc89e758638">6effa3a4b0…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:31</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="6effa3a4b07c15d81fc274dc2dff4546d3d3cae48fa9d609c485dbc89e758638">6effa3a4b0…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:31</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="a2cff3dc8df7a0f4e44c7d8789c06036abc67918bd30c7cb6e5d9bdbab05f224">a2cff3dc8d…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:31</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="a2cff3dc8df7a0f4e44c7d8789c06036abc67918bd30c7cb6e5d9bdbab05f224">a2cff3dc8d…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:31</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 issued to Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="a2cff3dc8df7a0f4e44c7d8789c06036abc67918bd30c7cb6e5d9bdbab05f224">a2cff3dc8d…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:30:30</td>
-          <td class="nowrap">system</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
-          <td class="mono faint small nowrap" title=""></td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:26:09</td>
-          <td class="nowrap">system</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
-          <td class="mono faint small nowrap" title=""></td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:19:22</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Signed in</span></td>
-          <td class="small muted">user</td>
-          <td class="small">Signed in</td>
-          <td class="mono faint small nowrap" title=""></td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:58</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">invoice</td>
-          <td class="small">Invoice OPD/2627/00002 printed</td>
-          <td class="mono faint small nowrap" title="24ff61fd11c4e21616955a1d8e565665faf9cecd3e58a1ec6947184ce4182aad">24ff61fd11…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:58</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">payment</td>
-          <td class="small">Payment ₹300.00 (CASH) on OPD/2627/00002</td>
-          <td class="mono faint small nowrap" title="a23836ed9d276218d35e37c460cf7e8279cab0842ecbacef5948cc78ed52bc8b">a23836ed9d…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap tabular small">29 Jul 18:40:28</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00002 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="24ff61fd11c4e21616955a1d8e565665faf9cecd3e58a1ec6947184ce4182aad">24ff61fd11…</td>
+          <td class="mono faint small nowrap" title="da9ad8bb34cc80fdb6ee5ca00361917de74736f193f828149e1f9ee16a96cb7b">da9ad8bb34…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:58</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="75a397f28034be236c7df4baf6ae84b62fb8cfbdce2304ac7cc994f3ff12c605">75a397f280…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:58</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="75a397f28034be236c7df4baf6ae84b62fb8cfbdce2304ac7cc994f3ff12c605">75a397f280…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:58</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip ok">Created</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="75a397f28034be236c7df4baf6ae84b62fb8cfbdce2304ac7cc994f3ff12c605">75a397f280…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:58</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 9 printed</td>
-          <td class="mono faint small nowrap" title="159dae93795ed549aeebb2fe881762c13396ef052d5e8d9fc6546ce4d466262f">159dae9379…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:58</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 9 printed</td>
-          <td class="mono faint small nowrap" title="159dae93795ed549aeebb2fe881762c13396ef052d5e8d9fc6546ce4d466262f">159dae9379…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:58</td>
+          <td class="nowrap tabular small">29 Jul 18:40:28</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 9 issued to Vinod Tyagi</td>
-          <td class="mono faint small nowrap" title="159dae93795ed549aeebb2fe881762c13396ef052d5e8d9fc6546ce4d466262f">159dae9379…</td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00001</td>
+          <td class="mono faint small nowrap" title="ad2c1e94ca263fa7be94ed1c6df65aa82363de27da6576f9c1f57b47d997d83d">ad2c1e94ca…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:41</td>
+          <td class="nowrap tabular small">29 Jul 18:40:28</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">invoice</td>
           <td class="small">Invoice OPD/2627/00001 posted (₹300.00)</td>
-          <td class="mono faint small nowrap" title="5569a75919ecdbc677f9b00c3f67508cbc11892301d1871c25100aec233b6eda">5569a75919…</td>
+          <td class="mono faint small nowrap" title="e12edd1a0878053a19fd0c3ef1bfca3e47a5db8db87518e77fa96e625b10cc19">e12edd1a08…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:41</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="2cc964c5bb67455475ba6a314625df9f3a57f5b7ddb11b06c8035991992993a5">2cc964c5bb…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:41</td>
-          <td class="nowrap">Dr. Anil Sharma</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">consult</td>
-          <td class="small">Prescription printed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="2cc964c5bb67455475ba6a314625df9f3a57f5b7ddb11b06c8035991992993a5">2cc964c5bb…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:41</td>
+          <td class="nowrap tabular small">29 Jul 18:40:28</td>
           <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">consult</td>
-          <td class="small">Consultation signed · Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="2cc964c5bb67455475ba6a314625df9f3a57f5b7ddb11b06c8035991992993a5">2cc964c5bb…</td>
+          <td class="small">Consultation signed · Priya Agarwal</td>
+          <td class="mono faint small nowrap" title="10fa62afb82253b1dd14fa7944da09af627e5179b11916754c9612a55deaa328">10fa62afb8…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:41</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="1cc5637fdd69f79232f0d87d3350d77b49f43dbaf8d23699a8fc0c4f8ce91d38">1cc5637fdd…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:41</td>
-          <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Printed</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 printed</td>
-          <td class="mono faint small nowrap" title="1cc5637fdd69f79232f0d87d3350d77b49f43dbaf8d23699a8fc0c4f8ce91d38">1cc5637fdd…</td>
-        </tr>
-        
-        <tr>
-          <td class="nowrap tabular small">28 Jul 18:18:41</td>
-          <td class="nowrap">Sunita Devi</td>
+          <td class="nowrap tabular small">29 Jul 18:40:28</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
           <td><span class="chip ok">Created</span></td>
-          <td class="small muted">encounter</td>
-          <td class="small">Token 8 issued to Priya Tyagi</td>
-          <td class="mono faint small nowrap" title="1cc5637fdd69f79232f0d87d3350d77b49f43dbaf8d23699a8fc0c4f8ce91d38">1cc5637fdd…</td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Ramesh Tyagi</td>
+          <td class="mono faint small nowrap" title="37e845382e5c11aecba8e9e080b368a6ee6203888879c5ca352884c94f501a97">37e845382e…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 18:14:18</td>
+          <td class="nowrap tabular small">29 Jul 18:40:28</td>
+          <td class="nowrap">Dr. Anil Sharma</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">consult</td>
+          <td class="small">Consultation signed · Asha Verma</td>
+          <td class="mono faint small nowrap" title="adb6e23b85783da910fcb6090064dff77a94a69234318d9e8ac51f67e01084d2">adb6e23b85…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 18:40:27</td>
           <td class="nowrap">system</td>
           <td><span class="chip ok">Created</span></td>
           <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
+          <td class="small">Seeded demo world (166 synthetic patients)</td>
           <td class="mono faint small nowrap" title=""></td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 16:55:55</td>
+          <td class="nowrap tabular small">29 Jul 18:39:59</td>
+          <td class="nowrap">Ramesh Gupta</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">dispense</td>
+          <td class="small">Dispensed 3 item(s) · invoice PHR/2627/00002</td>
+          <td class="mono faint small nowrap" title="1df3fae50cec8a46f8a1b4af4a3dd1324956631b54ced912f0a321af879c4ef8">1df3fae50c…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 18:39:59</td>
           <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
-          <td class="small muted">patient</td>
-          <td class="small">Registered Ramesh Chandra Sharma (BLD-000050)</td>
-          <td class="mono faint small nowrap" title="e8b1db763243579382cd4dbb2a72ac9ed2ac731925c1e7892757774c9627f87b">e8b1db7632…</td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00004</td>
+          <td class="mono faint small nowrap" title="613258a7036cf299d638513b43afd1430b064faa316fdcf2420c05a58bcb5f7c">613258a703…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 16:51:56</td>
+          <td class="nowrap tabular small">29 Jul 18:39:59</td>
           <td class="nowrap">Sunita Devi</td>
-          <td><span class="chip muted">Signed in</span></td>
-          <td class="small muted">user</td>
-          <td class="small">Signed in</td>
-          <td class="mono faint small nowrap" title=""></td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00004 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="9e4d82d3782454a96c6b22594bd8ec55eefe9030f16e34682b0070457a5ada37">9e4d82d378…</td>
         </tr>
         
         <tr>
-          <td class="nowrap tabular small">28 Jul 16:50:42</td>
-          <td class="nowrap">system</td>
+          <td class="nowrap tabular small">29 Jul 18:39:59</td>
+          <td class="nowrap">Sunita Devi</td>
           <td><span class="chip ok">Created</span></td>
-          <td class="small muted">seed</td>
-          <td class="small">Seeded demo world (49 synthetic patients)</td>
-          <td class="mono faint small nowrap" title=""></td>
+          <td class="small muted">payment</td>
+          <td class="small">Payment ₹300.00 (UPI) on OPD/2627/00003</td>
+          <td class="mono faint small nowrap" title="ac7c8d2f3ccba184db5dec134d670d124943f133714b1edbb48d4c31ae5bba11">ac7c8d2f3c…</td>
+        </tr>
+        
+        <tr>
+          <td class="nowrap tabular small">29 Jul 18:39:59</td>
+          <td class="nowrap">Sunita Devi</td>
+          <td><span class="chip ok">Created</span></td>
+          <td class="small muted">invoice</td>
+          <td class="small">Invoice OPD/2627/00003 posted (₹300.00)</td>
+          <td class="mono faint small nowrap" title="57eb8e7719a984ab8bf6a8c7958e5c656853851b4113711a6b0af6aa92aaff80">57eb8e7719…</td>
         </tr>
         
       </tbody>

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Lab · AGAAEE HIMS</title>
+<title>Registers · AGAAEE HIMS</title>
 <style>/* ===========================================================================
    AGAAEE HIMS — application shell.
    A tool, not a document: dense, scannable, keyboard-first. Palette ties to the
@@ -717,13 +717,13 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 
 <script src="/static/js/offline.js" defer></script>
 </head>
-<body hx-headers='{"X-CSRFToken": "PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV"}'>
+<body hx-headers='{"X-CSRFToken": "YPTCXXhd5NInF8zvPvXr1TLsjSy8ePUxbf3GbAstQgBEBODCwe9im5BiFpYoT6aO"}'>
 <div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
 padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
 align-items:center;gap:.6rem;flex-wrap:wrap">
 <span style="background:#E8A13D;color:#12211D;padding:.1rem .5rem;border-radius:4px;
 font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
-<span>Lab — a real page from AGAAEE HIMS, with sample data.</span>
+<span>Statutory registers — a real page from AGAAEE HIMS, with sample data.</span>
 <span style="flex:1"></span>
 <a href="index.html" style="color:#9FC4BA">← All screens</a>
 <a href="../index.html" style="color:#9FC4BA">agaaee.in</a>
@@ -741,6 +741,11 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <a href="patients.html" class="">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         Patients
+      </a>
+      
+      <a href="register.html" class="">
+        <svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M3 20c0-3.3 3.1-6 7-6"/><path d="M18 14v6M15 17h6"/></svg>
+        Register patient
       </a>
       
       <a href="opd-queue.html" class="">
@@ -771,7 +776,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-9.5A3.5 3.5 0 0 1 12 9a3.5 3.5 0 0 1 7 2.5c0 5-7 9.5-7 9.5z"/><path d="M12 3v3M10.5 4.5h3"/></svg>
         Rounds
       </a>
-      <a href="lab.html" class="active">
+      <a href="lab.html" class="">
         <svg viewBox="0 0 24 24"><path d="M9 3v7L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L15 10V3"/><path d="M8 3h8M7.5 14h9"/></svg>
         Lab
       </a>
@@ -792,12 +797,22 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Messages
       </a>
       
+      <a href="payouts.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5.5c0-1.4-2.2-2.5-5-2.5s-5 1.1-5 2.5S9.2 8 12 8s5 1.1 5 2.5-2.2 2.5-5 2.5-5-1.1-5-2.5"/></svg>
+        Doctor payouts
+      </a>
+      
+      
+      <a href="day-close.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M6 20V10M11 20V4M16 20v-7"/></svg>
+        Day close
+      </a>
       
       <a href="abdm-outbox.html" class="">
         <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
         ABDM records
       </a>
-      <a href="registers.html" class="">
+      <a href="registers.html" class="active">
         <svg viewBox="0 0 24 24"><path d="M4 4h13a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2z"/><path d="M8 8h7M8 12h7M8 16h4"/></svg>
         Registers
       </a>
@@ -810,13 +825,18 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Audit trail
       </a>
       
+      <a href="#" data-inert="1" class="">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M22 12h-3M5 12H2M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7 5.6 5.6"/></svg>
+        Facility
+      </a>
+      
     </nav>
     <div class="spacer"></div>
     <div class="who">
-      <strong>Dr. Anil Sharma</strong>
-      Doctor
+      <strong>Dr. Meena Verma</strong>
+      Owner / Administrator
       <form method="post" action="#" style="margin-top:.35rem">
-        <input type="hidden" name="csrfmiddlewaretoken" value="PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV">
+        <input type="hidden" name="csrfmiddlewaretoken" value="YPTCXXhd5NInF8zvPvXr1TLsjSy8ePUxbf3GbAstQgBEBODCwe9im5BiFpYoT6aO">
         <button type="submit" style="background:none;border:0;padding:0;color:#9FC4BA;font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline">Sign out</button>
       </form>
     </div>
@@ -850,8 +870,8 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Theme</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV">
-      <input type="hidden" name="next" value="/lab/">
+      <input type="hidden" name="csrfmiddlewaretoken" value="YPTCXXhd5NInF8zvPvXr1TLsjSy8ePUxbf3GbAstQgBEBODCwe9im5BiFpYoT6aO">
+      <input type="hidden" name="next" value="/registers/">
       <button name="theme" value="auto" class="opt on">
         Follow this computer <span class="tick">✓</span>
       </button>
@@ -866,8 +886,8 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Text size</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV">
-      <input type="hidden" name="next" value="/lab/">
+      <input type="hidden" name="csrfmiddlewaretoken" value="YPTCXXhd5NInF8zvPvXr1TLsjSy8ePUxbf3GbAstQgBEBODCwe9im5BiFpYoT6aO">
+      <input type="hidden" name="next" value="/registers/">
       <button name="text_size" value="normal" class="opt on">
         Normal <span class="tick">✓</span>
       </button>
@@ -893,63 +913,82 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       
 <div class="page-head">
   <div class="grow">
-    <h1>Lab</h1>
-    <p>Oldest first — the oldest uncollected sample is the patient who has been waiting longest.</p>
+    <h1>Registers</h1>
+    <p>The books an inspector asks for. Every one of them writes itself as the work happens,
+       and none can be edited or back-dated — a correction is always a new entry that points
+       at the old one.</p>
   </div>
+  <a class="btn secondary" href="trust-pack.html">Trust pack</a>
+  <a class="btn" href="#" data-inert="1">🖨 Inspection pack</a>
 </div>
 
 
-
-<div class="card">
-  <div class="card-head">
-    <h2>To do</h2>
-    <span class="chip warn">1</span>
-  </div>
-  <div class="table-wrap">
-    <table class="data">
-      <thead><tr><th>Ordered</th><th>Patient</th><th>Test</th><th>Stage</th><th></th></tr></thead>
-      <tbody>
-        
-        <tr>
-          <td class="nowrap small">29 Jul 19:22</td>
-          <td><a class="rowlink" href="#" data-inert="1">पूजा त्यागी</a>
-            <div class="faint small">51 / M · BLD-000086</div></td>
-          <td>Random blood sugar<div class="faint small">Fasting sample tomorrow</div></td>
-          <td>
-            <span class="chip muted">Awaiting sample</span>
-            
-            
-          </td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-      </tbody>
-    </table>
-  </div>
+<div class="msg error">
+  <strong>1 birth/death past the 21-day window.</strong>
+  Late registration needs an affidavit and a fee, and it is the family who suffers for it.
 </div>
 
 
-<div class="card mt-2">
-  <div class="card-head"><h2>Verified today</h2></div>
-  <div class="table-wrap">
-    <table class="data">
-      <thead><tr><th>Patient</th><th>Test</th><th>Result</th><th class="right">Turnaround</th><th></th></tr></thead>
-      <tbody>
-        
-        <tr>
-          <td>Pooja Bhati</td>
-          <td>Complete blood count (CBC)</td>
-          <td><span class="chip warn">Abnormal</span>
-              </td>
-          <td class="right tabular small">0 min</td>
-          <td class="right"><a class="btn subtle" href="#" data-inert="1">Report</a></td>
-        </tr>
-        
-      </tbody>
-    </table>
+<div class="grid cols-2">
+  <div class="card">
+    <div class="card-head"><h2>Medico-legal cases</h2>
+      <span class="chip muted">2 entries</span></div>
+    <div class="card-body">
+      <p class="small muted">Assault, accident, poisoning, burns — anything with a legal
+         dimension must be recorded and the police informed.</p>
+      
+        <p class="msg warning" style="margin:.6rem 0 0">
+          1 case with no police
+          intimation recorded. This is the gap that gets hospitals into trouble.</p>
+      
+      <div class="btn-row mt-2"><a class="btn secondary" href="#" data-inert="1">Open the register</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Births and deaths</h2>
+      <span class="chip muted">2 entries</span></div>
+    <div class="card-body">
+      <p class="small muted">Reportable to the registrar within 21 days under the
+         Registration of Births and Deaths Act.</p>
+      
+        <p class="msg error" style="margin:.6rem 0 0">
+          2 still to be filed, 1 already late.</p>
+      
+      <div class="btn-row mt-2"><a class="btn secondary" href="#" data-inert="1">Open the register</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Form F — ultrasound</h2>
+      <span class="chip muted">1 entries</span></div>
+    <div class="card-body">
+      <p class="small muted">Required for every ultrasound on a pregnant woman under the
+         PC-PNDT Act, retained two years, filed monthly. If this hospital has a scan machine,
+         this is the inspection it should worry about most.</p>
+      
+      <div class="btn-row mt-2"><a class="btn secondary" href="#" data-inert="1">Open the register</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Transfusions</h2>
+      <span class="chip muted">1 entries</span></div>
+    <div class="card-body">
+      <p class="small muted">Blood issued, the bag number, the cross-match reference and any
+         reaction — required even without a blood bank of your own.</p>
+      <div class="btn-row mt-2"><a class="btn secondary" href="#" data-inert="1">Open the register</a></div>
+    </div>
   </div>
 </div>
 
+<div class="card mt-2"><div class="card-body">
+  <h3>The Schedule H1 register</h3>
+  <p class="small muted">The pharmacy's H1 book is written automatically at the moment a
+     medicine leaves the shelf — it lives with the pharmacy, and it is included in the
+     inspection pack.</p>
+  <div class="btn-row mt-1"><a class="btn subtle" href="h1-register.html">Open the H1 register</a></div>
+</div></div>
 
     </main>
   </div>

@@ -472,6 +472,100 @@ h3 { font-size: .95rem; }
 .shortcut-hint .k { font-family: ui-monospace, Consolas, monospace; font-weight: 700; }
 .shortcut-hint .x { font-weight: 600; }
 
+/* ---------- the cashless clock ----------
+   The countdown IS the feature. It has to be readable across a desk, and a
+   breach has to be impossible to mistake for anything else. */
+.chip.clock { font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.chip.clock.big { font-size: 1rem; padding: .3rem .8rem; }
+.kvrow {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding: .35rem 0; border-bottom: 1px solid var(--line);
+}
+.kvrow:last-of-type { border-bottom: 0; }
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.timeline li {
+  display: grid; gap: .1rem; padding-left: .8rem;
+  border-left: 2px solid var(--line-strong);
+}
+.timeline .t-when { font-size: .74rem; color: var(--ink-faint); font-weight: 700; }
+.timeline .t-what { font-size: .9rem; }
+
+/* ---------- connection strip ----------
+   The failure mode being avoided is SILENCE: staff who cannot tell whether
+   their work reached the server stop trusting the software, and a receptionist
+   who re-registers a patient "just in case" creates the duplicate the MPI
+   exists to prevent. Fixed to the bottom so it never covers a form field. */
+.netbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  padding: .55rem 1rem; font-size: .85rem; font-weight: 600; text-align: center;
+  border-top: 1px solid transparent;
+}
+.netbar.off     { background: var(--warn-bg);   color: var(--warn);   border-color: var(--warn-line); }
+.netbar.waiting { background: var(--info-bg);   color: var(--info);   border-color: var(--info-line); }
+.netbar.ok      { background: var(--ok-bg);     color: var(--ok);     border-color: var(--ok-line); }
+
+/* ---------- nursing ----------
+   Ward screens are used on a phone, held in one hand, standing up. Cards, big
+   targets, no horizontal tables. */
+.bed-grid { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+.bed-card.attention, .dose-card.attention { border-left: 4px solid var(--warn); }
+.bed-top { display: flex; align-items: flex-start; gap: .6rem; justify-content: space-between; }
+.bed-vitals { margin-top: .5rem; font-variant-numeric: tabular-nums; font-size: .92rem; }
+.vitals-grid { display: grid; gap: .7rem .9rem; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.vitals-grid .field-input { font-size: 1.15rem; padding: .55rem .6rem; }
+.dose-card { margin-top: .7rem; }
+.dose-actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin-top: .6rem; }
+.dose-reason { flex: 1 1 180px; min-width: 150px; }
+
+/* The nurse handoff card inside the doctor's screen. Tinted so it is instantly
+   obvious that someone else wrote this. */
+.nurse-card {
+  background: var(--info-bg); border: 1px solid var(--info-line);
+  border-left: 4px solid var(--info); border-radius: var(--radius);
+  padding: .7rem .8rem; display: grid; gap: .45rem;
+}
+.nurse-card-head { display: flex; gap: .6rem; align-items: baseline; flex-wrap: wrap; }
+.nurse-round {
+  font: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: grid; gap: .15rem; padding: .5rem .65rem; border-radius: 8px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--info-line);
+}
+.nurse-round:hover { border-color: var(--info); }
+.nurse-round.used { opacity: .6; }
+.nurse-round .nr-when { font-size: .72rem; color: var(--ink-faint); font-weight: 700; }
+.nurse-round .nr-line { font-variant-numeric: tabular-nums; font-size: .92rem; }
+.nurse-round .nr-note { font-size: .85rem; color: var(--ink-soft); font-style: italic; }
+.nurse-round .nr-who { font-size: .75rem; color: var(--ink-faint); }
+
+/* ---------- the guide ---------- */
+.guide-toc { display: flex; flex-wrap: wrap; gap: .4rem; }
+.guide-toc a {
+  font-size: .85rem; font-weight: 600; text-decoration: none;
+  padding: .3rem .7rem; border-radius: 999px;
+  background: var(--surface-2); color: var(--ink); border: 1px solid var(--line);
+}
+.guide-toc a:hover { background: var(--brand-050); border-color: var(--brand-600); color: var(--brand-600); }
+.guide-h { margin: 1.8rem 0 0; font-size: 1.25rem; scroll-margin-top: 4.5rem; }
+.guide-entry { margin-top: .7rem; }
+.guide-entry .card-head h2 { font-size: 1rem; }
+.guide-what { margin: 0 0 .6rem; }
+.guide-why, .guide-try { margin: .6rem 0 0; }
+.guide-why .lbl, .guide-try .lbl {
+  display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink-faint); font-weight: 700; margin-bottom: .15rem;
+}
+.guide-why { color: var(--ink-soft); }
+.guide-try {
+  background: var(--brand-050); border-left: 3px solid var(--brand-600);
+  border-radius: 0 8px 8px 0; padding: .55rem .8rem;
+}
+.guide-try ol { margin: .2rem 0 0; padding-left: 1.1rem; }
+.guide-try li { margin: .2rem 0; }
+.guide-entry code {
+  font-family: ui-monospace, Consolas, monospace; font-size: .85em;
+  background: var(--surface-2); padding: .05rem .3rem; border-radius: 4px;
+}
+
 /* ---------- search ---------- */
 .searchbar { display: flex; gap: .6rem; }
 .searchbar input {
@@ -620,8 +714,10 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 <script src="/static/js/hindi-input.js" defer></script>
 
 <script src="/static/js/shortcuts.js" defer></script>
+
+<script src="/static/js/offline.js" defer></script>
 </head>
-<body hx-headers='{"X-CSRFToken": "FNwrHypMWP8DC3KKb8BSfsLYaexp7HcFpv4Ojd7FqoRz3RdDS2Qm1fqn1No9IwEG"}'>
+<body hx-headers='{"X-CSRFToken": "x27nrI4uEvWKssXq01TeVEF6zIxTUEeUKshrFlfKpYP1o81xHK55gQvWVfX9zVub"}'>
 <div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
 padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
 align-items:center;gap:.6rem;flex-wrap:wrap">
@@ -676,6 +772,10 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Ward
       </a>
       
+      <a href="rounds.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-9.5A3.5 3.5 0 0 1 12 9a3.5 3.5 0 0 1 7 2.5c0 5-7 9.5-7 9.5z"/><path d="M12 3v3M10.5 4.5h3"/></svg>
+        Rounds
+      </a>
       <a href="lab.html" class="">
         <svg viewBox="0 0 24 24"><path d="M9 3v7L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L15 10V3"/><path d="M8 3h8M7.5 14h9"/></svg>
         Lab
@@ -683,6 +783,10 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <a href="pharmacy.html" class="">
         <svg viewBox="0 0 24 24"><path d="M4 8h16v12H4z"/><path d="M9 8V5h6v3"/><path d="M12 12v4M10 14h4"/></svg>
         Pharmacy
+      </a>
+      <a href="claims.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6z"/><path d="M12 8v4l2.5 1.5"/></svg>
+        Cashless desk
       </a>
       <a href="billing.html" class="">
         <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>
@@ -693,6 +797,12 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Messages
       </a>
       
+      <a href="payouts.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5.5c0-1.4-2.2-2.5-5-2.5s-5 1.1-5 2.5S9.2 8 12 8s5 1.1 5 2.5-2.2 2.5-5 2.5-5-1.1-5-2.5"/></svg>
+        Doctor payouts
+      </a>
+      
+      
       <a href="day-close.html" class="active">
         <svg viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M6 20V10M11 20V4M16 20v-7"/></svg>
         Day close
@@ -701,6 +811,14 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <a href="abdm-outbox.html" class="">
         <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
         ABDM records
+      </a>
+      <a href="registers.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M4 4h13a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2z"/><path d="M8 8h7M8 12h7M8 16h4"/></svg>
+        Registers
+      </a>
+      <a href="#" data-inert="1" class="">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.2 2.4c-.6.2-1 .8-1 1.4v.4"/><path d="M12 17h.01"/></svg>
+        Guide — what is all this?
       </a>
       <a href="audit.html" class="">
         <svg viewBox="0 0 24 24"><path d="M5 3h9l5 5v13H5z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
@@ -718,7 +836,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <strong>Dr. Meena Verma</strong>
       Owner / Administrator
       <form method="post" action="#" style="margin-top:.35rem">
-        <input type="hidden" name="csrfmiddlewaretoken" value="FNwrHypMWP8DC3KKb8BSfsLYaexp7HcFpv4Ojd7FqoRz3RdDS2Qm1fqn1No9IwEG">
+        <input type="hidden" name="csrfmiddlewaretoken" value="x27nrI4uEvWKssXq01TeVEF6zIxTUEeUKshrFlfKpYP1o81xHK55gQvWVfX9zVub">
         <button type="submit" style="background:none;border:0;padding:0;color:#9FC4BA;font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline">Sign out</button>
       </form>
     </div>
@@ -752,7 +870,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Theme</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="FNwrHypMWP8DC3KKb8BSfsLYaexp7HcFpv4Ojd7FqoRz3RdDS2Qm1fqn1No9IwEG">
+      <input type="hidden" name="csrfmiddlewaretoken" value="x27nrI4uEvWKssXq01TeVEF6zIxTUEeUKshrFlfKpYP1o81xHK55gQvWVfX9zVub">
       <input type="hidden" name="next" value="/day-close/">
       <button name="theme" value="auto" class="opt on">
         Follow this computer <span class="tick">✓</span>
@@ -768,7 +886,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Text size</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="FNwrHypMWP8DC3KKb8BSfsLYaexp7HcFpv4Ojd7FqoRz3RdDS2Qm1fqn1No9IwEG">
+      <input type="hidden" name="csrfmiddlewaretoken" value="x27nrI4uEvWKssXq01TeVEF6zIxTUEeUKshrFlfKpYP1o81xHK55gQvWVfX9zVub">
       <input type="hidden" name="next" value="/day-close/">
       <button name="text_size" value="normal" class="opt on">
         Normal <span class="tick">✓</span>
@@ -796,11 +914,11 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
 <div class="page-head">
   <div class="grow">
     <h1>Day close</h1>
-    <p>Everything for Tuesday, 28 July 2026. The clinic day rolls at 4 a.m., so a late
+    <p>Everything for Wednesday, 29 July 2026. The clinic day rolls at 4 a.m., so a late
        evening OPD and a 1 a.m. emergency stay on the day they started.</p>
   </div>
   <form method="get" class="btn-row">
-    <input type="date" class="field-input" name="date" value="2026-07-28"
+    <input type="date" class="field-input" name="date" value="2026-07-29"
            style="width:auto">
     <button class="btn secondary" type="submit">Show</button>
   </form>
@@ -811,20 +929,20 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
 <div class="grid cols-4 mb-2">
   <div class="stat">
     <div class="label">Collected</div>
-    <div class="value">₹900</div>
+    <div class="value">₹1800</div>
     <div class="foot">
-      CASH ₹300 · UPI ₹600
+      CASH ₹1200 · UPI ₹600
     </div>
   </div>
   <div class="stat">
     <div class="label">Outstanding</div>
-    <div class="value">₹146</div>
+    <div class="value">₹227</div>
     <div class="foot">across all unpaid bills</div>
   </div>
   <div class="stat">
     <div class="label">OPD</div>
-    <div class="value">9</div>
-    <div class="foot">6 seen · 3 waiting</div>
+    <div class="value">15</div>
+    <div class="foot">9 seen · 6 waiting</div>
   </div>
   <div class="stat">
     <div class="label">In beds</div>
@@ -841,12 +959,12 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         <thead><tr><th>Mode</th><th class="right">Amount</th></tr></thead>
         <tbody>
           
-          <tr><td>CASH</td><td class="right tabular">₹300.00</td></tr>
+          <tr><td>CASH</td><td class="right tabular">₹1200.00</td></tr>
           
           <tr><td>UPI</td><td class="right tabular">₹600.00</td></tr>
           
           <tr><td><strong>Total</strong></td>
-              <td class="right tabular"><strong>₹900.00</strong></td></tr>
+              <td class="right tabular"><strong>₹1800.00</strong></td></tr>
         </tbody>
       </table>
     </div>
@@ -860,8 +978,8 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <div class="card-head"><h2>Worth a look</h2></div>
     <div class="card-body">
       <ul class="info" style="margin:0;padding-left:1.1rem">
-        <li>2 new patients registered today.</li>
-        <li>0 bills raised.</li>
+        <li>10 new patients registered today.</li>
+        <li>11 bills raised.</li>
         
           <li><span class="chip warn">1 batch</span>
               expiring within 90 days — money sitting on the shelf.</li>
@@ -880,10 +998,10 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
   <div class="card-body">
     <p class="faint small">This is what goes to the owner's phone at closing time —
        a message read in bed beats a dashboard nobody opens.</p>
-    <pre class="mono" style="white-space:pre-wrap;background:var(--surface-2);padding:.8rem;border-radius:8px;margin:.5rem 0 0">आज: OPD 9 मरीज़ (6 देखे गए)
-नए मरीज़: 2
-वसूली: ₹900  (CASH ₹300, UPI ₹600)
-बकाया: ₹146
+    <pre class="mono" style="white-space:pre-wrap;background:var(--surface-2);padding:.8rem;border-radius:8px;margin:.5rem 0 0">आज: OPD 15 मरीज़ (9 देखे गए)
+नए मरीज़: 10
+वसूली: ₹1,800  (CASH ₹1,200, UPI ₹600)
+बकाया: ₹227
 भर्ती: 0 · छुट्टी: 0 · बेड पर: 1
 ⚠ 90 दिन में एक्सपायर: 1 बैच
 ⚠ एक्सपायर्ड स्टॉक: 1 बैच</pre>

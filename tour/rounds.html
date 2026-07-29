@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Lab · AGAAEE HIMS</title>
+<title>Rounds · AGAAEE HIMS</title>
 <style>/* ===========================================================================
    AGAAEE HIMS — application shell.
    A tool, not a document: dense, scannable, keyboard-first. Palette ties to the
@@ -717,13 +717,13 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 
 <script src="/static/js/offline.js" defer></script>
 </head>
-<body hx-headers='{"X-CSRFToken": "PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV"}'>
+<body hx-headers='{"X-CSRFToken": "70MC7I38caIjnILMnofeenaUh2JhvQifoitzzqqyyM7WuBd6b1KRM9bO7XBB1mPL"}'>
 <div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
 padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
 align-items:center;gap:.6rem;flex-wrap:wrap">
 <span style="background:#E8A13D;color:#12211D;padding:.1rem .5rem;border-radius:4px;
 font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
-<span>Lab — a real page from AGAAEE HIMS, with sample data.</span>
+<span>Nurses' rounds — a real page from AGAAEE HIMS, with sample data.</span>
 <span style="flex:1"></span>
 <a href="index.html" style="color:#9FC4BA">← All screens</a>
 <a href="../index.html" style="color:#9FC4BA">agaaee.in</a>
@@ -767,11 +767,11 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Ward
       </a>
       
-      <a href="rounds.html" class="">
+      <a href="rounds.html" class="active">
         <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-9.5A3.5 3.5 0 0 1 12 9a3.5 3.5 0 0 1 7 2.5c0 5-7 9.5-7 9.5z"/><path d="M12 3v3M10.5 4.5h3"/></svg>
         Rounds
       </a>
-      <a href="lab.html" class="active">
+      <a href="lab.html" class="">
         <svg viewBox="0 0 24 24"><path d="M9 3v7L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L15 10V3"/><path d="M8 3h8M7.5 14h9"/></svg>
         Lab
       </a>
@@ -816,7 +816,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <strong>Dr. Anil Sharma</strong>
       Doctor
       <form method="post" action="#" style="margin-top:.35rem">
-        <input type="hidden" name="csrfmiddlewaretoken" value="PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV">
+        <input type="hidden" name="csrfmiddlewaretoken" value="70MC7I38caIjnILMnofeenaUh2JhvQifoitzzqqyyM7WuBd6b1KRM9bO7XBB1mPL">
         <button type="submit" style="background:none;border:0;padding:0;color:#9FC4BA;font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline">Sign out</button>
       </form>
     </div>
@@ -850,8 +850,8 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Theme</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV">
-      <input type="hidden" name="next" value="/lab/">
+      <input type="hidden" name="csrfmiddlewaretoken" value="70MC7I38caIjnILMnofeenaUh2JhvQifoitzzqqyyM7WuBd6b1KRM9bO7XBB1mPL">
+      <input type="hidden" name="next" value="/rounds/">
       <button name="theme" value="auto" class="opt on">
         Follow this computer <span class="tick">✓</span>
       </button>
@@ -866,8 +866,8 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Text size</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV">
-      <input type="hidden" name="next" value="/lab/">
+      <input type="hidden" name="csrfmiddlewaretoken" value="70MC7I38caIjnILMnofeenaUh2JhvQifoitzzqqyyM7WuBd6b1KRM9bO7XBB1mPL">
+      <input type="hidden" name="next" value="/rounds/">
       <button name="text_size" value="normal" class="opt on">
         Normal <span class="tick">✓</span>
       </button>
@@ -893,63 +893,41 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       
 <div class="page-head">
   <div class="grow">
-    <h1>Lab</h1>
-    <p>Oldest first — the oldest uncollected sample is the patient who has been waiting longest.</p>
+    <h1>Rounds</h1>
+    <p>Every occupied bed. Built for a phone — the hospital buys no computers for the ward.</p>
   </div>
 </div>
 
-
-
-<div class="card">
-  <div class="card-head">
-    <h2>To do</h2>
-    <span class="chip warn">1</span>
-  </div>
-  <div class="table-wrap">
-    <table class="data">
-      <thead><tr><th>Ordered</th><th>Patient</th><th>Test</th><th>Stage</th><th></th></tr></thead>
-      <tbody>
+<div class="bed-grid">
+  
+  <div class="card bed-card">
+    <div class="card-body">
+      <div class="bed-top">
+        <div>
+          <strong>Sita Devi</strong>
+          <div class="faint small">41 / F
+            · General ward · bed G-04</div>
+        </div>
         
-        <tr>
-          <td class="nowrap small">29 Jul 19:22</td>
-          <td><a class="rowlink" href="#" data-inert="1">पूजा त्यागी</a>
-            <div class="faint small">51 / M · BLD-000086</div></td>
-          <td>Random blood sugar<div class="faint small">Fasting sample tomorrow</div></td>
-          <td>
-            <span class="chip muted">Awaiting sample</span>
-            
-            
-          </td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
+      </div>
+
+      
+        <div class="bed-vitals">BP 120/78 mmHg · Pulse 84/min · Temp 98.6°F · SpO₂ 98% · RR 18/min</div>
+        <div class="faint small">
+          2 hours, 6 minutes ago · Sunita Devi
+          
+        </div>
         
-      </tbody>
-    </table>
+      
+
+      <div class="btn-row" style="margin-top:.7rem">
+        <a class="btn" href="#" data-inert="1">Record vitals</a>
+        <a class="btn secondary" href="#" data-inert="1">Medicines</a>
+      </div>
+    </div>
   </div>
+  
 </div>
-
-
-<div class="card mt-2">
-  <div class="card-head"><h2>Verified today</h2></div>
-  <div class="table-wrap">
-    <table class="data">
-      <thead><tr><th>Patient</th><th>Test</th><th>Result</th><th class="right">Turnaround</th><th></th></tr></thead>
-      <tbody>
-        
-        <tr>
-          <td>Pooja Bhati</td>
-          <td>Complete blood count (CBC)</td>
-          <td><span class="chip warn">Abnormal</span>
-              </td>
-          <td class="right tabular small">0 min</td>
-          <td class="right"><a class="btn subtle" href="#" data-inert="1">Report</a></td>
-        </tr>
-        
-      </tbody>
-    </table>
-  </div>
-</div>
-
 
     </main>
   </div>

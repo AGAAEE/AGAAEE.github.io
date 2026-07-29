@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Lab · AGAAEE HIMS</title>
+<title>Trust pack · AGAAEE HIMS</title>
 <style>/* ===========================================================================
    AGAAEE HIMS — application shell.
    A tool, not a document: dense, scannable, keyboard-first. Palette ties to the
@@ -717,13 +717,13 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 
 <script src="/static/js/offline.js" defer></script>
 </head>
-<body hx-headers='{"X-CSRFToken": "PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV"}'>
+<body hx-headers='{"X-CSRFToken": "I1tVsmAsN29UlxXojRafW0nU4AhTdKIfVrDZGZLIyv2bhd1v0Am6hcdKq7H9S1Yw"}'>
 <div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
 padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
 align-items:center;gap:.6rem;flex-wrap:wrap">
 <span style="background:#E8A13D;color:#12211D;padding:.1rem .5rem;border-radius:4px;
 font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
-<span>Lab — a real page from AGAAEE HIMS, with sample data.</span>
+<span>Trust pack — a real page from AGAAEE HIMS, with sample data.</span>
 <span style="flex:1"></span>
 <a href="index.html" style="color:#9FC4BA">← All screens</a>
 <a href="../index.html" style="color:#9FC4BA">agaaee.in</a>
@@ -741,6 +741,11 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <a href="patients.html" class="">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         Patients
+      </a>
+      
+      <a href="register.html" class="">
+        <svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M3 20c0-3.3 3.1-6 7-6"/><path d="M18 14v6M15 17h6"/></svg>
+        Register patient
       </a>
       
       <a href="opd-queue.html" class="">
@@ -771,7 +776,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-9.5A3.5 3.5 0 0 1 12 9a3.5 3.5 0 0 1 7 2.5c0 5-7 9.5-7 9.5z"/><path d="M12 3v3M10.5 4.5h3"/></svg>
         Rounds
       </a>
-      <a href="lab.html" class="active">
+      <a href="lab.html" class="">
         <svg viewBox="0 0 24 24"><path d="M9 3v7L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L15 10V3"/><path d="M8 3h8M7.5 14h9"/></svg>
         Lab
       </a>
@@ -792,6 +797,16 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Messages
       </a>
       
+      <a href="payouts.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5.5c0-1.4-2.2-2.5-5-2.5s-5 1.1-5 2.5S9.2 8 12 8s5 1.1 5 2.5-2.2 2.5-5 2.5-5-1.1-5-2.5"/></svg>
+        Doctor payouts
+      </a>
+      
+      
+      <a href="day-close.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M6 20V10M11 20V4M16 20v-7"/></svg>
+        Day close
+      </a>
       
       <a href="abdm-outbox.html" class="">
         <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
@@ -810,13 +825,18 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Audit trail
       </a>
       
+      <a href="#" data-inert="1" class="">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M22 12h-3M5 12H2M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7 5.6 5.6"/></svg>
+        Facility
+      </a>
+      
     </nav>
     <div class="spacer"></div>
     <div class="who">
-      <strong>Dr. Anil Sharma</strong>
-      Doctor
+      <strong>Dr. Meena Verma</strong>
+      Owner / Administrator
       <form method="post" action="#" style="margin-top:.35rem">
-        <input type="hidden" name="csrfmiddlewaretoken" value="PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV">
+        <input type="hidden" name="csrfmiddlewaretoken" value="I1tVsmAsN29UlxXojRafW0nU4AhTdKIfVrDZGZLIyv2bhd1v0Am6hcdKq7H9S1Yw">
         <button type="submit" style="background:none;border:0;padding:0;color:#9FC4BA;font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline">Sign out</button>
       </form>
     </div>
@@ -850,8 +870,8 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Theme</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV">
-      <input type="hidden" name="next" value="/lab/">
+      <input type="hidden" name="csrfmiddlewaretoken" value="I1tVsmAsN29UlxXojRafW0nU4AhTdKIfVrDZGZLIyv2bhd1v0Am6hcdKq7H9S1Yw">
+      <input type="hidden" name="next" value="/registers/trust/">
       <button name="theme" value="auto" class="opt on">
         Follow this computer <span class="tick">✓</span>
       </button>
@@ -866,8 +886,8 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Text size</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="PUTnPs3riuUM65aH0taJNX5GvlMqJOkp6cAkhaqRE6jpdYC1O6FmlJ6AlgEKfkRV">
-      <input type="hidden" name="next" value="/lab/">
+      <input type="hidden" name="csrfmiddlewaretoken" value="I1tVsmAsN29UlxXojRafW0nU4AhTdKIfVrDZGZLIyv2bhd1v0Am6hcdKq7H9S1Yw">
+      <input type="hidden" name="next" value="/registers/trust/">
       <button name="text_size" value="normal" class="opt on">
         Normal <span class="tick">✓</span>
       </button>
@@ -893,63 +913,149 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       
 <div class="page-head">
   <div class="grow">
-    <h1>Lab</h1>
-    <p>Oldest first — the oldest uncollected sample is the patient who has been waiting longest.</p>
+    <h1>Trust pack</h1>
+    <p>Accreditation indicators, equipment records and consent. Rivals sell these as three
+       separate upsells; they are a handful of numbers we already hold and two lists a
+       hospital keeps on paper.</p>
   </div>
 </div>
 
+
+<div class="msg warning">
+  <strong>3 items of equipment</strong>
+  needs an AMC renewal or a calibration within 30 days.
+</div>
 
 
 <div class="card">
-  <div class="card-head">
-    <h2>To do</h2>
-    <span class="chip warn">1</span>
-  </div>
-  <div class="table-wrap">
-    <table class="data">
-      <thead><tr><th>Ordered</th><th>Patient</th><th>Test</th><th>Stage</th><th></th></tr></thead>
-      <tbody>
-        
-        <tr>
-          <td class="nowrap small">29 Jul 19:22</td>
-          <td><a class="rowlink" href="#" data-inert="1">पूजा त्यागी</a>
-            <div class="faint small">51 / M · BLD-000086</div></td>
-          <td>Random blood sugar<div class="faint small">Fasting sample tomorrow</div></td>
-          <td>
-            <span class="chip muted">Awaiting sample</span>
-            
-            
-          </td>
-          <td class="right"><a class="btn secondary" href="#" data-inert="1">Open</a></td>
-        </tr>
-        
-      </tbody>
-    </table>
+  <div class="card-head"><h2>Quality indicators</h2>
+    <span class="faint small">29 Jun – 29 Jul 2026</span></div>
+  <div class="card-body">
+    <div class="grid cols-4">
+      <div class="stat"><div class="label">Average stay</div>
+        <div class="value">0</div><div class="foot">days</div></div>
+      <div class="stat"><div class="label">Bed occupancy</div>
+        <div class="value">0.0%</div><div class="foot">of available bed-days</div></div>
+      <div class="stat"><div class="label">Admissions</div>
+        <div class="value">1</div><div class="foot">0 discharged</div></div>
+      <div class="stat"><div class="label">OPD attendance</div>
+        <div class="value">52</div><div class="foot">visits</div></div>
+      <div class="stat"><div class="label">Lab reports</div>
+        <div class="value">1</div>
+        <div class="foot">—</div></div>
+      <div class="stat"><div class="label">Medico-legal cases</div>
+        <div class="value">2</div><div class="foot">recorded</div></div>
+      <div class="stat"><div class="label">Births &amp; deaths</div>
+        <div class="value">2</div><div class="foot">registered events</div></div>
+    </div>
+    <p class="faint small mt-2">Every figure is a count of rows that already exist, so you can
+       check any of them by hand. That is the only reason to trust a quality indicator.</p>
   </div>
 </div>
 
+<div class="grid cols-2 mt-2">
+  <div class="card">
+    <div class="card-head"><h2>Equipment</h2>
+      <span class="chip muted">5</span></div>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Item</th><th>AMC</th><th>Calibration</th><th>Vendor</th></tr></thead>
+        <tbody>
+          
+          <tr>
+            <td>Autoclave<div class="faint small">OT</div></td>
+            <td><span class="chip ok">Mar 2027</span></td>
+            <td><span class="faint">—</span>
+                </td>
+            <td class="small">Shakti Surgicals<div class="faint small">9876500011</div></td>
+          </tr>
+          
+          <tr>
+            <td>ECG machine<div class="faint small">Casualty</div></td>
+            <td><span class="chip warn">15 days</span>
+                </td>
+            <td><span class="chip warn">8 days</span>
+                </td>
+            <td class="small">BPL Medical<div class="faint small">9876500022</div></td>
+          </tr>
+          
+          <tr>
+            <td>Oxygen concentrator<div class="faint small">Ward</div></td>
+            <td><span class="chip danger">expired</span>
+                </td>
+            <td><span class="faint">—</span>
+                </td>
+            <td class="small">Local vendor<div class="faint small">9876500044</div></td>
+          </tr>
+          
+          <tr>
+            <td>Semi-auto analyser<div class="faint small">Lab</div></td>
+            <td><span class="chip ok">May 2027</span></td>
+            <td><span class="chip warn">20 days</span>
+                </td>
+            <td class="small">Erba Mannheim<div class="faint small">9876500033</div></td>
+          </tr>
+          
+          <tr>
+            <td>Ultrasound machine<div class="faint small">Scan room</div></td>
+            <td><span class="chip ok">Nov 2026</span></td>
+            <td><span class="chip ok">Sep 2026</span></td>
+            <td class="small">Wipro GE Healthcare<div class="faint small">01202567890</div></td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    <div class="card-body">
+      <details>
+        <summary class="btn subtle" style="display:inline-block">Add equipment</summary>
+        <form method="post" style="margin-top:.6rem">
+          <input type="hidden" name="csrfmiddlewaretoken" value="I1tVsmAsN29UlxXojRafW0nU4AhTdKIfVrDZGZLIyv2bhd1v0Am6hcdKq7H9S1Yw">
+          <input type="hidden" name="action" value="add_equipment">
+          <div class="form-grid">
+            <div class="field"><label for="name">Item</label>
+              <input class="field-input" id="name" name="name" required></div>
+            <div class="field"><label for="location">Where</label>
+              <input class="field-input" id="location" name="location"></div>
+            <div class="field"><label for="vendor">Vendor</label>
+              <input class="field-input" id="vendor" name="vendor"></div>
+            <div class="field"><label for="vendor_phone">Vendor phone</label>
+              <input class="field-input" id="vendor_phone" name="vendor_phone"></div>
+            <div class="field"><label for="amc_expires_on">AMC expires</label>
+              <input class="field-input" type="date" id="amc_expires_on" name="amc_expires_on"></div>
+            <div class="field"><label for="calibration_due_on">Calibration due</label>
+              <input class="field-input" type="date" id="calibration_due_on" name="calibration_due_on"></div>
+          </div>
+          <div class="btn-row mt-1"><button class="btn" type="submit">Save</button></div>
+        </form>
+      </details>
+      <p class="faint small mt-1">Dates only — no work orders, no spares, no downtime
+         tracking. That is a maintenance product, and a thirty-bed hospital does not want
+         to run one.</p>
+    </div>
+  </div>
 
-<div class="card mt-2">
-  <div class="card-head"><h2>Verified today</h2></div>
-  <div class="table-wrap">
-    <table class="data">
-      <thead><tr><th>Patient</th><th>Test</th><th>Result</th><th class="right">Turnaround</th><th></th></tr></thead>
-      <tbody>
-        
-        <tr>
-          <td>Pooja Bhati</td>
-          <td>Complete blood count (CBC)</td>
-          <td><span class="chip warn">Abnormal</span>
-              </td>
-          <td class="right tabular small">0 min</td>
-          <td class="right"><a class="btn subtle" href="#" data-inert="1">Report</a></td>
-        </tr>
-        
-      </tbody>
-    </table>
+  <div class="card">
+    <div class="card-head"><h2>Consent</h2>
+      <span class="chip muted">0 recorded</span></div>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Patient</th><th>For</th><th>Language</th><th>When</th></tr></thead>
+        <tbody>
+          
+          <tr><td colspan="4"><div class="empty"><p>No consents recorded yet.</p></div></td></tr>
+          
+        </tbody>
+      </table>
+    </div>
+    <div class="card-body">
+      <p class="faint small" style="margin:0">The exact wording shown and the language it was
+         shown in are both stored. A notice in English to a patient who reads only Hindi is
+         not a notice — and a consent nobody can produce later was never obtained. A
+         withdrawal is a new record, never an edit.</p>
+    </div>
   </div>
 </div>
-
 
     </main>
   </div>

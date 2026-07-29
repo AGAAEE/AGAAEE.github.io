@@ -472,6 +472,100 @@ h3 { font-size: .95rem; }
 .shortcut-hint .k { font-family: ui-monospace, Consolas, monospace; font-weight: 700; }
 .shortcut-hint .x { font-weight: 600; }
 
+/* ---------- the cashless clock ----------
+   The countdown IS the feature. It has to be readable across a desk, and a
+   breach has to be impossible to mistake for anything else. */
+.chip.clock { font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.chip.clock.big { font-size: 1rem; padding: .3rem .8rem; }
+.kvrow {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding: .35rem 0; border-bottom: 1px solid var(--line);
+}
+.kvrow:last-of-type { border-bottom: 0; }
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.timeline li {
+  display: grid; gap: .1rem; padding-left: .8rem;
+  border-left: 2px solid var(--line-strong);
+}
+.timeline .t-when { font-size: .74rem; color: var(--ink-faint); font-weight: 700; }
+.timeline .t-what { font-size: .9rem; }
+
+/* ---------- connection strip ----------
+   The failure mode being avoided is SILENCE: staff who cannot tell whether
+   their work reached the server stop trusting the software, and a receptionist
+   who re-registers a patient "just in case" creates the duplicate the MPI
+   exists to prevent. Fixed to the bottom so it never covers a form field. */
+.netbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  padding: .55rem 1rem; font-size: .85rem; font-weight: 600; text-align: center;
+  border-top: 1px solid transparent;
+}
+.netbar.off     { background: var(--warn-bg);   color: var(--warn);   border-color: var(--warn-line); }
+.netbar.waiting { background: var(--info-bg);   color: var(--info);   border-color: var(--info-line); }
+.netbar.ok      { background: var(--ok-bg);     color: var(--ok);     border-color: var(--ok-line); }
+
+/* ---------- nursing ----------
+   Ward screens are used on a phone, held in one hand, standing up. Cards, big
+   targets, no horizontal tables. */
+.bed-grid { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+.bed-card.attention, .dose-card.attention { border-left: 4px solid var(--warn); }
+.bed-top { display: flex; align-items: flex-start; gap: .6rem; justify-content: space-between; }
+.bed-vitals { margin-top: .5rem; font-variant-numeric: tabular-nums; font-size: .92rem; }
+.vitals-grid { display: grid; gap: .7rem .9rem; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.vitals-grid .field-input { font-size: 1.15rem; padding: .55rem .6rem; }
+.dose-card { margin-top: .7rem; }
+.dose-actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin-top: .6rem; }
+.dose-reason { flex: 1 1 180px; min-width: 150px; }
+
+/* The nurse handoff card inside the doctor's screen. Tinted so it is instantly
+   obvious that someone else wrote this. */
+.nurse-card {
+  background: var(--info-bg); border: 1px solid var(--info-line);
+  border-left: 4px solid var(--info); border-radius: var(--radius);
+  padding: .7rem .8rem; display: grid; gap: .45rem;
+}
+.nurse-card-head { display: flex; gap: .6rem; align-items: baseline; flex-wrap: wrap; }
+.nurse-round {
+  font: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: grid; gap: .15rem; padding: .5rem .65rem; border-radius: 8px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--info-line);
+}
+.nurse-round:hover { border-color: var(--info); }
+.nurse-round.used { opacity: .6; }
+.nurse-round .nr-when { font-size: .72rem; color: var(--ink-faint); font-weight: 700; }
+.nurse-round .nr-line { font-variant-numeric: tabular-nums; font-size: .92rem; }
+.nurse-round .nr-note { font-size: .85rem; color: var(--ink-soft); font-style: italic; }
+.nurse-round .nr-who { font-size: .75rem; color: var(--ink-faint); }
+
+/* ---------- the guide ---------- */
+.guide-toc { display: flex; flex-wrap: wrap; gap: .4rem; }
+.guide-toc a {
+  font-size: .85rem; font-weight: 600; text-decoration: none;
+  padding: .3rem .7rem; border-radius: 999px;
+  background: var(--surface-2); color: var(--ink); border: 1px solid var(--line);
+}
+.guide-toc a:hover { background: var(--brand-050); border-color: var(--brand-600); color: var(--brand-600); }
+.guide-h { margin: 1.8rem 0 0; font-size: 1.25rem; scroll-margin-top: 4.5rem; }
+.guide-entry { margin-top: .7rem; }
+.guide-entry .card-head h2 { font-size: 1rem; }
+.guide-what { margin: 0 0 .6rem; }
+.guide-why, .guide-try { margin: .6rem 0 0; }
+.guide-why .lbl, .guide-try .lbl {
+  display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink-faint); font-weight: 700; margin-bottom: .15rem;
+}
+.guide-why { color: var(--ink-soft); }
+.guide-try {
+  background: var(--brand-050); border-left: 3px solid var(--brand-600);
+  border-radius: 0 8px 8px 0; padding: .55rem .8rem;
+}
+.guide-try ol { margin: .2rem 0 0; padding-left: 1.1rem; }
+.guide-try li { margin: .2rem 0; }
+.guide-entry code {
+  font-family: ui-monospace, Consolas, monospace; font-size: .85em;
+  background: var(--surface-2); padding: .05rem .3rem; border-radius: 4px;
+}
+
 /* ---------- search ---------- */
 .searchbar { display: flex; gap: .6rem; }
 .searchbar input {
@@ -620,8 +714,10 @@ table.data a.rowlink:hover { color: var(--brand-600); }
 <script src="/static/js/hindi-input.js" defer></script>
 
 <script src="/static/js/shortcuts.js" defer></script>
+
+<script src="/static/js/offline.js" defer></script>
 </head>
-<body hx-headers='{"X-CSRFToken": "IDvFeD3fAyGX8lfrobkr602M02ojxPzhDTgoekqMy4CjM3rNDKNYDZOjKKMCaeaQ"}'>
+<body hx-headers='{"X-CSRFToken": "wbVzIqzAShlJ324WhoNSKQqAbo7Fkb2sNtCwa8W0eTKmaVwg51iviCru1jZZQHzY"}'>
 <div style="position:sticky;top:0;z-index:999;background:#0B5E4F;color:#fff;
 padding:.55rem 1rem;font:600 13px/1.4 system-ui,sans-serif;display:flex;
 align-items:center;gap:.6rem;flex-wrap:wrap">
@@ -671,6 +767,10 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Ward
       </a>
       
+      <a href="rounds.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-9.5A3.5 3.5 0 0 1 12 9a3.5 3.5 0 0 1 7 2.5c0 5-7 9.5-7 9.5z"/><path d="M12 3v3M10.5 4.5h3"/></svg>
+        Rounds
+      </a>
       <a href="lab.html" class="">
         <svg viewBox="0 0 24 24"><path d="M9 3v7L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L15 10V3"/><path d="M8 3h8M7.5 14h9"/></svg>
         Lab
@@ -678,6 +778,10 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <a href="pharmacy.html" class="">
         <svg viewBox="0 0 24 24"><path d="M4 8h16v12H4z"/><path d="M9 8V5h6v3"/><path d="M12 12v4M10 14h4"/></svg>
         Pharmacy
+      </a>
+      <a href="claims.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6z"/><path d="M12 8v4l2.5 1.5"/></svg>
+        Cashless desk
       </a>
       <a href="billing.html" class="">
         <svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>
@@ -688,9 +792,18 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
         Messages
       </a>
       
+      
       <a href="abdm-outbox.html" class="">
         <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
         ABDM records
+      </a>
+      <a href="registers.html" class="">
+        <svg viewBox="0 0 24 24"><path d="M4 4h13a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2z"/><path d="M8 8h7M8 12h7M8 16h4"/></svg>
+        Registers
+      </a>
+      <a href="#" data-inert="1" class="">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.2 2.4c-.6.2-1 .8-1 1.4v.4"/><path d="M12 17h.01"/></svg>
+        Guide — what is all this?
       </a>
       <a href="audit.html" class="">
         <svg viewBox="0 0 24 24"><path d="M5 3h9l5 5v13H5z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
@@ -703,7 +816,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <strong>Dr. Anil Sharma</strong>
       Doctor
       <form method="post" action="#" style="margin-top:.35rem">
-        <input type="hidden" name="csrfmiddlewaretoken" value="IDvFeD3fAyGX8lfrobkr602M02ojxPzhDTgoekqMy4CjM3rNDKNYDZOjKKMCaeaQ">
+        <input type="hidden" name="csrfmiddlewaretoken" value="wbVzIqzAShlJ324WhoNSKQqAbo7Fkb2sNtCwa8W0eTKmaVwg51iviCru1jZZQHzY">
         <button type="submit" style="background:none;border:0;padding:0;color:#9FC4BA;font:inherit;font-size:.8rem;cursor:pointer;text-decoration:underline">Sign out</button>
       </form>
     </div>
@@ -737,7 +850,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Theme</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="IDvFeD3fAyGX8lfrobkr602M02ojxPzhDTgoekqMy4CjM3rNDKNYDZOjKKMCaeaQ">
+      <input type="hidden" name="csrfmiddlewaretoken" value="wbVzIqzAShlJ324WhoNSKQqAbo7Fkb2sNtCwa8W0eTKmaVwg51iviCru1jZZQHzY">
       <input type="hidden" name="next" value="/clinical/ward/">
       <button name="theme" value="auto" class="opt on">
         Follow this computer <span class="tick">✓</span>
@@ -753,7 +866,7 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
     <p class="menu-title">Text size</p>
     <form method="post" action="#"
          >
-      <input type="hidden" name="csrfmiddlewaretoken" value="IDvFeD3fAyGX8lfrobkr602M02ojxPzhDTgoekqMy4CjM3rNDKNYDZOjKKMCaeaQ">
+      <input type="hidden" name="csrfmiddlewaretoken" value="wbVzIqzAShlJ324WhoNSKQqAbo7Fkb2sNtCwa8W0eTKmaVwg51iviCru1jZZQHzY">
       <input type="hidden" name="next" value="/clinical/ward/">
       <button name="text_size" value="normal" class="opt on">
         Normal <span class="tick">✓</span>
@@ -789,19 +902,19 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
   <div class="card-head"><h2>Admit a patient</h2></div>
   <div class="card-body">
     <form method="post" action="#">
-      <input type="hidden" name="csrfmiddlewaretoken" value="IDvFeD3fAyGX8lfrobkr602M02ojxPzhDTgoekqMy4CjM3rNDKNYDZOjKKMCaeaQ">
+      <input type="hidden" name="csrfmiddlewaretoken" value="wbVzIqzAShlJ324WhoNSKQqAbo7Fkb2sNtCwa8W0eTKmaVwg51iviCru1jZZQHzY">
       <div class="form-grid">
         <div class="field">
           <label for="patient">Patient</label>
           <select name="patient" id="patient" class="field-input" required>
             <option value="">— choose —</option>
-            <option value="5995594b-47e4-481c-9e12-c5d8d5195b9b">Devendra Kumar · BLD-000050</option><option value="768c4b96-1059-481a-94f5-a2a04082ee66">Priya Tyagi · BLD-000049</option><option value="65d45e32-3d35-4647-822b-001a751ded30">Vinod Tyagi · BLD-000017</option><option value="8c6b20dc-a7c1-4947-a03a-593da26065f7">Manoj Tomar · BLD-000002</option><option value="b9c469af-3e4b-4605-a01e-fdfaa92c19c9">Deepak Bhati · BLD-000037</option><option value="5fa77989-61b9-4355-819a-18a67b178fb1">Sanjay Bhati · BLD-000025</option><option value="b5c57fb9-40c6-406a-aeaf-ba192926c9a2">Naveen Sharma · BLD-000041</option><option value="4620858d-5b60-416a-8921-3f812699d8f5">Pankaj Tomar · BLD-000021</option><option value="41560f52-35c2-47cb-9289-b955dac34b35">Mukesh Kashyap · BLD-000030</option><option value="275e26f8-e69e-450a-a7f2-c7bc6d29d1df">Vinod Tomar · BLD-000044</option><option value="2438b64d-a76c-484d-8600-963f1e5746f8">Rekha Sharma · BLD-000033</option><option value="73b8075a-f168-46e8-a66c-e2b96bd3f258">Suresh Yadav · BLD-000013</option><option value="23ab6046-9e42-4036-aa00-68e18184229f">Mukesh Bhati · BLD-000036</option><option value="abea48aa-dba5-4c8b-a2b4-66fbad0e96d6">Poonam Verma · BLD-000039</option><option value="8b916774-e8f0-49f0-bbff-a2724700e1b7">Sanjay Verma · BLD-000016</option><option value="dd1166e5-0d35-4f53-ac22-957c29fd51d9">Kavita Tomar · BLD-000024</option><option value="30582f1e-0410-4ddf-b424-893ff60941e8">Vinod Rastogi · BLD-000027</option><option value="76ebc237-c691-428e-ad97-1534cb870ac4">Pooja Gupta · BLD-000022</option><option value="8381dce9-862c-4098-918e-947e4f7ccae9">Rajesh Yadav · BLD-000045</option><option value="c1470796-5c0f-4152-826b-f99fc1516a56">Geeta Gupta · BLD-000046</option><option value="a688f4b6-01a5-4d40-9fc5-b7a8133e3ddd">Pankaj Agarwal · BLD-000040</option><option value="c66c9dee-7253-43d8-be91-2983117156ab">Sarita Saxena · BLD-000014</option><option value="2842fe54-48d0-43a3-91b1-e01779afe8cb">Meena Saxena · BLD-000047</option><option value="5386586e-fa0d-41fc-abf1-bb841e13f638">Nisha Rastogi · BLD-000003</option><option value="2e3acf17-322b-4f5f-9f66-1b2fa9477b03">Arun Agarwal · BLD-000043</option><option value="1683eeb7-5be7-4616-b51c-9e696179276b">Poonam Gupta · BLD-000008</option><option value="084b5722-3813-4500-96ed-c06ff4e5c596">Mahesh Pandey · BLD-000011</option><option value="1944f32d-fa09-4b51-9cba-0eacb094fbd0">Mahesh Kumar · BLD-000004</option><option value="13bd263b-e603-4994-b407-09fbe1ba9aa8">Kavita Agarwal · BLD-000012</option><option value="df125c30-4e97-40d0-b2f8-100d3c5f9195">Sunita Chauhan · BLD-000028</option><option value="7ff543b3-443d-4309-8e22-1ff3969fc22d">Ashok Singh · BLD-000032</option><option value="07443034-93f2-4d7b-a94d-081f57a5060c">Kiran Sharma · BLD-000023</option><option value="21a72aeb-9c3b-4aea-a072-1640cc4b72e6">Geeta Tyagi · BLD-000018</option><option value="38bda91e-80d7-46d3-96ff-f834f7292329">Kavita Kashyap · BLD-000035</option><option value="9be7c4a8-7635-471f-ad65-39a30d587f4e">Sarita Chauhan · BLD-000038</option><option value="4c2f87ed-c62e-418e-a8cb-1c3c88e67aef">Mukesh Yadav · BLD-000029</option><option value="94ba73a5-2f4b-4e38-9936-b0c10a632771">Meena Bhati · BLD-000009</option><option value="ad1c9bec-802f-44d7-a713-7f55f98d47b5">Sarita Tyagi · BLD-000020</option><option value="5a614f0e-b0b0-423a-9853-87b85e6921f3">Rajesh Bhati · BLD-000006</option><option value="a317a9aa-4747-4bfe-b8e4-6cd92fa08402">Sunita Tyagi · BLD-000031</option><option value="d7b2e015-0328-4c43-9ac0-f5d0036cb230">Vinod Tomar · BLD-000026</option><option value="5342683f-6d66-4680-ab69-aa4b63628f1c">Pankaj Kashyap · BLD-000042</option><option value="24f8d083-382c-4d07-b71c-4b283dd31d40">Nisha Tyagi · BLD-000034</option><option value="7c3f2f89-5d2a-4b6c-975c-22bea4bcf8bb">Kavita Singh · BLD-000019</option><option value="42812fc2-16cd-4bd2-af97-f4c64e471860">Pankaj Rastogi · BLD-000005</option><option value="f4db41d8-3be5-4323-999a-0990d92fea61">Deepak Saxena · BLD-000010</option><option value="9c18dbb7-b1c2-4679-8b2b-3bd4bb456a3c">Manoj Bhati · BLD-000015</option><option value="04236e68-0f9f-46d9-90b4-bcde70be9078">Ramesh Kumar · BLD-000048</option><option value="f057a641-9a40-48bf-92fc-9c06ce0987f3">Priya Tyagi · BLD-000001</option><option value="dcbe2534-55f2-4df2-bac8-823dd9550655">Meena Bhati · BLD-000007</option>
+            <option value="a78a3192-8b27-4d67-acac-d385a2830d89">Devendra Kumar · BLD-000170</option><option value="43e9e8e3-818a-472e-a748-73699b2dbc13">Kamla Devi · BLD-000169</option><option value="dfdde337-ec88-4a23-851a-76269d22281f">Devendra Kumar · BLD-000168</option><option value="2589145c-c6ad-4b24-b411-d9bd61fe2941">Devendra Kumar · BLD-000167</option><option value="a23ca821-3a23-45d6-83a0-552f181e5f9c">Sita Devi · BLD-000166</option><option value="da261f4e-f177-4124-bfd6-8cadfa14207c">सीता देवी · BLD-000165</option><option value="c87c87f8-117b-4e90-a707-691ee5a29ce1">Anjali Tomar · BLD-000164</option><option value="770281fa-3208-41a1-b21f-ef8fb53002a1">Kamla Devi W/O Mohan Lal · BLD-000163</option><option value="7ad5c3fd-286a-4034-aeda-846cdfba4dc8">Mohan Lal Tomar · BLD-000162</option><option value="fc78577d-2d6e-4b9b-904d-4ba84d31ea3a">सुरेश गुप्ता · BLD-000161</option><option value="36ccbfc0-d35b-49cb-a410-6f3801b43a60">Anjali Yadav W/O Mahesh Kashyap · BLD-000157</option><option value="cba94571-8a30-4171-9a5a-4c2cd16159cb">Vinod Chauhan · BLD-000042</option><option value="3c9a2c90-a7fe-4245-ba7c-6df56e304799">Pankaj Gupta · BLD-000035</option><option value="7133beda-da39-4b25-8929-91b0e855ae49">Deepak Tomar · BLD-000027</option><option value="88388333-9b4c-44da-adb5-aa9fb830a5df">Kiran Sharma · BLD-000067</option><option value="038d2d1d-3454-463e-9166-06f8e7fe933d">Rakesh Rastogi · BLD-000130</option><option value="aed35c27-e87d-4829-a10a-c49e9930a8ac">Naveen Bhati · BLD-000066</option><option value="31d485e7-61dd-4c71-bf43-1fb47d658f43">अनिल गुप्ता · BLD-000028</option><option value="121588f5-1240-48ec-9a2b-140abe58fff1">Nisha Singh · BLD-000076</option><option value="0769fbcf-3e5c-49d1-9948-9eba0110faea">Mukesh Kumar S/O Mukesh Rastogi · BLD-000112</option><option value="01078606-78f3-4fb9-8366-8bc880747c82">Arun Bhati · BLD-000115</option><option value="971ba1cb-61bd-4058-b8ae-6f6b65cd6505">Rajesh Gupta · BLD-000062</option><option value="b2f6121a-e39e-4988-a394-90ba456e1e58">Shakuntala Singh · BLD-000146</option><option value="a9ec0731-8cbe-4219-9d93-684997348baa">Ramesh Tyagi · BLD-000055</option><option value="eaf41bba-f4de-4f88-b940-425ceca21a5f">Suresh Saxena · BLD-000005</option><option value="00d87ba9-cd53-4ddd-a59c-bf03f11ed146">Priya Tomar · BLD-000159</option><option value="e3089557-bc0c-4bcd-83ff-8895e2cfe987">Shakuntala Tomar · BLD-000053</option><option value="7a5f3f82-6e44-45db-b125-203ed69929f5">Pankaj Agarwal · BLD-000143</option><option value="a5f39813-af1b-4fcb-9171-42792e9d14f5">Naveen Bhati · BLD-000079</option><option value="85aa7e52-1c4f-4d98-b2dd-193a717e59e9">Sunita Kashyap · BLD-000057</option><option value="81eaf4c0-5ea9-49f0-bd07-d7251088ae55">Priya Rastogi · BLD-000107</option><option value="616f98d2-fc6d-4197-a21e-8eb7224b7597">Sarita Gupta · BLD-000092</option><option value="1070b053-cce2-467e-a58a-0552c2015da9">Kiran Sharma · BLD-000020</option><option value="462c2394-f6f9-44d1-9ee8-d6fbc8b5ed78">अंजली यादव · BLD-000054</option><option value="e8983e8b-3d5e-46db-a7fb-083967fc3432">Rekha Bhati · BLD-000048</option><option value="7abc6bb4-076f-48e4-999a-6b9eb4be765a">Shakuntala Singh · BLD-000127</option><option value="197d1b64-4a8e-43ee-ab79-6eb0683910af">Priya Agarwal · BLD-000134</option><option value="209910f1-0002-42ac-9754-6cffbb917300">Kiran Pandey · BLD-000017</option><option value="201925ee-f595-4d8e-8892-672950a391cc">Pankaj Saxena · BLD-000044</option><option value="76cf35a8-8ad9-494b-930c-906657fc3ee8">Kiran Sharma · BLD-000013</option><option value="c3573acf-3346-45f8-b62a-328198ac1837">Nisha Kashyap · BLD-000061</option><option value="0eccc425-5a17-4c5c-a782-e235eacc5ae1">सुनीता सिंह · BLD-000026</option><option value="663e6ef2-dfc3-4f83-9b95-b9c98bf45bc6">Ramesh Yadav S/O Mahesh Verma · BLD-000117</option><option value="3373e472-45bc-40b8-93e8-16f338c3a1d7">Ashok Agarwal · BLD-000051</option><option value="14d7f5ce-76b4-409d-b4fc-921c0a87fca8">Asha Verma · BLD-000132</option><option value="d635148f-7e3e-4c37-8289-b43c9567ce1d">Shakuntala Chauhan · BLD-000059</option><option value="4a512f67-c7e1-4b45-ad19-1518b2ce86ee">Pooja Yadav · BLD-000148</option><option value="70ee8247-d92d-4117-8c59-a21184242afa">Pooja Singh · BLD-000116</option><option value="5f87c37c-b967-4d11-b807-c59d1545724c">Kavita Gupta · BLD-000063</option><option value="a7a121ea-875b-4ab1-a7ef-4adb02ee3ac9">गीता तोमर · BLD-000060</option><option value="581a794d-991b-4e16-a039-f9322e13dbc7">Anjali Pandey · BLD-000037</option><option value="e0db2081-5667-4901-97a5-a479c7209050">Sarita Tomar · BLD-000091</option><option value="e36faf11-1b12-4aeb-84c5-17d7a6ecb922">Meena Pandey · BLD-000098</option><option value="40bb88ba-0864-4665-821c-e8139fbffd44">Manoj Kashyap · BLD-000058</option><option value="807410df-bb1a-4307-8667-02f52acaf8d4">Mukesh Chauhan · BLD-000049</option><option value="d94bff50-2a23-4ed4-bb77-1d33da3f7e8c">Kiran Kumar · BLD-000108</option><option value="971ea14b-d27e-4efc-9436-c63f8eb0b7a9">Nisha Tyagi · BLD-000095</option><option value="79651a2d-4750-4d6a-aa29-b78e46cbd20d">Rajesh Tomar · BLD-000145</option><option value="b3f60ae8-f675-44f8-a8bb-77977ab05738">Rajesh Pandey · BLD-000065</option><option value="b7cd8e26-7955-4f9c-ad87-ee962ffe4036">Sanjay Bhati · BLD-000133</option><option value="b360498a-e342-44f3-a75d-3d3528e9306d">Geeta Gupta · BLD-000039</option><option value="15eaad4e-0047-4d08-bf4f-8df46ece8f84">सुनीता यादव · BLD-000007</option><option value="312b6fa8-6a69-4d50-8767-f5e94caf2467">सुनीता भाटी · BLD-000158</option><option value="579e29a1-8ee3-4ed7-abaf-63d8874cc457">Kiran Bhati · BLD-000120</option><option value="d320286b-a70d-4715-882d-20226bbe4ade">Kiran Bhati · BLD-000109</option><option value="f501c549-5c8f-4fc3-a476-4ff04d927452">Kiran Kumar · BLD-000137</option><option value="84226524-8a98-4bf7-a922-88f587e73eb0">Poonam Verma · BLD-000033</option><option value="a67cb659-7c30-40c6-bb8c-8aaf90b4d7d6">Suresh Pandey · BLD-000082</option><option value="f96834b7-e6d5-48f1-a5ce-b277431206f9">Mukesh Kashyap · BLD-000125</option><option value="0d4bc6ee-9d6f-4874-bc08-c804eca3cc95">Arun Kashyap · BLD-000074</option><option value="75f5b7ab-f24a-45b0-a600-cb85f0052f64">Mukesh Singh · BLD-000144</option><option value="528854e6-05b8-4115-b538-69d51a54d276">Sunita Kashyap · BLD-000123</option><option value="0591cc13-4c9f-418a-9e64-5d4a247ffdc3">Neha Tomar · BLD-000022</option><option value="7d46f914-5e4a-41a8-99c8-c421582c17eb">मोहन कुमार · BLD-000043</option><option value="64f2ed0b-97cd-4e95-befd-011c781aec6f">Kiran Rastogi · BLD-000014</option><option value="f61b8e13-a27d-4ac4-b7ef-f8fb6496a6be">Ashok Kashyap · BLD-000104</option><option value="1b6693db-38f8-4144-a4a1-0eb96a97afaa">Ramesh Bhati S/O Ramesh Tomar · BLD-000019</option><option value="2219516a-4a52-4280-a82b-66cffe7ec61b">Rakesh Singh · BLD-000045</option><option value="09d12f4e-da9c-4b5f-877f-49f6d8a216e4">Meena Tyagi · BLD-000150</option><option value="43368544-9bd0-4553-a2a7-3a94ef8cbf3f">Rajesh Yadav · BLD-000038</option><option value="233ed48b-3b55-4392-807e-549e3f6d8d23">Sarita Rastogi · BLD-000100</option><option value="c2ca3cc9-38bc-4924-8f4c-7ad1e8e2417b">Sanjay Rastogi · BLD-000075</option><option value="f08b9086-138c-4be8-9a22-4210854f5ab2">Anil Yadav · BLD-000090</option><option value="abcb48ad-e078-4ad4-8bf5-8dc59fd3d877">Meena Gupta · BLD-000040</option><option value="2aaf8610-7213-403e-a453-2b181242e891">Nisha Rastogi · BLD-000023</option><option value="e2cb3434-ca91-45b2-bb58-8835e5a5077f">Rajesh Agarwal · BLD-000008</option><option value="a39d70d5-26b0-451a-8221-8ae65bcb12fb">Deepak Tomar · BLD-000102</option><option value="7470a94e-2856-46ad-acb0-685e20deb0a2">Priya Singh · BLD-000069</option><option value="1425d54e-b4f4-47c0-9d6d-7141d8829294">Kavita Tyagi W/O Arun Saxena · BLD-000139</option><option value="edd6b586-e254-4f5c-819c-4b709562fb7b">Rakesh Chauhan · BLD-000089</option><option value="4fe4d759-d2b0-4ae5-ae73-05b4b9040cc5">मुकेश कुमार · BLD-000141</option><option value="9ea82901-447f-402b-942e-8ab2ad261044">Deepak Kashyap · BLD-000151</option><option value="8b1e57c7-5d43-40b0-87fd-a71efc31f6df">विनोद त्यागी · BLD-000064</option><option value="2bfab900-1ae3-4d27-9959-3a533d3058c0">Geeta Gupta · BLD-000071</option><option value="fff27178-36ef-49c3-80ee-5f5d94efce2a">Asha Rastogi · BLD-000046</option><option value="97a1dd89-4478-4aa7-9043-099d2e3b6aae">Poonam Kumar · BLD-000021</option><option value="02aec3eb-1579-4a95-9b9c-737b4378efb9">Shakuntala Tyagi · BLD-000124</option><option value="bbda7c68-1bdb-4308-a25f-f27182e61b0a">Meena Bhati · BLD-000155</option><option value="5f5d3ac8-12d9-4b3b-8555-2b046aa50414">Pooja Gupta · BLD-000154</option><option value="a5b6f5b1-7ce8-487a-b12d-1004fa0ff696">अनिल देवी · BLD-000015</option><option value="14fe45cd-8ed5-439b-a404-6a645a26f774">Kiran Bhati · BLD-000006</option><option value="6f3c0f98-d080-49cc-9e0a-a6bd519ebbde">Pooja Bhati · BLD-000105</option><option value="f4cf79de-4072-4fa9-9064-c9828e2b0f8d">Neha Tyagi W/O Sanjay Saxena · BLD-000011</option><option value="f2299afc-f014-431e-9a0f-b000ed2ef4ea">Anil Singh · BLD-000153</option><option value="d5053def-7c2f-408e-9782-59dec0f47482">Poonam Rastogi · BLD-000077</option><option value="96815962-b4b0-4429-b8fe-ef726ca59da5">Rekha Rastogi · BLD-000088</option><option value="1cc594f8-0645-4675-a1c4-fd6dc322160a">Poonam Singh · BLD-000002</option><option value="f21a303b-451d-4d91-b52a-cd7df53a801f">Nisha Kashyap · BLD-000031</option><option value="95658993-84e4-4a72-ae6e-daf16572737c">Shakuntala Saxena W/O Rakesh Pandey · BLD-000018</option><option value="86fe073c-ad03-44b8-b8ae-8ecb821787b6">Ramesh Kumar S/O Sanjay Saxena · BLD-000041</option><option value="6d245943-d7e0-43d1-92c1-0197a1b1453b">Meena Tomar · BLD-000156</option><option value="dc8190f3-a748-4698-be7d-768e2de27fb5">Meena Kashyap · BLD-000078</option><option value="8188d298-5d56-45d7-9865-96f8c6500227">Asha Yadav · BLD-000068</option><option value="aef31800-b9e7-4060-b095-9befebbb02a6">Vinod Tyagi · BLD-000114</option><option value="f496d136-b98c-44e8-9ed4-9cbdf718d6f2">अंजली सिंह · BLD-000118</option><option value="5bdf767b-f672-41ff-abda-339bde304675">विनोद कुमार · BLD-000036</option><option value="2d591c09-2aa1-4622-babe-b5369b12fe9e">Nisha Kumar · BLD-000087</option><option value="095549db-5029-4460-a06c-653c10255456">पूजा त्यागी · BLD-000086</option><option value="2f650e63-5d11-4cda-9193-19fabadf045b">Deepak Pandey · BLD-000136</option><option value="75d73261-6e11-44cd-ba60-b26f109817a4">Ashok Gupta · BLD-000016</option><option value="b09321a9-d3ec-496c-93b3-fbc413294bee">Kavita Tyagi W/O Mahesh Kashyap · BLD-000135</option><option value="10b21d1c-d6b7-440a-b83b-d19d26740537">Asha Kashyap · BLD-000126</option><option value="d9bae4a3-bb0b-4def-a34e-3dc93eb7abfa">Manoj Kumar · BLD-000113</option><option value="d0677597-fb45-45da-a63c-5a3ba2aa5bfa">Asha Saxena W/O Anil Verma · BLD-000070</option><option value="e7c48e56-64c8-4ca6-a9fd-45079930c560">Mahesh Yadav · BLD-000083</option><option value="efa8cd60-71f7-4ddf-9e9f-1296c2cbb2ff">Geeta Gupta · BLD-000032</option><option value="fffaadd7-ef69-4aa6-97aa-226b13aaf736">Suresh Tyagi · BLD-000099</option><option value="9eb1bedc-0ac1-49f4-94bf-7d16a4e74e31">Ramesh Gupta · BLD-000147</option><option value="b8e96dae-af0b-451f-9378-bc8815c0dbab">Kavita Tyagi · BLD-000004</option><option value="10b8a520-adca-481c-9972-998e30c23af0">Anjali Agarwal · BLD-000003</option><option value="569735f1-8426-4653-986d-48190a9ac35b">Kiran Rastogi · BLD-000097</option><option value="f42f8aad-59d0-47f7-bccb-bfe70310da31">Anjali Singh · BLD-000052</option><option value="f9f5a8d1-6eba-4942-aa42-c93d08389730">Suresh Bhati S/O Mahesh Rastogi · BLD-000050</option><option value="9ea51765-b282-42d4-bc88-a2c9af45813c">Neha Verma · BLD-000106</option><option value="dabda728-c200-40df-86d7-a987c8be1360">Mukesh Yadav · BLD-000025</option><option value="b1004d07-5714-44a2-91b3-6b25319a962e">Asha Tyagi · BLD-000129</option><option value="d2aca44f-b518-4c63-8d25-c4137de28003">Sunita Gupta W/O Naveen Yadav · BLD-000110</option><option value="0b9bea05-056b-4881-8a4c-606ecf545292">Ramesh Yadav · BLD-000009</option><option value="24b75852-f78d-4101-9bb4-bbba9b55b7af">Kavita Bhati · BLD-000093</option><option value="897bba53-0550-4abf-ad87-6b103aff1b92">Rekha Bhati · BLD-000072</option><option value="6707987f-28b1-4b33-857a-f84e73b7cb3c">Suresh Yadav · BLD-000012</option><option value="f91fdfc2-74b1-4a62-ac5d-c91b1361fc05">Deepak Singh · BLD-000121</option><option value="a33d717c-825c-4817-9103-4d4b89b9e378">Kavita Kashyap · BLD-000030</option><option value="a65b4d4e-e9e2-4fa3-90ba-65644cee06ae">दीपक देवी · BLD-000128</option><option value="c57356ad-ac2f-486b-9254-bbc13f16ffed">Shakuntala Yadav · BLD-000138</option><option value="3fff7955-851e-4c3c-bd97-b9a5e7f3f71e">Arun Gupta · BLD-000073</option><option value="e63d461a-e001-4aec-bb2e-78ed860fd842">सुरेश गुप्ता · BLD-000001</option><option value="d183bab9-f9ac-4af7-947b-24d27c6037c5">Neha Verma · BLD-000029</option><option value="c46b8489-497e-45d1-8d0d-30142d6d4e1e">Sarita Gupta · BLD-000103</option><option value="4d8f66a0-f4ae-4457-bb37-74883404f2fd">Rekha Bhati · BLD-000119</option><option value="fabbb56a-422f-4f4d-9c4a-a55e1986b5cc">Naveen Singh · BLD-000122</option><option value="88885c96-4c9b-443e-93e4-d68bf241148f">Manoj Bhati · BLD-000152</option><option value="5519a224-9d37-4377-9fda-902bb2cb2fdc">Rajesh Saxena · BLD-000149</option><option value="75179325-1420-419e-90c9-b41a60623395">Poonam Yadav · BLD-000085</option><option value="dac782dc-d07f-42b8-9217-b11a3658d527">राम भाटी · BLD-000080</option><option value="82892c1e-2a48-434a-9480-1099f30a2ceb">सुनीता त्यागी · BLD-000024</option><option value="512eefb0-be6a-4bb1-b246-1e3baabfb8a6">Rekha Sharma W/O Suresh Gupta · BLD-000101</option><option value="31b0c92c-b566-4c4f-94c2-0855b9213ad4">Shakuntala Pandey · BLD-000034</option><option value="1f2bf038-f45d-422c-9ebf-443e3d0dd4b7">Mahesh Yadav · BLD-000096</option><option value="7ea87bed-504d-46fc-a00c-8ba31e6dea18">Ramesh Agarwal S/O Ramesh Singh · BLD-000142</option><option value="94138fb8-d66b-4539-90f6-1222e5e0df6b">Ashok Yadav · BLD-000084</option><option value="07ccfd8b-3176-420b-9320-cbfd54d9d150">Rajesh Verma · BLD-000160</option><option value="d01c530e-844c-4075-9a59-ec8f471bc752">Sanjay Sharma · BLD-000111</option><option value="ec4cd9c1-1647-4772-b59b-46e8b144a063">Meena Gupta W/O Anil Chauhan · BLD-000140</option><option value="304b44dc-6eeb-4de9-94a8-35023945f5f2">Pankaj Sharma S/O Vinod Bhati · BLD-000010</option><option value="ebe676c0-660c-4fca-82b4-a60cfe07ffa8">Vinod Tyagi · BLD-000047</option><option value="e9c2b386-422c-4641-b559-d59ab17afae9">Pankaj Saxena · BLD-000056</option><option value="b9abfb1c-601a-4411-b24b-558e40114568">Rajesh Bhati · BLD-000131</option><option value="c476b7e8-dca3-4507-8c15-1e90e640853e">अनिल देवी · BLD-000094</option><option value="e696a673-860c-4af8-96f4-abc8c1ebb6ff">राम गुप्ता · BLD-000081</option>
           </select>
         </div>
         <div class="field">
           <label for="practitioner">Treating doctor</label>
           <select name="practitioner" id="practitioner" class="field-input">
-            <option value="38563da3-6ff1-4f17-830b-a520c088cae1">Dr. Anil Sharma</option><option value="508fdca0-adf2-471a-b3ac-482850476f73">Dr. Meena Verma</option>
+            <option value="c6d12660-74be-4753-b140-6e6daae0f81e">Dr. Anil Sharma</option><option value="dab4808c-2cc7-4a21-aec2-7283d009cb79">Dr. Meena Verma</option>
           </select>
         </div>
         <div class="field">
@@ -840,10 +953,10 @@ font-size:11px;letter-spacing:.05em">PRODUCT TOUR</span>
       <tbody>
         
         <tr>
-          <td><strong>Priya Tyagi</strong><div class="faint small mono">BLD-000049</div></td>
+          <td><strong>Sita Devi</strong><div class="faint small mono">BLD-000166</div></td>
           <td class="small">General ward · G-04</td>
           <td class="small">Dr. Anil Sharma</td>
-          <td class="small nowrap">26 Jul, 00:53</td>
+          <td class="small nowrap">26 Jul, 19:22</td>
           <td class="tabular">3</td>
           <td>
               </td>
