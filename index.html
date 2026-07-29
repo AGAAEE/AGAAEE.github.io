@@ -78,6 +78,9 @@
   .card svg { width: 34px; height: 34px; stroke: var(--green); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; margin-bottom: .9rem; }
   .card h3 { font-size: 1.18rem; margin: 0 0 .5rem; }
   .card p { margin: 0; color: var(--ink-soft); font-size: .98rem; }
+  /* The drill date. Deliberately quiet — it is a fact on the page, not a boast,
+     and the caveat beside it has to be as readable as the date itself. */
+  .card p.drill { margin-top: .7rem; font-size: .88rem; color: #6B7B75; }
 
   /* abdm strip */
   .abdm { background: var(--green-deep); color: #EAF2EF; padding: 3.2rem 0; }
@@ -164,6 +167,16 @@
         <h3>Offline-first OPD</h3>
         <p>Registration, billing and dispensing keep running on a bad connection and
         sync when the line returns. The queue never stops.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10M8.5 9.5 12 13l3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+        <h3>A backup you have actually restored</h3>
+        <p>One command backs up the database <em>and</em> the uploaded scans, and a second
+        one restores it and checks every record and every file came back. A backup nobody
+        has restored is a rumour, not a backup.</p>
+        <p class="drill">Last restore drill: <strong>29 July 2026</strong> — on the
+        development build. No hospital is running AGAAEE yet, so there is no site drill
+        to report.</p>
       </div>
     </div>
   </section>
